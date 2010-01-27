@@ -52,7 +52,7 @@
 
     public function getUrl()
     {
-	return '/gallery/' . $this->id . '/' . cleanLink($this->name) . '">' . $this->name;
+	return '/gallery/' . $this->id . '/' . Tools::cleanLink($this->name) . '">' . $this->name;
     }
   }
   ?>

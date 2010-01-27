@@ -3,9 +3,9 @@
     
     $galleries = Gallery::getAll();
 
-    $galleries = postSort($galleries, 'name');
+    $galleries = Tools::postSort($galleries, 'name');
     
-    $html = listGalleryTree($_POST['id']);
+    $html = Tools::listGalleryTree($_POST['id']);
 
     echo $html;
 ?>

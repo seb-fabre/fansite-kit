@@ -4,7 +4,7 @@
 	echo 'This site is already installed.<br/>If you want to reinstall it, please remove the _conf.php file from the includes directory.';
 	die;
     }
-    
+
     if (isset($_POST['install']))
     {
 	$dbhost = $_POST['db_host'];
@@ -18,15 +18,15 @@
 	$superadminemail = $_POST['superadmin_email'];
 	$languagesshort = $_POST['languages_short'];
 	$languageslong = $_POST['languages_long'];
-	
+
 	if (!$dbkeeptables)
 	{
-	    $sql = file_get_contents('includes/install_database.sql');
-	    
+	    $sql = file_get_contents('scripts/install_database.sql');
+
 	    $sql = str_replace('{SUPERADMIN_LOGIN}', mysql_escape_string($superadminlogin), $sql);
 	    $sql = str_replace('{SUPERADMIN_PASSWORD}', mysql_escape_string($superadminlogin), $sql);
 	    $sql = str_replace('{SUPERADMIN_EMAIL}', mysql_escape_string($superadminemail), $sql);
-	    
+
 	    if ($dbcreate)
 	    {
 		$sql = preg_replace('/{CREATE_DATABASE}/', '', $sql);
@@ -36,7 +36,7 @@
 		$sql = preg_replace('/{CREATE_DATABASE}.*{CREATE_DATABASE}/', '', $sql);
 	    }
 	    $sql = str_replace('{DBNAME}', $dbname, $sql);
-	    
+
 	    mysql_connect($dbhost, $dblogin, $dbpassword);
 	    foreach (explode(';', $sql) as $query)
 	    {
@@ -46,25 +46,25 @@
 		    mysql_query($query) or die (mysql_error());
 		}
 	    }
-	    
+
 	    $_POST['path'] = dirname(__file__) . DIRECTORY_SEPARATOR . 'classes' . DIRECTORY_SEPARATOR;
 	    require_once('classes/__includes.php');
 	    require_once('includes' . DIRECTORY_SEPARATOR . 'JSON.php');
 	    require_once('includes' . DIRECTORY_SEPARATOR . '_functions.php');
-	    
+
 	    $languagesshort = array_map('trim', explode("\n", $languagesshort));
 	    $languageslong = array_map('trim', explode("\n", $languageslong));
 	    $languages = array_combine($languagesshort, $languageslong);
-	    
+
 	    if (!isset($languages['en']))
 		$languages['en'] = 'English';
-	    
+
 	    $p = new Config();
 	    $p->type = 'languages';
 	    $p->value = json_encode($languages);
 	    $p->save();
 	}
-	
+
 	$f = fopen('includes/_conf.php', 'w+');
 	fwrite($f, '
 <?php
@@ -72,7 +72,7 @@
     mysql_select_db("' . addslashes($dbname) . '");
 ?>');
 	fclose($f);
-	
+
 	echo '<center>Installation complete. Please go to the <a href="/">Home Page</a></center>';
 	die;
     }
@@ -81,14 +81,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title>INSTALL</title>
-    
+
     <link href="/css/site.css.php" rel="stylesheet" type="text/css" />
     <link href="/css/cupertino/jquery-ui-1.7.2.custom.css" rel="stylesheet" type="text/css" />
-    
+
     <script src="/js/jquery-1.3.2.min.js" type="text/javascript"></script>
     <script src="/js/jquery-ui-1.7.2.custom.min.js" type="text/javascript"></script>
     <script src="/js/jquery.validate.js" type="text/javascript"></script>
-    
+
     <style type="text/css">
 	form span.error {color: red; float: left; margin-left: 10px;}
 	form td span.error {float: none;}
@@ -100,13 +100,13 @@
 <body>
     <div id="container">
 	<h1>Install</h1>
-	
+
 	<form action="" method="post" style="margin: 20px;" id="installForm">
-	    
+
 	    <input type="hidden" name="install" value="1" />
-	
+
 	<b>Please fill in this form in order to configure and install your website</b>
-	
+
 	<fieldset style="margin-bottom: 20px">
 	    <legend>Database</legend>
 	    <p><label>Database host : </label><input type="text" name="db_host" id="db_host" value="localhost" /><div class="am_formMsgError">The database hostname is mandatory.</div></p>
@@ -117,7 +117,7 @@
 	    <p><input type="radio" value="2" name="db_create" id="db_create" /> Just initialize the data (choose this option if the database already exists, but is empty)</p>
 	    <p><input type="radio" value="3" name="db_create" id="db_keep_tables" /> The database already exists and I want to keep the tables and the data</p>
 	</fieldset>
-	
+
 	<fieldset style="margin-bottom: 20px">
 	  <legend>Superadmin</legend>
 	  <p class="infos">The superadmin is the first member of the site, and its main administrator. He has access to every part of the site, and he's the only one who can edit the site configuration and create new administrators.</p>
@@ -125,7 +125,7 @@
 	  <p><label>Superamin password :</label><input type="text" name="superadmin_password" /></p>
 	  <p><label>Superamin email :</label><input type="text" name="superadmin_email" /></p>
 	</fieldset>
-	
+
 	<fieldset style="margin-bottom: 20px">
 	  <legend>Languages</legend>
 	  <p class="infos">Choose the languages you want avaiable in your site. This parameter can be changed at any time in the admin area. You will also have to go to the admin area to translate the text displayed in the site (only french and english translations are given).</p>
@@ -142,17 +142,17 @@
 	    </tr>
 	    </table>
 	</fieldset>
-	
+
 	<div class="clearer"></div>
-	
+
 	<div class="right">
 	  <input type="reset" value="Reset form" />
 	  <input type="button" value="Initialize the site" onclick="initSite()" />
 	</div>
-	
+
 	</form>
     </div>
-    
+
     <script type="text/javascript">
 	$("#db_create").click(function(){
 	    if ($("#db_create").is(":checked"))
@@ -174,7 +174,7 @@
 		$("#db_create").removeAttr("disabled");
 	    }
 	});
-	
+
 	$.validator.addMethod(
 	    "regexp",
 	    function(value, element, regexp) {
@@ -183,7 +183,7 @@
 	    },
 	    "Please check your input."
 	);
-	
+
 	$.validator.addMethod(
 	    "languages_count",
 	    function(value, element) {
@@ -191,7 +191,7 @@
 	    },
 	    "You must have as many language codes must as language labels."
 	);
-	
+
 	$('#installForm').validate({
 	    rules: {
 		db_host: {required: true},
@@ -209,7 +209,7 @@
 	    },
 	    errorElement: "span"
 	});
-	
+
 	function initSite()
 	{
 	    //if (confirm("Are you sure you want to initialize the site ?"))

@@ -1,0 +1,95 @@
+<?xml version="1.0" ?>
+<schema>
+	<table name="blacklist">
+		<field name="email" type="varchar(50)" primary_key="yes" />
+	</table>
+	<table name="commentaires">
+		<field name="id" type="int(9)" primary_key="yes" />
+		<field name="date" type="date" />
+		<field name="pseudo" type="tinytext" />
+		<field name="email" type="tinytext" />
+		<field name="comment" type="mediumtext" />
+		<field name="response" type="mediumint(9)" />
+	</table>
+	<table name="commentsphoto">
+		<field name="id" type="int(9)" primary_key="yes" />
+		<field name="comment" type="tinytext" />
+		<field name="user_id" type="int(9)" />
+		<field name="image_id" type="int(9)" />
+		<field name="date" type="date" />
+	</table>
+	<table name="config">
+		<field name="id" type="int(10) unsigned" primary_key="yes" />
+		<field name="value" type="text" />
+		<field name="type" type="varchar(10)" />
+	</table>
+	<table name="dictionary">
+		<field name="id" type="int(10) unsigned" primary_key="yes" />
+		<field name="language" type="char(2)" />
+		<field name="data" type="mediumtext" />
+	</table>
+	<table name="gallery">
+		<field name="id" type="int(9)" primary_key="yes" />
+		<field name="name" type="text" />
+		<field name="date" type="date" />
+		<field name="views" type="mediumint(9)" />
+		<field name="user_id" type="int(9)" />
+		<field name="gallery_id" type="int(9)" />
+		<field name="has_images" type="tinyint(4)" />
+	</table>
+	<table name="image">
+		<field name="id" type="int(9)" primary_key="yes" />
+		<field name="name" type="tinytext" />
+		<field name="gallery_id" type="int(9)" />
+		<field name="views" type="mediumint(9)" />
+		<field name="date" type="date" />
+		<field name="user_id" type="int(9)" />
+		<field name="totalnotes" type="mediumint(9)" />
+		<field name="totalvotes" type="mediumint(9)" />
+	</table>
+	<table name="liens">
+		<field name="id" type="int(6)" primary_key="yes" />
+		<field name="url" type="varchar(250)" />
+		<field name="texte_alt" type="tinytext" />
+		<field name="image" type="varchar(50)" />
+		<field name="text" type="text" />
+	</table>
+	<table name="news">
+		<field name="id" type="int(9)" primary_key="yes" />
+		<field name="date" type="date" />
+		<field name="user_id" type="int(11)" />
+		<field name="title" type="text" />
+		<field name="text" type="text" />
+	</table>
+	<table name="referrer">
+		<field name="url" type="text" />
+		<field name="cpt" type="mediumint(4)" />
+	</table>
+	<table name="spam_comm">
+		<field name="texte" type="text" />
+	</table>
+	<table name="user">
+		<field name="id" type="int(9)" primary_key="yes" />
+		<field name="login" type="varchar(50)" />
+		<field name="email" type="varchar(50)" />
+		<field name="password" type="blob" />
+		<field name="is_admin" type="tinyint(4)" />
+		<field name="is_active" type="tinyint(4)" />
+		<field name="is_banned" type="tinyint(4)" />
+		<field name="is_superadmin" type="tinyint(4)" />
+	</table>
+	<table name="video">
+		<field name="id" type="int(9)" primary_key="yes" />
+		<field name="name" type="tinytext" />
+		<field name="date" type="date" />
+		<field name="user_id" type="int(9)" />
+		<field name="resolution" type="varchar(7)" />
+		<field name="duree" type="time" />
+		<field name="description" type="text" />
+		<field name="views" type="int(11)" />
+		<field name="totalnotes" type="mediumint(9)" />
+		<field name="totalvotes" type="mediumint(9)" />
+		<field name="extras" type="varchar(255)" />
+		<field name="category" type="varchar(255)" />
+	</table>
+</schema>

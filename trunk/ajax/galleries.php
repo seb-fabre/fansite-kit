@@ -17,16 +17,16 @@
     {
       $galleries = Gallery::search(array(array('gallery_id', $id)));
     }
-    $galleries = postSort($galleries, 'name');
+    $galleries = Tools::postSort($galleries, 'name');
     
     foreach ($galleries as $gal)
     {
       if (isset($hierarchy[$i+1]) && $gal->id === $hierarchy[$i+1])
       {
-	$dir['html'] .= '<li class="directory collapsed"><a href="#" rel="/gallery/' . $gal->id . '/' . cleanLink($gal->name) . '" class="active">' . $gal->name . '</a>' . browse($i + 1) . '</li>';
+	$dir['html'] .= '<li class="directory collapsed"><a href="#" rel="/gallery/' . $gal->id . '/' . Tools::cleanLink($gal->name) . '" class="active">' . $gal->name . '</a>' . browse($i + 1) . '</li>';
       }
       else
-	$dir['html'] .= '<li class="directory collapsed"><a href="#" rel="/gallery/' . $gal->id . '/' . cleanLink($gal->name) . '">' . $gal->name . '</a></li>';
+	$dir['html'] .= '<li class="directory collapsed"><a href="#" rel="/gallery/' . $gal->id . '/' . Tools::cleanLink($gal->name) . '">' . $gal->name . '</a></li>';
     }
     $dir['html'] .= '</ul>';
     return $dir['html'];

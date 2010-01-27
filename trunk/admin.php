@@ -12,7 +12,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <?php require_once(INCLUDE_PATH . '_meta.php'); ?>
-    <title><?php echo translate('menu_admin') ?></title>
+    <title><?php echo Tools::translate('menu_admin') ?></title>
     
     <link href="/css/site.css.php" rel="stylesheet" type="text/css" />
     <link href="/css/cupertino/jquery-ui-1.7.2.custom.css" rel="stylesheet" type="text/css" />
@@ -41,17 +41,17 @@
         </div>
         
         <div id="body" class="body100">
-	    <h1><?php echo translate('menu_admin') ?></h1>
+	    <h1><?php echo Tools::translate('menu_admin') ?></h1>
 	    
-	    <p class="linkWithArrow"><a href="javascript:;" onclick="editTranslations()"><?php echo translate('Edit translations') ?></a></p>
-	    <p class="linkWithArrow"><a href="javascript:;" onclick="editConfig()"><?php echo translate('Edit configuration') ?></a></p>
-	    <p class="linkWithArrow"><a href="javascript:;" onclick="getVideos()"><?php echo translate('Manage the videos') ?></a></p>
-	    <p class="linkWithArrow"><a href="javascript:;" onclick="getMembers()"><?php echo translate('Manage the members') ?></a></p>
-	    <p class="linkWithArrow"><a href="javascript:;" onclick="getGalleries()"><?php echo translate('Manage the galleries') ?></a></p>
-	    <p class="linkWithArrow"><a href="javascript:;" onclick="getPictures()"><?php echo translate('Manage the pictures') ?></a></p>
-	    <p class="linkWithArrow"><a href="javascript:;" onclick="getComments()"><?php echo translate('Comments') ?></a></p>
-	    <p class="linkWithArrow"><a href="javascript:;" onclick="getLinks()"><?php echo translate('Links') ?></a></p>
-	    <p class="linkWithArrow"><a href="javascript:;" onclick="getNews()"><?php echo translate('News') ?></a></p>
+	    <p class="linkWithArrow"><a href="javascript:;" onclick="editTranslations()"><?php echo Tools::translate('Edit translations') ?></a></p>
+	    <p class="linkWithArrow"><a href="javascript:;" onclick="editConfig()"><?php echo Tools::translate('Edit configuration') ?></a></p>
+	    <p class="linkWithArrow"><a href="javascript:;" onclick="getVideos()"><?php echo Tools::translate('Manage the videos') ?></a></p>
+	    <p class="linkWithArrow"><a href="javascript:;" onclick="getMembers()"><?php echo Tools::translate('Manage the members') ?></a></p>
+	    <p class="linkWithArrow"><a href="javascript:;" onclick="getGalleries()"><?php echo Tools::translate('Manage the galleries') ?></a></p>
+	    <p class="linkWithArrow"><a href="javascript:;" onclick="getPictures()"><?php echo Tools::translate('Manage the pictures') ?></a></p>
+	    <p class="linkWithArrow"><a href="javascript:;" onclick="getComments()"><?php echo Tools::translate('Comments') ?></a></p>
+	    <p class="linkWithArrow"><a href="javascript:;" onclick="getLinks()"><?php echo Tools::translate('Links') ?></a></p>
+	    <p class="linkWithArrow"><a href="javascript:;" onclick="getNews()"><?php echo Tools::translate('News') ?></a></p>
 	    
 	    
 	    <div class="clearBoth">&nbsp;</div>
@@ -68,22 +68,22 @@
     </div>
     
     <script type="text/javascript">
-	var emptyFieldsMsg = "<?php echo addslashes(translate('All the name fields must be filled')) ?>";
-	var invalidGallery = "<?php echo addslashes(translate("Invalid gallery selected : you can't select a main category")) ?>";
-	var emptyParentMsg = "<?php echo addslashes(translate('You must select a parent gallery for the new gallery')) ?>";
-	var emptyPhotosMsg = "<?php echo addslashes(translate('You must choose at least one photo')) ?>";
+	var emptyFieldsMsg = "<?php echo addslashes(Tools::translate('All the name fields must be filled')) ?>";
+	var invalidGallery = "<?php echo addslashes(Tools::translate("Invalid gallery selected : you can't select a main category")) ?>";
+	var emptyParentMsg = "<?php echo addslashes(Tools::translate('You must select a parent gallery for the new gallery')) ?>";
+	var emptyPhotosMsg = "<?php echo addslashes(Tools::translate('You must choose at least one photo')) ?>";
 	
-	var deleteMemberStr = "<?php echo addslashes(translate('Are you sure you want to delete this member ?')) ?>";
-	var disableMemberStr = "<?php echo addslashes(translate('Are you sure you want to disable this member ?')) ?>";
-	var enableMemberStr = "<?php echo addslashes(translate('Are you sure you want to enable this member ?')) ?>";
+	var deleteMemberStr = "<?php echo addslashes(Tools::translate('Are you sure you want to delete this member ?')) ?>";
+	var disableMemberStr = "<?php echo addslashes(Tools::translate('Are you sure you want to disable this member ?')) ?>";
+	var enableMemberStr = "<?php echo addslashes(Tools::translate('Are you sure you want to enable this member ?')) ?>";
 	
-	var isadminMemberStr = "<?php echo addslashes(translate('Are you sure you want to promote this member ?')) ?>";
-	var isnotadminMemberStr = "<?php echo addslashes(translate('Are you sure you want to downgrade this member ?')) ?>";
+	var isadminMemberStr = "<?php echo addslashes(Tools::translate('Are you sure you want to promote this member ?')) ?>";
+	var isnotadminMemberStr = "<?php echo addslashes(Tools::translate('Are you sure you want to downgrade this member ?')) ?>";
 	
-	var titleDisableStr = "<?php echo addslashes(translate('disable member')) ?>";
-	var titleEnableStr = "<?php echo addslashes(translate('enable member')) ?>";
-	var titleMakeAdminStr = "<?php echo addslashes(translate('promote member')) ?>";
-	var titleMakeNotAdminStr = "<?php echo addslashes(translate('downgrade member')) ?>";
+	var titleDisableStr = "<?php echo addslashes(Tools::translate('disable member')) ?>";
+	var titleEnableStr = "<?php echo addslashes(Tools::translate('enable member')) ?>";
+	var titleMakeAdminStr = "<?php echo addslashes(Tools::translate('promote member')) ?>";
+	var titleMakeNotAdminStr = "<?php echo addslashes(Tools::translate('downgrade member')) ?>";
     </script>
 </body>
 </html>

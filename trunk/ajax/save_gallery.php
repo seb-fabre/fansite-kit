@@ -7,7 +7,7 @@
 	$gallery = Gallery::search(array(array('name', $gallery)));
 	if ($gallery)
 	{
-	    $errors []= str_replace('{gallery_name}', $gallery, translate('A gallery already exists with the name {gallery_name}.'));
+	    $errors []= str_replace('{gallery_name}', $gallery, Tools::translate('A gallery already exists with the name {gallery_name}.'));
 	}
     }
     
@@ -23,5 +23,5 @@
 	$gallery->save();
     }
     
-    echo json_encode(array('success' => (count($errors) == 0) ? 1 : 0, 'errors' => implode("<br/>", $errors), 'message' => translate('The gallery was created successfully.')));
+    echo json_encode(array('success' => (count($errors) == 0) ? 1 : 0, 'errors' => implode("<br/>", $errors), 'message' => Tools::translate('The gallery was created successfully.')));
 ?>

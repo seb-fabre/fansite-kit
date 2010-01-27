@@ -12,7 +12,7 @@
 
   if ($news == false)
   {
-    $results = array('success' => 0, 'errors' => array(translate('User not found')));
+    $results = array('success' => 0, 'errors' => array(Tools::translate('User not found')));
   }
   else
   {
@@ -21,9 +21,9 @@
 
     foreach ($titles as $lang => $title)
 	    // check if the username is valid (letters, digits, dashes and spaces)
-	    if (!isTitleValid($title))
+	    if (!Tools::isTitleValid($title))
 	    {
-	      $errors['title'][$lang] = translate('A title can not contain double quotes');
+	      $errors['title'][$lang] = Tools::translate('A title can not contain double quotes');
 	    }
 
     if (count($errors) != 0)
