@@ -20,7 +20,7 @@
   else
     $subgalleries = Gallery::search(array(array('gallery_id', NULL)));
 
-  $subgalleries = postSort($subgalleries, 'name');
+  $subgalleries = Tools::postSort($subgalleries, 'name');
 
   if ($gallery)
     $images = $gallery->getImages();
@@ -32,10 +32,10 @@
 	$hierarchy = Gallery::getHierarchy($gallery->id);
 	unset($hierarchy[0]);
 	if (count($hierarchy) == 0)
-	    $title = translate('Gallery') . ' - ' . $gallery->name;
+	    $title = Tools::translate('Gallery') . ' - ' . $gallery->name;
 	else
 	{
-	    $title = translate('Gallery');
+	    $title = Tools::translate('Gallery');
 	    foreach ($hierarchy as $gal)
 	    {
 		$gal = Gallery::find($gal);
@@ -44,7 +44,7 @@
 	}
     }
     else
-	$title = translate('Main categories');
+	$title = Tools::translate('Main categories');
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -68,12 +68,12 @@
 
     <div id="body">
       <div id="galleryTree"><div id="galleryTreeTop"><div id="galleryTreeMiddle">
-	<h2><?php echo translate('Galleries tree') ?></h2>
-	<?php echo generateGalleryTree(($gallery ? $gallery->id : 0)) ?>
+	<h2><?php echo Tools::translate('Galleries tree') ?></h2>
+	<?php echo Tools::generateGalleryTree(($gallery ? $gallery->id : 0)) ?>
       </div></div></div>
 
       <div id="galleryContent">
-	<h1 class="galleries"><?php if ($gallery) echo $gallery->name; else echo translate('Main categories') ?></h1>
+	<h1 class="galleries"><?php if ($gallery) echo $gallery->name; else echo Tools::translate('Main categories') ?></h1>
 
 	<?php if (($c = count($subgalleries)) != 0): ?>
 	  <div class="subGalleries">
@@ -85,7 +85,7 @@
 	      $img = $gal->getRandomImage();
 	      echo '<p>
 		<a href="' . $gal->getUrl() . '</a>' .
-		($img ? '<img src="' . $img->getSmallUrl() . '" alt="' . cleanLink($img->name) . '" />' : '') .
+		($img ? '<img src="' . $img->getSmallUrl() . '" alt="' . Tools::cleanLink($img->name) . '" />' : '') .
 		'</p> ';
 	      if ($i%5 == 0 && $i != 0 && $i != $c)
 	      {
@@ -106,7 +106,7 @@
 	  <?php
 	    foreach ($images as $img)
 	    {
-	      echo '<a href="/preview/' . $img->id . '/' . cleanLink($img->name) . '"><img src="' . $img->getSmallUrl() . '" alt="' . cleanLink($img->name) . '" /></a> ';
+	      echo '<a href="/preview/' . $img->id . '/' . Tools::cleanLink($img->name) . '"><img src="' . $img->getSmallUrl() . '" alt="' . Tools::cleanLink($img->name) . '" /></a> ';
 	    }
 	  ?>
 	  </div>

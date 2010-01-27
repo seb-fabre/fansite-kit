@@ -12,11 +12,11 @@
     $query = mysql_query('SELECT * FROM user WHERE login="' . $user->login . '" AND password=ENCODE("' . $pwd . '", "vaihere")');
     if (mysql_num_rows($query) != 1)
     {
-      $message = translate('Wrong password');
+      $message = Tools::translate('Wrong password');
     }
     else if ($_POST['newpwd'] != $_POST['confirm'])
     {
-      $message = translate("The new password does not match the confirmation.");
+      $message = Tools::translate("The new password does not match the confirmation.");
     }
     else
     {
@@ -26,19 +26,19 @@
   }
   
   $html = '<fieldset>
-    <legend>' . translate('Change my password') . '</legend>
+    <legend>' . Tools::translate('Change my password') . '</legend>
     <p id="formResult"></p>
-    <p><label>' . translate('Old password') . '</label><input type="text" name="oldpwd" /></p>
-    <p><label>' . translate('New password') . '</label><input type="text" name="newpwd" /></p>
-    <p><label>' . translate('Confirm new password') . '</label><input type="text" name="confirm" /></p>
+    <p><label>' . Tools::translate('Old password') . '</label><input type="text" name="oldpwd" /></p>
+    <p><label>' . Tools::translate('New password') . '</label><input type="text" name="newpwd" /></p>
+    <p><label>' . Tools::translate('Confirm new password') . '</label><input type="text" name="confirm" /></p>
     </fieldset>
   ';
 
   echo json_encode(array(
       'text' => $html,
       'bottom' => '<p style="text-align: center">
-	  <input type="button" onclick="savePassword()" value="' . translate('Save the password') . '" />
-	  <input type="button" onclick="$.modal.close()" value="' . translate('Close') . '" />
+	  <input type="button" onclick="savePassword()" value="' . Tools::translate('Save the password') . '" />
+	  <input type="button" onclick="$.modal.close()" value="' . Tools::translate('Close') . '" />
       </p>'
   ));
 ?>

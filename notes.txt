@@ -1,0 +1,2 @@
+- keep alive on every admin/member page
+- allow import/export for the languages (csv ?)

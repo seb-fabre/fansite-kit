@@ -14,7 +14,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <?php require_once(INCLUDE_PATH . '_meta.php'); ?>
-    <title><?php echo translate('menu_members') ?></title>
+    <title><?php echo Tools::translate('menu_members') ?></title>
 
     <link href="/css/site.css.php" rel="stylesheet" type="text/css" />
     <link href="/css/cupertino/jquery-ui-1.7.2.custom.css" rel="stylesheet" type="text/css" />
@@ -39,11 +39,11 @@
         </div>
 
         <div id="body" class="body100">
-	    <h1><?php echo translate('menu_members') ?></h1>
+	    <h1><?php echo Tools::translate('menu_members') ?></h1>
 
-	    <p class="linkWithArrow"><a href="javascript:;" onclick="addGallery()"><?php echo translate('Add a gallery') ?></a></p>
-	    <p class="linkWithArrow"><a href="javascript:;" onclick="addPhotos()"><?php echo translate('Add pictures in an existing gallery') ?></a></p>
-	    <p class="linkWithArrow"><a href="javascript:;" onclick="changePassword()"><?php echo translate('Change my password') ?></a></p>
+	    <p class="linkWithArrow"><a href="javascript:;" onclick="addGallery()"><?php echo Tools::translate('Add a gallery') ?></a></p>
+	    <p class="linkWithArrow"><a href="javascript:;" onclick="addPhotos()"><?php echo Tools::translate('Add pictures in an existing gallery') ?></a></p>
+	    <p class="linkWithArrow"><a href="javascript:;" onclick="changePassword()"><?php echo Tools::translate('Change my password') ?></a></p>
 
 
 	    <div class="clearBoth">&nbsp;</div>
@@ -62,11 +62,11 @@
     </div>
 
     <script type="text/javascript">
-	var emptyFieldsMsg = "<?php echo translate('All the name fields must be filled') ?>";
-	var invalidGallery = "<?php echo translate("Invalid gallery selected : you can't select a main category") ?>";
-	var emptyParentMsg = "<?php echo translate('You must select a parent gallery for the new gallery') ?>";
-	var emptyPhotosMsg = "<?php echo translate('You must choose at least one photo') ?>";
-	var allowedFileFormatsStr = "<?php echo translate('Allowed file formats : jpg, zip') ?>";
+	var emptyFieldsMsg = "<?php echo Tools::translate('All the name fields must be filled') ?>";
+	var invalidGallery = "<?php echo Tools::translate("Invalid gallery selected : you can't select a main category") ?>";
+	var emptyParentMsg = "<?php echo Tools::translate('You must select a parent gallery for the new gallery') ?>";
+	var emptyPhotosMsg = "<?php echo Tools::translate('You must choose at least one photo') ?>";
+	var allowedFileFormatsStr = "<?php echo Tools::translate('Allowed file formats : jpg, zip') ?>";
 
 	var currentTimestamp = "<?php echo date('YmdHis') ?>";
 	var userId = "<?php echo $_SESSION['user_id'] ?>";

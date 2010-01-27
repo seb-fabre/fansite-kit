@@ -45,7 +45,7 @@
         $dico = json_decode($dico->data, true);
 
         if (!$dico)
-            die(translate('Dictionary not found'));
+            die(Tools::translate('Dictionary not found'));
     }
 
     $VALID_IMAGE_EXTENSIONS = array('jpg', 'jpeg');

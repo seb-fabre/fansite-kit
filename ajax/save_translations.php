@@ -18,5 +18,5 @@
     echo json_encode(array('text' => ''));
   }
   else
-    echo json_encode(array('text' => translate('No language selected')));
+    echo json_encode(array('text' => Tools::translate('No language selected')));
 ?>

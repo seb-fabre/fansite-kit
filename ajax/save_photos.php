@@ -7,7 +7,7 @@
 
 	if (!$gallery || $gallery->has_images == 0)
 	{
-		$errors = translate('Invalid gallery selected.');
+		$errors = Tools::translate('Invalid gallery selected.');
 
 		echo json_encode(array('success' => 0, 'errors' => $errors));
 	}
@@ -36,7 +36,7 @@
 					}
 					else if ($matches [1] == 'zip') // unzip the archives if there are any
 					{
-						extractPhotosFromZip($file, $dir, $galleryDir, $files);
+						Tools::extractPhotosFromZip($file, $dir, $galleryDir, $files);
 					}
 				}
 			}
@@ -76,6 +76,6 @@
 				resizePhoto($photo, $photo, PHOTOS_LARGE_SIZE);*/
 		}
 
-		echo json_encode(array('success' => 1, 'message' => translate('The gallery was created successfully.')));
+		echo json_encode(array('success' => 1, 'message' => Tools::translate('The gallery was created successfully.')));
 	}
 ?>
