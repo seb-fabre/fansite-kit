@@ -4,7 +4,10 @@ require_once('includes/_init.php');
 $latestNews = News::search(null, 'date desc', 10);
 
 $latestVideos = Video::search(null, 'date desc', 10);
+$latestVideos = Tools::reindexBy($latestVideos);
+
 $latestGalleries = Gallery::search(null, 'date desc', 10);
+$latestGalleries = Tools::reindexBy($latestGalleries);
 
 Tools::echoHTMLHead();
 ?>
