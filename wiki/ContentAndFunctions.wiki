@@ -30,7 +30,7 @@ This page simply displays the list of all the news, the latest at the top, and 5
 
 The hierachy of galleries, with the current gallery expanded. Click on a gallery to view its page.
 
-=== Gallery name &amp; infos (top of the page) ===
+=== Gallery name & infos (top of the page) ===
 
 Displays the name of current gallery, with a few statistics: gallery's uploader, creation date, number of photos/galleries inside, the number of views.
 
@@ -60,11 +60,19 @@ On this page are listed the links to other websites related this site (or not, i
 
 Not much to say. Visitors write what they felt about the site, with smileys and captcha.
 
+== Register ==
+
+== Login / Logout ==
+
 ----
 
 = Members area =
 
 == Create a gallery ==
+
+Choose the parent gallery in the gallery tree, and choose a name for each language available.
+
+Gallery's name must be unique for the language.
 
 == Updload photos ==
 
@@ -100,7 +108,7 @@ Not much to say. Visitors write what they felt about the site, with smileys and 
 
 ----
 
-= Enhancements, Nice-to-have &amp; Other ideas =
+= Enhancements, Nice-to-have & Other ideas =
 
 === Favorites ===
 
