@@ -1,2 +1,3 @@
 - keep alive on every admin/member page
 - allow import/export for the languages (csv ?)
+- find a way to use the languages in a php file (var_export, rebuild file if doesn't exist or if translations have been edited)
