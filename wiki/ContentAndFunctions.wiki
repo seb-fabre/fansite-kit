@@ -14,11 +14,11 @@ The footer text is editable in the admin area. The menu elements can be enabled/
 
 Entry point of the website, the home page presents the site thanks to the disclaimer. Are also displayed : the latest news (5), the latest updates (10), and a random photo.
 
-; In the admin area:
-: The disclaimer is editable
-: You can change how many latest news are shown, or you can enable/disable the block to be shown at all
-: You can change how many updates are shown, or you can enable/disable the block to be shown at all
-: Configure/Upload the photos to be shown randomly, or to show no photo at all.
+In the admin area:
+  * The disclaimer is editable
+  * You can change how many latest news are shown, or you can enable/disable the block to be shown at all
+  * You can change how many updates are shown, or you can enable/disable the block to be shown at all
+  * Configure/Upload the photos to be shown randomly, or to show no photo at all.
 
 == News list (archives) ==
 
@@ -40,13 +40,13 @@ Either the list of subgalleries, or the list of photos (thumbnails) inside the c
 
 === Toolbar ===
 
-; Available actions :
-: View the latest galleries aded
-: View the latest photos added
-: Go to the most viewed galleries
-: Go to the most viewed photos
-: Search
-: Download the gallery as a zip file
+Available actions :
+  * View the latest galleries aded
+  * View the latest photos added
+  * Go to the most viewed galleries
+  * Go to the most viewed photos
+  * Search
+  * Download the gallery as a zip file
 
 == Photo preview ==
 
@@ -61,6 +61,13 @@ On this page are listed the links to other websites related this site (or not, i
 Not much to say. Visitors write what they felt about the site, with smileys and captcha.
 
 == Register ==
+
+Informations needed to register:
+  * firstname
+  * lastname
+  * username (unique, letters and digits)
+  * password (4 characters min)
+  * email
 
 == Login / Logout ==
 
@@ -78,21 +85,38 @@ Gallery's name must be unique for the language.
 
 == Change my password ==
 
+Input old password, new one and confirmation (+ captcha ?)
+
 ----
 
 = Admin area =
 
 == Manage translations ==
 
-== Configuration ==
-
 == Edit the site's options ==
+
+=== Configuration ===
+
+Available configuration options :
+  * Enable/disable
+   * Videos
+   * Guestbook
+   * Registrations
+   * Other additional functions
+  * List of languages (code + label + icon, only a handful of icons available)
+  * Change amount of elements displayed (latest news, latest updates, news per page ...)
 
 === Edit the disclaimer ===
 
+The "disclaimer" is the text displayed on the front page. You need to write one for each language.
+
 === Manage the home page photos ===
 
+Select one or more photos to be displayed randomly on the front page. 
+
 == Videos ==
+
+Add (upload), remove, edit videos
 
 == Members ==
 
@@ -145,3 +169,26 @@ In the toolbars (or somewhere else), add a link to the tag cloud (simple, text, 
 Allow the logged members to post comments on the galleries and the photos.
 
 In the admin area, in the comments page, add a section for the galleries comments and one for the photos comments. Allow to edit or delete them.
+
+=== Mailing list ===
+
+Quite obvious, but not planned so probably later.
+  * Add a small form to allow visitors to register to the mailing list
+  * Add an option in the members' informations to be able to register/unregister to the mailing list
+  * Add an admin page to manage the mailing list contents and addresses (enable, disable, remove, add)
+  * Add a checkbox in the news to allow to send the notification to the mailing list
+
+=== Statistics ===
+
+Add a global page (members ? admin ? everyone ?) with the main statistics of the site: (top 10 ? 20 ? 50 ?)
+  * most viewed galleries
+  * most viewed photos
+  * best referrers
+  * top downloaded videos
+  * unviewed/undownloaded contents
+
+Also a page (or on the same page) with a summary:
+  * total clicks on photos
+  * total clicks on galleries
+  * total video downloads
+  * members count
