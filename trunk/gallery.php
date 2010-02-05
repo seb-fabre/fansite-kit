@@ -3,6 +3,7 @@
 
   $pathinfo = $_SERVER['PATH_INFO'];
 
+  $matches = false;
   $match = preg_match('@^/([0-9]+)(/[^/]+)?$@', $pathinfo, $matches);
   // 0 => total string (if matches)
   // 1 => id value
@@ -48,15 +49,12 @@
   	$title = Tools::translate('Main categories');
   }
 
-	Tools::echoHTMLHead();
+	Tools::echoHTMLHead($title);
 ?>
 
 <body>
   <div id="container">
-    <div id="header">
-      <img src="/img/banniere.jpg" alt="banniere du site" />
-      <?php require_once(INCLUDE_PATH . '_menu.php'); ?>
-    </div>
+    <?= Tools::echoHeader(); ?>
 
 		<div id="body">
 			<div id="galleryTree"><div id="galleryTreeTop"><div id="galleryTreeMiddle">
@@ -101,7 +99,7 @@
 					<?php
 						foreach ($images as $img)
 						{
-							echo '<a href="/preview/' . $img->id . '/' . Tools::cleanLink($img->name) . '"><img src="' . $img->getSmallUrl() . '" alt="' . Tools::cleanLink($img->name) . '" /></a> ';
+							echo '<a href="' . APPLICATION_URL . 'preview/' . $img->id . '/' . Tools::cleanLink($img->name) . '"><img src="' . $img->getSmallUrl() . '" alt="' . Tools::cleanLink($img->name) . '" /></a> ';
 						}
 					?>
 					</div>

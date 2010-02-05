@@ -6,7 +6,7 @@ class Tools
 	 *
 	 * @return string
 	 */
-	static function getDisclaimer()
+	public static function getDisclaimer()
 	{
 		$dis = Tools::translate('disclaimer');
 		$dis = str_replace('{count_images}', Image::count(), $dis);
@@ -20,7 +20,7 @@ class Tools
 	 * @param string $url
 	 * @return string
 	 */
-	static function cleanLink($url)
+	public static function cleanLink($url)
 	{
 		$url = urlencode($url);
 		$url = str_replace('+', '-', $url);
@@ -28,7 +28,7 @@ class Tools
 		return strtolower($url);
 	}
 
-	static function postSortFunction($x, $y)
+	public static function postSortFunction($x, $y)
 	{
 		return strcmp($x->$GLOBALS['postSortFunction_field'], $y->$GLOBALS['postSortFunction_field']) > 0;
 	}
@@ -40,7 +40,7 @@ class Tools
 	 * @param string $field
 	 * @return array
 	 */
-	static function postSort($values, $field)
+	public static function postSort($values, $field)
 	{
 		$GLOBALS['postSortFunction_field'] = $field;
 		uasort($values, 'postSortFunction');
@@ -54,7 +54,7 @@ class Tools
 	 * @param int $id
 	 * @return string the html code of the gallery tree
 	 */
-	static function generateGalleryTree($id)
+	public static function generateGalleryTree($id)
 	{
 		$GLOBALS['hierarchy'] = Gallery::getHierarchy($id);
 		$html = Tools::browseGalleryTree(0);
@@ -68,7 +68,7 @@ class Tools
 	 * @param int $i the id of the parent gallery where to start browsing
 	 * @return string the html code of the gallery tree
 	 */
-	static function browseGalleryTree($i)
+	public static function browseGalleryTree($i)
 	{
 		$hierarchy = $GLOBALS['hierarchy'];
 
@@ -99,7 +99,7 @@ class Tools
 	 * @param int $id the id of the parent gallery
 	 * @return string the html code of the gallery tree
 	 */
-	static function listGalleryTree($id)
+	public static function listGalleryTree($id)
 	{
 		$galleries = Gallery::search(array(array('gallery_id', $id)));
 		$galleries = Tools::postSort($galleries, 'name');
@@ -120,7 +120,7 @@ class Tools
 	 * @param string $string
 	 * @return string
 	 */
-	static function translate($string)
+	public static function translate($string)
 	{
 		global $dico;
 		if (isset($dico[$string]))
@@ -135,7 +135,7 @@ class Tools
 	 * @param string $login
 	 * @return boolean
 	 */
-	static function isUsernameValid($login)
+	public static function isUsernameValid($login)
 	{
 		return preg_match('/^[a-zA-Z0-9_\- ]+$/', $login);
 	}
@@ -147,7 +147,7 @@ class Tools
 	 * @param string $email
 	 * @return boolean
 	 */
-	static function isEmailValid($email)
+	public static function isEmailValid($email)
 	{
 		return preg_match("/^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$/", $email);
 	}
@@ -160,7 +160,7 @@ class Tools
 	 * @param string $destDir
 	 * @param array $files
 	 */
-	static function extractPhotosFromZip($zipFile, $sourceDir, $destDir, &$files = array())
+	public static function extractPhotosFromZip($zipFile, $sourceDir, $destDir, &$files = array())
 	{
 		$zip = new PclZip($sourceDir . $zipFile);
 		$zip->extract(PCLZIP_OPT_PATH, $sourceDir);
@@ -176,7 +176,7 @@ class Tools
 	 * @param string $title
 	 * @return boolean
 	 */
-	static function isTitleValid($title)
+	public static function isTitleValid($title)
 	{
 		return strpos($title, '"') === false;
 	}
@@ -186,7 +186,7 @@ class Tools
 	 *
 	 * @param string $title
 	 */
-	static function echoHTMLHead($title, $additionalHtml=array())
+	public static function echoHTMLHead($title, $additionalHtml=array())
 	{
 		$additionalJs = '';
 		$additionalCss = '';
@@ -228,10 +228,22 @@ HTML;
 	}
 
 	/**
+	 * Print the html header
+	 *
+	 */
+	public static function echoHeader()
+	{
+		echo '<div id="header">
+      <img src="' . Tools::getImage('banniere.jpg') . '" alt="banniere du site" />' .
+      require_once(INCLUDE_PATH . '_menu.php') .
+    '</div>';
+	}
+
+	/**
 	 * Print the html footer
 	 *
 	 */
-	static function echoFooter()
+	public static function echoFooter()
 	{
 		echo <<<HTML
 <div id="footer">
@@ -247,7 +259,7 @@ HTML;
 	 * @param string $field the field to reindex by
 	 * @return array
 	 */
-	static function reindexBy($values, $field)
+	public static function reindexBy($values, $field)
 	{
 		$tmp = array();
 		foreach ($values as $value)
@@ -258,6 +270,17 @@ HTML;
 				$tmp []= $value;
 		}
 		return $tmp;
+	}
+
+	/**
+	 * Returns an image absolute url from a file name
+	 *
+	 * @param string $name
+	 * @return string
+	 */
+	public static function getImage($name)
+	{
+		return APPLICATION_URL . '/images/' . $name;
 	}
 }
 
