@@ -7,18 +7,19 @@
     define('INCLUDE_PATH', ROOT_PATH . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR);
 
     $_POST['path'] = ROOT_PATH . 'classes' . DIRECTORY_SEPARATOR;
-    
+
     if (!file_exists(ROOT_PATH . 'includes' . DIRECTORY_SEPARATOR . '_conf.php'))
     {
         die("Please run the installation before trying to access any page.");
     }
-    
+
     require_once(ROOT_PATH . 'includes' . DIRECTORY_SEPARATOR . '_conf.php');
 
     require_once(ROOT_PATH . 'includes' . DIRECTORY_SEPARATOR . 'JSON.php');
-    require_once(ROOT_PATH . 'includes' . DIRECTORY_SEPARATOR . '_functions.php');
+    require_once(ROOT_PATH . 'includes' . DIRECTORY_SEPARATOR . 'class.tools.php');
+
     require_once(ROOT_PATH . 'classes' . DIRECTORY_SEPARATOR . '__includes.php');
-    
+
     $config = json_decode(Config::findBy('type', 'active')->value, true);
 
     $LANGUAGES = $config['languages'];
@@ -56,7 +57,7 @@
     define('PHOTOS_SMALL_SIZE', 150);
     define('PHOTOS_MEDIUM_SIZE', 450);
     define('PHOTOS_LARGE_SIZE', 0);
-    
+
     define('VIDEOS_ENABLED', $config['videos']['value']);
     define('COMMENTS_ENABLED', $config['comments']['value']);
     define('REGISTER_ENABLED', $config['register']['value']);
