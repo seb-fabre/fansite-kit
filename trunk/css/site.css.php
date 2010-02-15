@@ -18,7 +18,7 @@
   $modalBackgroundColor = '#FFF';
   $modalBorderColor = '#CCC';
   $titleColor = '#000';
-  
+
   $infos = getimagesize('../img/banniere.jpg');
 ?>
 
@@ -155,7 +155,7 @@ td {
 
 #footer {
   height: 100px;
-  background: url(/css/start/images/ui-bg_gloss-wave_75_2191c0_500x100.png);
+  background: url(<?APPLICATION_URL?>css/start/images/ui-bg_gloss-wave_75_2191c0_500x100.png);
 }
 
 #galleryTree {
@@ -164,7 +164,7 @@ td {
   padding-bottom: 15px;
   margin-left: 10px;
   margin-top: 10px;
-  background: url(/img/background_block_bottom.png) no-repeat left bottom;
+  background: url(<?APPLICATION_URL?>img/background_block_bottom.png) no-repeat left bottom;
 }
 
 #galleryTree h2 {
@@ -174,12 +174,12 @@ td {
 
 #galleryTreeTop {
   padding-top: 15px;
-  background: url(/img/background_block_top.png) no-repeat left top;
+  background: url(<?APPLICATION_URL?>img/background_block_top.png) no-repeat left top;
 }
 
 #galleryTreeMiddle {
   padding: 0 10px;
-  background: url(/img/background_block_middle.png) repeat-y left;
+  background: url(<?APPLICATION_URL?>img/background_block_middle.png) repeat-y left;
 }
 
 h1 {
@@ -308,14 +308,14 @@ form.form500 {
   vertical-align: middle;
   width: 100%;
   height: 400px;
-  background: transparent url(/img/spinner.gif) no-repeat center;
+  background: transparent url(<?APPLICATION_URL?>img/spinner.gif) no-repeat center;
 }
 
 .spinner_small {
   vertical-align: middle;
   width: 100%;
   height: 20px;
-  background: transparent url(/img/spinner_small.gif) no-repeat center;
+  background: transparent url(<?APPLICATION_URL?>img/spinner_small.gif) no-repeat center;
   position: absolute;
   top: 200px;
 }
@@ -372,7 +372,7 @@ ul.galleryTree a.linkGallerySelected {
 }
 
 .linkWithArrow a {
-  background: url(/img/fleche.png) no-repeat left;
+  background: url(<?APPLICATION_URL?>img/fleche.png) no-repeat left;
   padding-left: 20px;
 }
 
@@ -388,7 +388,7 @@ table.table {
 }
 
 table.table th {
-  background-image: url(/img/gradient_light_blue.png);
+  background-image: url(<?APPLICATION_URL?>img/gradient_light_blue.png);
   background-position: 0 -120px;
 }
 
@@ -405,7 +405,7 @@ table.table td {
 }
 
 .tdForm {
-  background-image: url(/img/gradient_blue_long.png);
+  background-image: url(<?APPLICATION_URL?>img/gradient_blue_long.png);
 }
 
 /* -------------------------------------------------------------------- */
@@ -459,69 +459,69 @@ ul.galleryTree a:hover {
 .galleryTree li div.spinner { position: absolute; left: 0; top: 0; padding: 0; margin: 0; }
 
 /* Core Styles */
-.galleryTree li.directory { background: url(/img/directory.png) left top no-repeat; }
-.galleryTree li.expanded { background: url(/img/folder_open.png) left top no-repeat; }
-.galleryTree li.file { background: url(/img/file.png) left top no-repeat; }
+.galleryTree li.directory { background: url(<?APPLICATION_URL?>img/directory.png) left top no-repeat; }
+.galleryTree li.expanded { background: url(<?APPLICATION_URL?>img/folder_open.png) left top no-repeat; }
+.galleryTree li.file { background: url(<?APPLICATION_URL?>img/file.png) left top no-repeat; }
 .galleryTree li.wait { background: none; position: relative;}
 /* File Extensions*/
-.galleryTree li.ext_3gp { background: url(/img/film.png) left top no-repeat; }
-.galleryTree li.ext_afp { background: url(/img/code.png) left top no-repeat; }
-.galleryTree li.ext_afpa { background: url(/img/code.png) left top no-repeat; }
-.galleryTree li.ext_asp { background: url(/img/code.png) left top no-repeat; }
-.galleryTree li.ext_aspx { background: url(/img/code.png) left top no-repeat; }
-.galleryTree li.ext_avi { background: url(/img/film.png) left top no-repeat; }
-.galleryTree li.ext_bat { background: url(/img/application.png) left top no-repeat; }
-.galleryTree li.ext_bmp { background: url(/img/picture.png) left top no-repeat; }
-.galleryTree li.ext_c { background: url(/img/code.png) left top no-repeat; }
-.galleryTree li.ext_cfm { background: url(/img/code.png) left top no-repeat; }
-.galleryTree li.ext_cgi { background: url(/img/code.png) left top no-repeat; }
-.galleryTree li.ext_com { background: url(/img/application.png) left top no-repeat; }
-.galleryTree li.ext_cpp { background: url(/img/code.png) left top no-repeat; }
-.galleryTree li.ext_css { background: url(/img/css.png) left top no-repeat; }
-.galleryTree li.ext_doc { background: url(/img/doc.png) left top no-repeat; }
-.galleryTree li.ext_exe { background: url(/img/application.png) left top no-repeat; }
-.galleryTree li.ext_gif { background: url(/img/picture.png) left top no-repeat; }
-.galleryTree li.ext_fla { background: url(/img/flash.png) left top no-repeat; }
-.galleryTree li.ext_h { background: url(/img/code.png) left top no-repeat; }
-.galleryTree li.ext_htm { background: url(/img/html.png) left top no-repeat; }
-.galleryTree li.ext_html { background: url(/img/html.png) left top no-repeat; }
-.galleryTree li.ext_jar { background: url(/img/java.png) left top no-repeat; }
-.galleryTree li.ext_jpg { background: url(/img/picture.png) left top no-repeat; }
-.galleryTree li.ext_jpeg { background: url(/img/picture.png) left top no-repeat; }
-.galleryTree li.ext_js { background: url(/img/script.png) left top no-repeat; }
-.galleryTree li.ext_lasso { background: url(/img/code.png) left top no-repeat; }
-.galleryTree li.ext_log { background: url(/img/txt.png) left top no-repeat; }
-.galleryTree li.ext_m4p { background: url(/img/music.png) left top no-repeat; }
-.galleryTree li.ext_mov { background: url(/img/film.png) left top no-repeat; }
-.galleryTree li.ext_mp3 { background: url(/img/music.png) left top no-repeat; }
-.galleryTree li.ext_mp4 { background: url(/img/film.png) left top no-repeat; }
-.galleryTree li.ext_mpg { background: url(/img/film.png) left top no-repeat; }
-.galleryTree li.ext_mpeg { background: url(/img/film.png) left top no-repeat; }
-.galleryTree li.ext_ogg { background: url(/img/music.png) left top no-repeat; }
-.galleryTree li.ext_pcx { background: url(/img/picture.png) left top no-repeat; }
-.galleryTree li.ext_pdf { background: url(/img/pdf.png) left top no-repeat; }
-.galleryTree li.ext_php { background: url(/img/php.png) left top no-repeat; }
-.galleryTree li.ext_png { background: url(/img/picture.png) left top no-repeat; }
-.galleryTree li.ext_ppt { background: url(/img/ppt.png) left top no-repeat; }
-.galleryTree li.ext_psd { background: url(/img/psd.png) left top no-repeat; }
-.galleryTree li.ext_pl { background: url(/img/script.png) left top no-repeat; }
-.galleryTree li.ext_py { background: url(/img/script.png) left top no-repeat; }
-.galleryTree li.ext_rb { background: url(/img/ruby.png) left top no-repeat; }
-.galleryTree li.ext_rbx { background: url(/img/ruby.png) left top no-repeat; }
-.galleryTree li.ext_rhtml { background: url(/img/ruby.png) left top no-repeat; }
-.galleryTree li.ext_rpm { background: url(/img/linux.png) left top no-repeat; }
-.galleryTree li.ext_ruby { background: url(/img/ruby.png) left top no-repeat; }
-.galleryTree li.ext_sql { background: url(/img/db.png) left top no-repeat; }
-.galleryTree li.ext_swf { background: url(/img/flash.png) left top no-repeat; }
-.galleryTree li.ext_tif { background: url(/img/picture.png) left top no-repeat; }
-.galleryTree li.ext_tiff { background: url(/img/picture.png) left top no-repeat; }
-.galleryTree li.ext_txt { background: url(/img/txt.png) left top no-repeat; }
-.galleryTree li.ext_vb { background: url(/img/code.png) left top no-repeat; }
-.galleryTree li.ext_wav { background: url(/img/music.png) left top no-repeat; }
-.galleryTree li.ext_wmv { background: url(/img/film.png) left top no-repeat; }
-.galleryTree li.ext_xls { background: url(/img/xls.png) left top no-repeat; }
-.galleryTree li.ext_xml { background: url(/img/code.png) left top no-repeat; }
-.galleryTree li.ext_zip { background: url(/img/zip.png) left top no-repeat; }
+.galleryTree li.ext_3gp { background: url(<?APPLICATION_URL?>/film.png) left top no-repeat; }
+.galleryTree li.ext_afp { background: url(<?APPLICATION_URL?>/code.png) left top no-repeat; }
+.galleryTree li.ext_afpa { background: url(<?APPLICATION_URL?>/code.png) left top no-repeat; }
+.galleryTree li.ext_asp { background: url(<?APPLICATION_URL?>/code.png) left top no-repeat; }
+.galleryTree li.ext_aspx { background: url(<?APPLICATION_URL?>/code.png) left top no-repeat; }
+.galleryTree li.ext_avi { background: url(<?APPLICATION_URL?>/film.png) left top no-repeat; }
+.galleryTree li.ext_bat { background: url(<?APPLICATION_URL?>/application.png) left top no-repeat; }
+.galleryTree li.ext_bmp { background: url(<?APPLICATION_URL?>/picture.png) left top no-repeat; }
+.galleryTree li.ext_c { background: url(<?APPLICATION_URL?>/code.png) left top no-repeat; }
+.galleryTree li.ext_cfm { background: url(<?APPLICATION_URL?>/code.png) left top no-repeat; }
+.galleryTree li.ext_cgi { background: url(<?APPLICATION_URL?>/code.png) left top no-repeat; }
+.galleryTree li.ext_com { background: url(<?APPLICATION_URL?>/application.png) left top no-repeat; }
+.galleryTree li.ext_cpp { background: url(<?APPLICATION_URL?>/code.png) left top no-repeat; }
+.galleryTree li.ext_css { background: url(<?APPLICATION_URL?>/css.png) left top no-repeat; }
+.galleryTree li.ext_doc { background: url(<?APPLICATION_URL?>/doc.png) left top no-repeat; }
+.galleryTree li.ext_exe { background: url(<?APPLICATION_URL?>/application.png) left top no-repeat; }
+.galleryTree li.ext_gif { background: url(<?APPLICATION_URL?>/picture.png) left top no-repeat; }
+.galleryTree li.ext_fla { background: url(<?APPLICATION_URL?>/flash.png) left top no-repeat; }
+.galleryTree li.ext_h { background: url(<?APPLICATION_URL?>/code.png) left top no-repeat; }
+.galleryTree li.ext_htm { background: url(<?APPLICATION_URL?>/html.png) left top no-repeat; }
+.galleryTree li.ext_html { background: url(<?APPLICATION_URL?>/html.png) left top no-repeat; }
+.galleryTree li.ext_jar { background: url(<?APPLICATION_URL?>/java.png) left top no-repeat; }
+.galleryTree li.ext_jpg { background: url(<?APPLICATION_URL?>/picture.png) left top no-repeat; }
+.galleryTree li.ext_jpeg { background: url(<?APPLICATION_URL?>/picture.png) left top no-repeat; }
+.galleryTree li.ext_js { background: url(<?APPLICATION_URL?>/script.png) left top no-repeat; }
+.galleryTree li.ext_lasso { background: url(<?APPLICATION_URL?>/code.png) left top no-repeat; }
+.galleryTree li.ext_log { background: url(<?APPLICATION_URL?>/txt.png) left top no-repeat; }
+.galleryTree li.ext_m4p { background: url(<?APPLICATION_URL?>/music.png) left top no-repeat; }
+.galleryTree li.ext_mov { background: url(<?APPLICATION_URL?>/film.png) left top no-repeat; }
+.galleryTree li.ext_mp3 { background: url(<?APPLICATION_URL?>/music.png) left top no-repeat; }
+.galleryTree li.ext_mp4 { background: url(<?APPLICATION_URL?>/film.png) left top no-repeat; }
+.galleryTree li.ext_mpg { background: url(<?APPLICATION_URL?>/film.png) left top no-repeat; }
+.galleryTree li.ext_mpeg { background: url(<?APPLICATION_URL?>/film.png) left top no-repeat; }
+.galleryTree li.ext_ogg { background: url(<?APPLICATION_URL?>/music.png) left top no-repeat; }
+.galleryTree li.ext_pcx { background: url(<?APPLICATION_URL?>/picture.png) left top no-repeat; }
+.galleryTree li.ext_pdf { background: url(<?APPLICATION_URL?>/pdf.png) left top no-repeat; }
+.galleryTree li.ext_php { background: url(<?APPLICATION_URL?>/php.png) left top no-repeat; }
+.galleryTree li.ext_png { background: url(<?APPLICATION_URL?>/picture.png) left top no-repeat; }
+.galleryTree li.ext_ppt { background: url(<?APPLICATION_URL?>/ppt.png) left top no-repeat; }
+.galleryTree li.ext_psd { background: url(<?APPLICATION_URL?>/psd.png) left top no-repeat; }
+.galleryTree li.ext_pl { background: url(<?APPLICATION_URL?>/script.png) left top no-repeat; }
+.galleryTree li.ext_py { background: url(<?APPLICATION_URL?>/script.png) left top no-repeat; }
+.galleryTree li.ext_rb { background: url(<?APPLICATION_URL?>/ruby.png) left top no-repeat; }
+.galleryTree li.ext_rbx { background: url(<?APPLICATION_URL?>/ruby.png) left top no-repeat; }
+.galleryTree li.ext_rhtml { background: url(<?APPLICATION_URL?>/ruby.png) left top no-repeat; }
+.galleryTree li.ext_rpm { background: url(<?APPLICATION_URL?>/linux.png) left top no-repeat; }
+.galleryTree li.ext_ruby { background: url(<?APPLICATION_URL?>/ruby.png) left top no-repeat; }
+.galleryTree li.ext_sql { background: url(<?APPLICATION_URL?>/db.png) left top no-repeat; }
+.galleryTree li.ext_swf { background: url(<?APPLICATION_URL?>/flash.png) left top no-repeat; }
+.galleryTree li.ext_tif { background: url(<?APPLICATION_URL?>/picture.png) left top no-repeat; }
+.galleryTree li.ext_tiff { background: url(<?APPLICATION_URL?>/picture.png) left top no-repeat; }
+.galleryTree li.ext_txt { background: url(<?APPLICATION_URL?>/txt.png) left top no-repeat; }
+.galleryTree li.ext_vb { background: url(<?APPLICATION_URL?>/code.png) left top no-repeat; }
+.galleryTree li.ext_wav { background: url(<?APPLICATION_URL?>/music.png) left top no-repeat; }
+.galleryTree li.ext_wmv { background: url(<?APPLICATION_URL?>/film.png) left top no-repeat; }
+.galleryTree li.ext_xls { background: url(<?APPLICATION_URL?>/xls.png) left top no-repeat; }
+.galleryTree li.ext_xml { background: url(<?APPLICATION_URL?>/code.png) left top no-repeat; }
+.galleryTree li.ext_zip { background: url(<?APPLICATION_URL?>/zip.png) left top no-repeat; }
 
 /* simple modal */
 #simplemodal-overlay {
@@ -541,7 +541,7 @@ ul.galleryTree a:hover {
 }
 
 #simplemodal-container a.modalCloseImg {
-  background: url(/images/x.png) no-repeat;
+  background: url(<?APPLICATION_URL?>images/x.png) no-repeat;
   width: 25px;
   height: 25px;
   display: inline;

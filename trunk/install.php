@@ -5,8 +5,12 @@ if (file_exists('includes/_conf.php'))
 	die;
 }
 
+$notInstalled = false;
+
 if (isset($_POST ['install']))
 {
+	$url = substr($_SERVER['HTTP_REFERER'], 0, strpos($_SERVER['HTTP_REFERER'], 'install'));
+
 	$dbhost = $_POST ['db_host'];
 	$dbname = $_POST ['db_name'];
 	$dblogin = $_POST ['db_login'];
@@ -37,44 +41,59 @@ if (isset($_POST ['install']))
 		}
 		$sql = str_replace('{DBNAME}', $dbname, $sql);
 
-		mysql_connect($dbhost, $dblogin, $dbpassword);
-		foreach (explode(';', $sql) as $query)
+		if (@mysql_connect($dbhost, $dblogin, $dbpassword))
 		{
-			if (trim($query))
+			foreach (explode(';', $sql) as $query)
 			{
-				$query .= ';';
-				mysql_query($query) or die(mysql_error());
+				if (trim($query))
+				{
+					$query .= ';';
+					mysql_query($query) or die(mysql_error());
+				}
 			}
+
+			$_POST ['path'] = dirname(__file__) . DIRECTORY_SEPARATOR . 'classes' . DIRECTORY_SEPARATOR;
+			require_once ('classes/__includes.php');
+			require_once ('includes' . DIRECTORY_SEPARATOR . 'JSON.php');
+			require_once ('includes' . DIRECTORY_SEPARATOR . 'class.tools.php');
+
+			$languagesshort = array_map('trim', explode("\n", $languagesshort));
+			$languageslong = array_map('trim', explode("\n", $languageslong));
+			$languages = array_combine($languagesshort, $languageslong);
+
+			if (!isset($languages ['en']))
+				$languages ['en'] = 'English';
+
+			$p = new Config();
+			$p->type = 'languages';
+			$p->value = json_encode($languages);
+			$p->save();
+
+			Config::setValue('VIDEOS ENABLED', 1);
+			Config::setValue('GUESTBOOK ENABLED', 1);
+			Config::setValue('REGISTRATIONS ENABLED', 1);
 		}
-
-		$_POST ['path'] = dirname(__file__) . DIRECTORY_SEPARATOR . 'classes' . DIRECTORY_SEPARATOR;
-		require_once ('classes/__includes.php');
-		require_once ('includes' . DIRECTORY_SEPARATOR . 'JSON.php');
-		require_once ('includes' . DIRECTORY_SEPARATOR . '_functions.php');
-
-		$languagesshort = array_map('trim', explode("\n", $languagesshort));
-		$languageslong = array_map('trim', explode("\n", $languageslong));
-		$languages = array_combine($languagesshort, $languageslong);
-
-		if (!isset($languages ['en']))
-			$languages ['en'] = 'English';
-
-		$p = new Config();
-		$p->type = 'languages';
-		$p->value = json_encode($languages);
-		$p->save();
+		else
+		{
+			$notInstalled = '<p class="error">Invalid database connection informations.</p>';
+		}
 	}
+	Tools::translate('toto');Tools::translate('t\iti');
 
-	$f = fopen('includes/_conf.php', 'w+');
-	fwrite($f, '
-<?php
-    mysql_connect("' . addslashes($dbhost) . '", "' . addslashes($dblogin) . '", "' . addslashes($dbpassword) . '");
-    mysql_select_db("' . addslashes($dbname) . '");
-?>');
-	fclose($f);
+	if (!$notInstalled)
+	{
+		$f = fopen('includes/_conf.php', 'w+');
+		fwrite($f, '
+	<?php
+	    mysql_connect("' . addslashes($dbhost) . '", "' . addslashes($dblogin) . '", "' . addslashes($dbpassword) . '");
+	    mysql_select_db("' . addslashes($dbname) . '");
+	    define("APPLICATION_URL", "' . $url . '");
+	?>');
+		fclose($f);
 
-	echo '<center>Installation complete. Please go to the <a href="/">Home Page</a></center>';
-	die;
+		echo '<center>Installation complete. Please go to the <a href="' . $url . '">Home Page</a></center>';
+		die;
+	}
 }
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
@@ -82,15 +101,15 @@ if (isset($_POST ['install']))
 <head>
 <title>INSTALL</title>
 
-<link href="/css/site.css.php" rel="stylesheet" type="text/css" />
-<link href="/css/cupertino/jquery-ui-1.7.2.custom.css" rel="stylesheet" type="text/css" />
+<link href="css/site.css.php" rel="stylesheet" type="text/css" />
+<link href="css/cupertino/jquery-ui-1.7.2.custom.css" rel="stylesheet" type="text/css" />
 
-<script src="/js/jquery-1.3.2.min.js" type="text/javascript"></script>
-<script src="/js/jquery-ui-1.7.2.custom.min.js" type="text/javascript"></script>
-<script src="/js/jquery.validate.js" type="text/javascript"></script>
+<script src="js/jquery-1.3.2.min.js" type="text/javascript"></script>
+<script src="js/jquery-ui-1.7.2.custom.min.js" type="text/javascript"></script>
+<script src="js/jquery.validate.js" type="text/javascript"></script>
 
 <style type="text/css">
-form span.error {
+form span.error, .error {
 	color: red;
 	float: left;
 	margin-left: 10px;
@@ -107,12 +126,20 @@ form p input {
 form p {
 	float: left;
 }
+
+form {
+	clear: both;
+}
 </style>
 </head>
 
 <body>
 <div id="container">
 <h1>Install</h1>
+
+<?php
+	if ($notInstalled) echo $notInstalled;
+?>
 
 <form action="" method="post" style="margin: 20px;" id="installForm">
 
