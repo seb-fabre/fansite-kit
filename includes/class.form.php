@@ -5,7 +5,11 @@ class Form
 
 	public function __construct($fields)
 	{
-
+		$this->fields = array(
+			'input' => array(),
+			'select' => array(),
+			'textarea' => array(),
+		);
 	}
 
 	public function addInput($name)

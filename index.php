@@ -4,18 +4,18 @@ require_once('includes/_init.php');
 $latestNews = News::search(null, 'date desc', 10);
 
 $latestVideos = Video::search(null, 'date desc', 10);
-$latestVideos = Tools::reindexBy($latestVideos);
+$latestVideos = Tools::reindexBy($latestVideos, 'date desc');
 
 $latestGalleries = Gallery::search(null, 'date desc', 10);
-$latestGalleries = Tools::reindexBy($latestGalleries);
+$latestGalleries = Tools::reindexBy($latestGalleries, 'date desc');
 
-Tools::echoHTMLHead();
+$title = Tools::translate('Home page');
+
+Tools::echoHTMLHead($title);
+
 ?>
 <body>
-	<div id="header">
-		<img src="/img/banniere.jpg" alt="banniere du site" />
-		<?php require_once(INCLUDE_PATH . '_menu.php'); ?>
-	</div>
+	<?= Tools::echoHeader(); ?>
 
 	<div id="content">
 		<div id="latest_updates" class="blockWithHeader">

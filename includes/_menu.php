@@ -13,7 +13,7 @@
 	  <a href="/admin/"><?php echo Tools::translate('Admin area') ?></a>
       <?php endif; ?>
   <?php endif; ?>
-  
+
   <div id="menu_languages">
     <?php
     if (count($LANGUAGES) > 1)

@@ -210,13 +210,15 @@ class Tools
 				$additionalMetas .= '<meta http-equiv="' . $httpEquiv . '" content="' . $content . '" />';
 			}
 
+		$url = APPLICATION_URL;
+
 
 		echo <<<HTML
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <link href="/css/site.css.php" rel="stylesheet" type="text/css" />
+    <link href="{$url}css/site.css.php" rel="stylesheet" type="text/css" />
     <title>$title</title>
     <script src="/js/jquery-1.3.2.min.js" type="text/javascript"></script>
 
@@ -234,9 +236,9 @@ HTML;
 	public static function echoHeader()
 	{
 		echo '<div id="header">
-      <img src="' . Tools::getImage('banniere.jpg') . '" alt="banniere du site" />' .
-      require_once(INCLUDE_PATH . '_menu.php') .
-    '</div>';
+      <img src="' . Tools::getImage('banniere.jpg') . '" alt="banniere du site" />';
+    require_once(INCLUDE_PATH . '_menu.php');
+    echo '</div>';
 	}
 
 	/**
@@ -280,7 +282,109 @@ HTML;
 	 */
 	public static function getImage($name)
 	{
-		return APPLICATION_URL . '/images/' . $name;
+		return APPLICATION_URL . 'images/' . $name;
+	}
+
+	public static function browseDirectory($directory, $extension = "", $full_path = true)
+	{
+		$array_items = array();
+
+		if (strpos($directory, '.svn') !== false
+			|| strpos($directory, '/.') !== false
+			|| strpos($directory, '/photos') !== false
+			|| strpos($directory, '/sessions') !== false
+			|| strpos($directory, '/css') !== false
+			|| strpos($directory, '/js') !== false
+			|| strpos($directory, '/images') !== false
+			|| strpos($directory, '/img') !== false)
+			return array();
+
+		$directory = trim($directory, '/');
+
+		if ($handle = opendir($directory))
+		{
+			while (false !== ($file = readdir($handle)))
+			{
+				if ($file != "." && $file != "..")
+				{
+					if (is_dir($directory . "/" . $file))
+					{
+						$array_items = array_merge($array_items, self::browseDirectory($directory . "/" . $file, $extension, $full_path));
+					}
+					else
+					{
+						if (!$extension || (ereg("." . $extension, $file)))
+						{
+							if ($full_path)
+							{
+								$array_items[] = $directory . "/" . $file;
+							}
+							else
+							{
+								$array_items[] = $file;
+							}
+						}
+					}
+				}
+			}
+
+			closedir($handle);
+		}
+
+		return $array_items;
+	}
+
+	public static function getLanguageStrings()
+	{
+		$files = self::browseDirectory(ROOT_PATH, 'php');
+		$strings = array();
+
+		foreach ($files as $file)
+		{
+			$f = fopen($file, 'r');
+
+			while ($line = fgets($f))
+			{
+				if (preg_match_all('/Tools::translate\(([^\)]*)\)/', $line, $matches))
+				{
+					foreach ($matches[1] as $match)
+					{
+						$match = substr($match, 1, strlen($match) - 2);
+						$match = stripslashes($match);
+						$strings[$match] = true;
+					}
+				}
+			}
+
+			fclose($f);
+		}
+
+		return array_keys($strings);
+	}
+
+	public static function initDictionary()
+	{
+		global $LANGUAGES;
+
+		$dico = array();
+		$strings = self::getLanguageStrings();
+
+		$dico = array_combine($strings, $strings);
+
+		unset($LANGUAGES['en']);
+
+		foreach ($LANGUAGES as $l)
+		{
+			$dico[$l] = array();
+		}
+
+		$f = fopen(ROOT_PATH . 'includes/lang.php', 'w+');
+
+		fwrite($f, '<?php ' . var_export($dico, true) . ';');
+
+		fclose($f);
+
+		return $dico;
 	}
 }
 
