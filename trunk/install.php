@@ -7,21 +7,21 @@ if (file_exists('includes/_conf.php'))
 
 $notInstalled = false;
 
-if (isset($_POST ['install']))
+if (isset($_POST['install']))
 {
 	$url = substr($_SERVER['HTTP_REFERER'], 0, strpos($_SERVER['HTTP_REFERER'], 'install'));
 
-	$dbhost = $_POST ['db_host'];
-	$dbname = $_POST ['db_name'];
-	$dblogin = $_POST ['db_login'];
-	$dbpassword = $_POST ['db_password'];
-	$dbcreate = isset($_POST ['db_create']);
-	$dbkeeptables = isset($_POST ['db_keep_tables']);
-	$superadminlogin = $_POST ['superadmin_login'];
-	$superadminpassword = $_POST ['superadmin_password'];
-	$superadminemail = $_POST ['superadmin_email'];
-	$languagesshort = $_POST ['languages_short'];
-	$languageslong = $_POST ['languages_long'];
+	$dbhost = $_POST['db_host'];
+	$dbname = $_POST['db_name'];
+	$dblogin = $_POST['db_login'];
+	$dbpassword = $_POST['db_password'];
+	$dbcreate = isset($_POST['db_create']);
+	$dbkeeptables = isset($_POST['db_keep_tables']);
+	$superadminlogin = $_POST['superadmin_login'];
+	$superadminpassword = $_POST['superadmin_password'];
+	$superadminemail = $_POST['superadmin_email'];
+	$languagesshort = $_POST['languages_short'];
+	$languageslong = $_POST['languages_long'];
 
 	if (!$dbkeeptables)
 	{
@@ -52,33 +52,31 @@ if (isset($_POST ['install']))
 				}
 			}
 
-			$_POST ['path'] = dirname(__file__) . DIRECTORY_SEPARATOR . 'classes' . DIRECTORY_SEPARATOR;
-			require_once ('classes/__includes.php');
-			require_once ('includes' . DIRECTORY_SEPARATOR . 'JSON.php');
-			require_once ('includes' . DIRECTORY_SEPARATOR . 'class.tools.php');
+			$_POST['path'] = dirname(__file__) . DIRECTORY_SEPARATOR . 'classes' . DIRECTORY_SEPARATOR;
+			require_once('classes/__includes.php');
+			require_once('includes' . DIRECTORY_SEPARATOR . 'JSON.php');
+			require_once('includes' . DIRECTORY_SEPARATOR . 'class.tools.php');
 
 			$languagesshort = array_map('trim', explode("\n", $languagesshort));
 			$languageslong = array_map('trim', explode("\n", $languageslong));
 			$languages = array_combine($languagesshort, $languageslong);
 
-			if (!isset($languages ['en']))
-				$languages ['en'] = 'English';
-
-			$p = new Config();
-			$p->type = 'languages';
-			$p->value = json_encode($languages);
-			$p->save();
+			if (!isset($languages['en']))
+				$languages['en'] = 'English';
 
 			Config::setValue('VIDEOS ENABLED', 1);
 			Config::setValue('GUESTBOOK ENABLED', 1);
 			Config::setValue('REGISTRATIONS ENABLED', 1);
+			Config::setValue('LANGUAGES', json_encode($languages));
+			Config::setValue('COUNT LATEST NEWS', 5);
+			Config::setValue('COUNT LATEST UPDATES', 10);
+			Config::setValue('COUNT NEWS PER PAGE', 0);
 		}
 		else
 		{
 			$notInstalled = '<p class="error">Invalid database connection informations.</p>';
 		}
 	}
-	Tools::translate('toto');Tools::translate('t\iti');
 
 	if (!$notInstalled)
 	{
