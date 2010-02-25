@@ -3,11 +3,21 @@ require_once('includes/_init.php');
 
 $latestNews = News::search(null, 'date desc', 10);
 
-$latestVideos = Video::search(null, 'date desc', 10);
-$latestVideos = Tools::reindexBy($latestVideos, 'date desc');
-
 $latestGalleries = Gallery::search(null, 'date desc', 10);
 $latestGalleries = Tools::reindexBy($latestGalleries, 'date desc');
+
+if (Config::getValue('VIDEOS ENABLED'))
+{
+	$latestVideos = Video::search(null, 'date desc', 10);
+	$latestVideos = Tools::reindexBy($latestVideos, 'date desc');
+
+	$latestUpdates = array_merge_recursive($latestGalleries, $latestVideos);
+	$latestUpdates = Tools::array_flatten($latestUpdates);
+}
+else
+{
+	$latestUpdates = $latestGalleries;
+}
 
 $title = Tools::translate('Home page');
 
@@ -21,13 +31,12 @@ Tools::echoHTMLHead($title);
 		<div id="latest_updates" class="blockWithHeader">
 			<h2><?php echo Tools::translate('latest updates'); ?></h2>
 			<div class="blockWithHeaderContent">
-				<p>sigfdg,drfgf</p>
-				<p>hrd</p>
-				<p>xtfdrdxt</p>
-				<p>rxttcy</p>
-				<p>jt</p>
-				<p>ct</p>
-				<p>fdfkghe_èy'enkhudio</p>
+				<?php
+					foreach ($latestUpdates as $update)
+					{
+						echo '<p>' . $update->name . ' - ' . $update->date . '</p>';
+					}
+				?>
 			</div>
 		</div>
 

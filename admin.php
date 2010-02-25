@@ -38,22 +38,20 @@ Tools::echoHTMLHead($title, $headers);
 	<div id="body" class="body100">
 		<h1><?php echo Tools::translate('menu_admin')?></h1>
 
-		<p class="linkWithArrow"><a href="javascript:;" onclick="editTranslations()"><?php echo Tools::translate('Edit translations')?></a></p>
-		<p class="linkWithArrow"><a href="javascript:;" onclick="editConfig()"><?php echo Tools::translate('Edit configuration')?></a></p>
-		<p class="linkWithArrow"><a href="javascript:;" onclick="getVideos()"><?php echo Tools::translate('Manage the videos')?></a></p>
-		<p class="linkWithArrow"><a href="javascript:;" onclick="getMembers()"><?php echo Tools::translate('Manage the members')?></a></p>
-		<p class="linkWithArrow"><a href="javascript:;" onclick="getGalleries()"><?php echo Tools::translate('Manage the galleries')?></a></p>
-		<p class="linkWithArrow"><a href="javascript:;" onclick="getPictures()"><?php echo Tools::translate('Manage the pictures')?></a></p>
-		<p class="linkWithArrow"><a href="javascript:;" onclick="getComments()"><?php echo Tools::translate('Comments')?></a></p>
-		<p class="linkWithArrow"><a href="javascript:;" onclick="getLinks()"><?php echo Tools::translate('Links')?></a></p>
-		<p class="linkWithArrow"><a href="javascript:;" onclick="getNews()"><?php echo Tools::translate('News')?></a></p>
+		<?= Tools::echoJSAction("editTranslations()", Tools::translate('Edit translations')) ?>
+		<?= Tools::echoJSAction("editConfig()", Tools::translate('Edit configuration')) ?>
+		<?= Tools::echoJSAction("getVideos()", Tools::translate('Manage the videos')) ?>
+		<?= Tools::echoJSAction("getMembers()", Tools::translate('Manage the members')) ?>
+		<?= Tools::echoJSAction("getGalleries()", Tools::translate('Manage the galleries')) ?>
+		<?= Tools::echoJSAction("getPictures()", Tools::translate('Manage the pictures')) ?>
+		<?= Tools::echoJSAction("getComments()", Tools::translate('Comments')) ?>
+		<?= Tools::echoJSAction("getLinks()", Tools::translate('Links')) ?>
+		<?= Tools::echoJSAction("getNews()", Tools::translate('News')) ?>
 
 		<div class="clearBoth">&nbsp;</div>
 	</div>
 
-	<div id="footer">
-		<?php require_once (INCLUDE_PATH . '_footer.php'); ?>
-	</div>
+	<?php echoFooter() ?>
 </div>
 
 <div id="fenetre">

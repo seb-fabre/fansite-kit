@@ -1,4 +1,4 @@
-<?php array (
+<?php $dico = array (
   'menu_admin' => 'menu_admin',
   'Edit translations' => 'Edit translations',
   'Edit configuration' => 'Edit configuration',

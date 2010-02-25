@@ -8,7 +8,7 @@ class Tools
 	 */
 	public static function getDisclaimer()
 	{
-		$dis = Tools::translate('disclaimer');
+		$dis = Config::getValue('disclaimer');
 		$dis = str_replace('{count_images}', Image::count(), $dis);
 		$dis = str_replace('{count_videos}', Video::count(), $dis);
 		return $dis;
@@ -285,6 +285,14 @@ HTML;
 		return APPLICATION_URL . 'images/' . $name;
 	}
 
+	/**
+	 * Browse directories, recursively, and return a list of files
+	 * This function is used only to generate the language file
+	 * @param string $directory the directory to search in
+	 * @param string $extension filter the results by file extension
+	 * @param boolean $full_path if the returned results must have an absolute path or not
+	 * @return array the list of files found
+	 */
 	public static function browseDirectory($directory, $extension = "", $full_path = true)
 	{
 		$array_items = array();
@@ -334,6 +342,11 @@ HTML;
 		return $array_items;
 	}
 
+	/**
+	 * Parse all the php files from the project, list all the translated strings and return them in an array
+	 * This method is used to initialize or update the language files
+	 * @return array the list of strings to be translated
+	 */
 	public static function getLanguageStrings()
 	{
 		$files = self::browseDirectory(ROOT_PATH, 'php');
@@ -362,6 +375,11 @@ HTML;
 		return array_keys($strings);
 	}
 
+	/**
+	 * The translation strings are loaded from a php file, this function generates the file
+	 * and returns the new dictionary in an array
+	 * @return array
+	 */
 	public static function initDictionary()
 	{
 		global $LANGUAGES;
@@ -369,23 +387,67 @@ HTML;
 		$dico = array();
 		$strings = self::getLanguageStrings();
 
-		$dico = array_combine($strings, $strings);
-
-		unset($LANGUAGES['en']);
+		$defaultDico = array_combine($strings, $strings);
 
 		foreach ($LANGUAGES as $l)
 		{
-			$dico[$l] = array();
+			$dico[$l] = $defaultDico;
+			$dico['disclaimer'] = DEFAULT_DISCLAIMER;
 		}
 
 		$f = fopen(ROOT_PATH . 'includes/lang.php', 'w+');
 
-		fwrite($f, '<?php ' . var_export($dico, true) . ';');
+		fwrite($f, '<?php $dico = ' . var_export($dico, true) . ';');
 
 		fclose($f);
 
 		return $dico;
 	}
+
+	/**
+	 * recursive array_values (returns all the values of a given array, recursively)
+	 * @param array $array
+	 * @param array $flat
+	 * @return array
+	 */
+	public static function array_flatten($array, $flat = false)
+  {
+    if (!is_array($array) || empty($array))
+    	return false;
+
+    if (empty($flat))
+    	$flat = array();
+
+    foreach ($array as $val)
+    {
+      if (is_array($val))
+      	$flat = array_flatten($val, $flat);
+      else
+      	$flat[] = $val;
+    }
+
+    return $flat;
+  }
+
+  /**
+   * Prints a javascript link with an icon and an onclick
+   * @param string $function
+   * @param string $label
+   */
+  public static function echoJSAction($function, $label)
+  {
+  	echo '<p class="linkWithArrow"><a href="javascript:;" onclick="' . $function . '">' . $label . '</a></p>';
+  }
+
+  /**
+   * Prints a link with an icon
+   * @param string $url
+   * @param string $label
+   */
+  public static function echoAction($url, $label)
+  {
+  	echo '<p class="linkWithArrow"><a href="' . $url . '">' . $label . '</a></p>';
+  }
 }
 
 /**
