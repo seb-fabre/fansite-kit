@@ -1,39 +1,49 @@
 <?php
 class Form
 {
-	private $fields;
-
-	public function __construct($fields)
-	{
-		$this->fields = array(
-			'input' => array(),
-			'select' => array(),
-			'textarea' => array(),
-		);
-	}
-
-	public function addInput($name)
+	private static function echoLabel($label)
 	{
 
 	}
 
-	public function addSelect($name)
+	public static function echoTextInput($label, $name, $value=false, $params=array())
 	{
+		$field = $this->fields['input'][$fieldName];
 
+		if ($value !== false)
+			$valueStr = 'value="' . $field['value'] . '" ';
+		else
+			$valueStr = '';
+
+		$paramsStr = Tools::implodeParams($field['params']);
+
+		echo '<input type="text" name="' . $fieldName . '" ' . $valueStr . $paramsStr . ' />';
 	}
 
-	public function addTextarea($name)
+	public static function getTextInput($inputName,
+																			$inputId = false,
+	                                    $currentValue = '',
+	                                    $options = array(),
+	                                    $validation = false,
+	                                    $validation_text = false)
 	{
 
-	}
+		if (empty($options))
+			$options = array();
 
-	public function __toString($name)
-	{
+		if (!is_array($options))
+			$options = array($options);
 
-	}
+		if (!empty($validation))
+			$options[] = 'alt="' . htmlspecialchars($validation) . '"';
 
-	public function addFieldset($name)
-	{
+		if (!empty($validation_text))
+			$options[] = 'emsg="' . htmlspecialchars($validation_text) . '"';
 
+		// Set default id if not found
+		if (empty($inputId))
+			$inputId = $inputName . 'Id';
+
+		return '<input type="text" name="'.$inputName.'" id="' . $inputId . '" ' . implode(" ", $options) . ' value="' . htmlspecialchars($currentValue) . '" />';
 	}
 }

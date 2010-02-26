@@ -32,7 +32,7 @@ class _Config
 	/**
 	 * @return array
 	 */
-	public static function getAll($order='name ASC')
+	public static function getAll($order="")
 	{
 		return Config::search(array(), $order);
 	}
