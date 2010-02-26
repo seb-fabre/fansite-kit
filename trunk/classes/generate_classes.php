@@ -86,7 +86,7 @@ class _' . $capitalized . '
 	/**
 	 * @return array
 	 */
-	public static function getAll($order=\'name ASC\')
+	public static function getAll($order=\'\')
 	{
 		return ' . $capitalized . '::search(array(), $order);
 	}

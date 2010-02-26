@@ -8,50 +8,56 @@
 
 	$_POST['path'] = ROOT_PATH . 'classes/';
 
-	if (!file_exists(ROOT_PATH . 'includes/_conf.php'))
+	if (!file_exists(INCLUDE_PATH . '_conf.php'))
 	{
 		die("Please run the installation before trying to access any page.");
 	}
 
-	require_once(ROOT_PATH . 'includes/_conf.php');
+	require_once(INCLUDE_PATH . '_conf.php');
 
-	require_once(ROOT_PATH . 'includes/JSON.php');
-	require_once(ROOT_PATH . 'includes/class.tools.php');
+	require_once(INCLUDE_PATH . 'JSON.php');
+	require_once(INCLUDE_PATH . 'class.tools.php');
 
-	require_once(ROOT_PATH . 'classes/__includes.php');
-
-	$LANGUAGES = Config::getValue('languages');
-
-	if (!isset($_SESSION['l']))
-		$lang = strtolower(substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2));
-	else
-		$lang = $_SESSION['l'];
-
-	if (!isset($LANGUAGES[$lang]))
-		$lang = key($LANGUAGES);
-
-	$_SESSION['l'] = $lang;
-
-	define('DEFAULT_DISCLAIMER', '');
-
-	$dico = false;
-	if (file_exists(ROOT_PATH . 'includes/lang.php'))
-		include_once(ROOT_PATH . 'includes/lang.php');
-
-	if (empty($dico))
+	// some files (ex: css) don't need to initialize everything, so stop here
+	if (empty($_GET['quick_init']))
 	{
-		$dico = Tools::initDictionary();
+		require_once(ROOT_PATH . 'classes/__includes.php');
+
+		$CONFIG = Config::loadAll();
+
+		$LANGUAGES = $CONFIG['languages'];
+
+		if (!isset($_SESSION['l']))
+			$lang = strtolower(substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2));
+		else
+			$lang = $_SESSION['l'];
+
+		if (!isset($LANGUAGES[$lang]))
+			$lang = key($LANGUAGES);
+
+		$_SESSION['l'] = $lang;
+
+		define('DEFAULT_DISCLAIMER', '');
+
+		$dico = false;
+		if (file_exists(INCLUDE_PATH . 'lang.php'))
+			include_once(INCLUDE_PATH . 'lang.php');
+
+		if (empty($dico))
+		{
+			$dico = Tools::initDictionary();
+		}
+
+		$VALID_IMAGE_EXTENSIONS = array('jpg', 'jpeg');
+
+		//define('PHOTOS_SMALL_SIZE', $conf['photos small size']);
+		define('PHOTOS_SMALL_SIZE', 150);
+		define('PHOTOS_MEDIUM_SIZE', 450);
+		define('PHOTOS_LARGE_SIZE', 0);
+
+		if (isset($_SESSION['user_id']))
+			$CURRENT_USER = User::find($_SESSION['user_id']);
+		else
+			$CURRENT_USER = false;
 	}
-
-	$VALID_IMAGE_EXTENSIONS = array('jpg', 'jpeg');
-
-	//define('PHOTOS_SMALL_SIZE', $conf['photos small size']);
-	define('PHOTOS_SMALL_SIZE', 150);
-	define('PHOTOS_MEDIUM_SIZE', 450);
-	define('PHOTOS_LARGE_SIZE', 0);
-
-	if (isset($_SESSION['user_id']))
-		$CURRENT_USER = User::find($_SESSION['user_id']);
-	else
-		$CURRENT_USER = false;
 ?>
