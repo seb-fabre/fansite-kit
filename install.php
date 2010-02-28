@@ -20,8 +20,8 @@ if (isset($_POST['install']))
 	$superadminlogin = $_POST['superadmin_login'];
 	$superadminpassword = $_POST['superadmin_password'];
 	$superadminemail = $_POST['superadmin_email'];
-	$languagesshort = $_POST['languages_short'];
-	$languageslong = $_POST['languages_long'];
+	$GLOBALS['LANGUAGES']short = $_POST['languages_short'];
+	$GLOBALS['LANGUAGES']long = $_POST['languages_long'];
 
 	if (!$dbkeeptables)
 	{
@@ -57,17 +57,17 @@ if (isset($_POST['install']))
 			require_once('includes' . DIRECTORY_SEPARATOR . 'JSON.php');
 			require_once('includes' . DIRECTORY_SEPARATOR . 'class.tools.php');
 
-			$languagesshort = array_map('trim', explode("\n", $languagesshort));
-			$languageslong = array_map('trim', explode("\n", $languageslong));
-			$languages = array_combine($languagesshort, $languageslong);
+			$GLOBALS['LANGUAGES']short = array_map('trim', explode("\n", $GLOBALS['LANGUAGES']short));
+			$GLOBALS['LANGUAGES']long = array_map('trim', explode("\n", $GLOBALS['LANGUAGES']long));
+			$GLOBALS['LANGUAGES'] = array_combine($GLOBALS['LANGUAGES']short, $GLOBALS['LANGUAGES']long);
 
-			if (!isset($languages['en']))
-				$languages['en'] = 'English';
+			if (!isset($GLOBALS['LANGUAGES']['en']))
+				$GLOBALS['LANGUAGES']['en'] = 'English';
 
 			Config::setValue('VIDEOS ENABLED', 1);
 			Config::setValue('GUESTBOOK ENABLED', 1);
 			Config::setValue('REGISTRATIONS ENABLED', 1);
-			Config::setValue('LANGUAGES', json_encode($languages));
+			Config::setValue('LANGUAGES', json_encode($GLOBALS['LANGUAGES']));
 			Config::setValue('COUNT LATEST NEWS', 5);
 			Config::setValue('COUNT LATEST UPDATES', 10);
 			Config::setValue('COUNT NEWS PER PAGE', 0);

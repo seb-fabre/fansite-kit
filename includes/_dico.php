@@ -4,7 +4,7 @@
 	$dico["fr"] = array();
 	$dico["es"] = array();
 
-	$LANGUAGES = array('fr', 'en');
+	$GLOBALS['LANGUAGES'] = array('fr', 'en');
 
 	$dico['fr']['disclaimer'] = "Soyez les bienvenus sur mon site sur Lucy Liu.
 Ceci est un site gratuit de fan sur Lucy, nous ne sommes pas affiliés avec Elle et ne sommes pas rémunérés pour ce site.

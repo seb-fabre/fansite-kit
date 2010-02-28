@@ -249,7 +249,14 @@ HTML;
 	{
 		echo <<<HTML
 <div id="footer">
+	Site créé et designé par arteau<br>
+	pour toute réclamation : arteau <img alt="(a)" src="/img/aro.gif"> free.fr<br />
+	Site optimisé pour Firefox<img id="ff" alt="" src="/img/ff.png">
 
+	<p>
+		<a href="http://validator.w3.org/check?uri=referer"><img width="88" height="31" alt="Valid XHTML 1.0 Strict" src="http://www.w3.org/Icons/valid-xhtml10"></a>
+		<a href="http://jigsaw.w3.org/css-validator/check?uri=referer"><img alt="Valid CSS 2.1" src="http://jigsaw.w3.org/css-validator/images/vcss"></a>
+	</p>
 </div>
 HTML;
 	}
@@ -382,14 +389,12 @@ HTML;
 	 */
 	public static function initDictionary()
 	{
-		global $LANGUAGES;
-
 		$dico = array();
 		$strings = self::getLanguageStrings();
 
 		$defaultDico = array_combine($strings, $strings);
 
-		foreach ($LANGUAGES as $l)
+		foreach ($GLOBALS['LANGUAGES'] as $l)
 		{
 			$dico[$l] = $defaultDico;
 			$dico['disclaimer'] = DEFAULT_DISCLAIMER;

@@ -2,7 +2,7 @@
   require_once('../includes/_init.php');
 
   $select = '';
-  foreach ($LANGUAGES as $l)
+  foreach ($GLOBALS['LANGUAGES'] as $l)
     $select .= '<option value="' . $l . '">' . $l . '</option>';
 
   $html = '<fieldset>

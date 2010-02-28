@@ -25,15 +25,18 @@
 
 		$CONFIG = Config::loadAll();
 
-		$LANGUAGES = $CONFIG['languages'];
+		if (empty($CONGIF['LANGUAGES']))
+			$CONFIG['languages'] = array('en' => 'English');
+
+		$GLOBALS['LANGUAGES'] = $CONFIG['languages'];
 
 		if (!isset($_SESSION['l']))
 			$lang = strtolower(substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2));
 		else
 			$lang = $_SESSION['l'];
 
-		if (!isset($LANGUAGES[$lang]))
-			$lang = key($LANGUAGES);
+		if (!isset($GLOBALS['LANGUAGES'][$lang]))
+			$lang = key($GLOBALS['LANGUAGES']);
 
 		$_SESSION['l'] = $lang;
 
