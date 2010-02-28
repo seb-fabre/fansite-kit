@@ -5,8 +5,8 @@
   
   $l = $_GET['l'];
   
-  if (!in_array($l, $LANGUAGES))
-    $lang = reset($LANGUAGES);
+  if (!in_array($l, $GLOBALS['LANGUAGES']))
+    $lang = reset($GLOBALS['LANGUAGES']);
   
   $_SESSION['l'] = $l;
   

@@ -9,7 +9,7 @@ $message = false;
 //	exit;
 //}
 
-$title = Tools::translate('menu_admin');
+$title = Tools::translate('Edit site configuration');
 
 $headers = array();
 $headers['css'] = array(
@@ -38,17 +38,17 @@ Tools::echoHTMLHead($title, $headers);
 	<?=Tools::echoHeader();?>
 
 	<div id="body" class="body100">
-		<h1><?php echo Tools::translate('Edit site configuration')?></h1>
+		<h1><?=$title?></h1>
 
 		<form methode="post">
 			<?= echoFieldsetStart(Tools::translate('General configuration')); ?>
 			<p><input type="checkbox" name="VIDEOS_ENABLED" value="1" <?=Config::getValue('VIDEOS ENABLED') ? 'checked="checked"' : ''?> class="left" /><label><?=Tools::translate('Enable videos')?></label></p>
-			Config::setValue('GUESTBOOK ENABLED', 1);
-			Config::setValue('REGISTRATIONS ENABLED', 1);
-			Config::setValue('LANGUAGES', json_encode($languages));
-			Config::setValue('COUNT LATEST NEWS', 5);
-			Config::setValue('COUNT LATEST UPDATES', 10);
-			Config::setValue('COUNT NEWS PER PAGE', 0);
+			<p><input type="checkbox" name="GUESTBOOK_ENABLED" value="1" <?=Config::getValue('GUESTBOOK ENABLED') ? 'checked="checked"' : ''?> class="left" /><label><?=Tools::translate('Enable guestbook')?></label></p>
+			<p><input type="checkbox" name="REGISTRATIONS_ENABLED" value="1" <?=Config::getValue('REGISTRATIONS ENABLED') ? 'checked="checked"' : ''?> class="left" /><label><?=Tools::translate('Enable registrations')?></label></p>
+			<p><input type="checkbox" name="LANGUAGES" value="1" <?=Config::getValue('LANGUAGES') ? 'checked="checked"' : ''?> class="left" /><label><?=Tools::translate('Languages')?></label></p>
+			<p><input type="checkbox" name="COUNT_LATEST_NEWS" value="1" <?=Config::getValue('COUNT LATEST NEWS') ? 'checked="checked"' : ''?> class="left" /><label><?=Tools::translate('Count latest news')?></label></p>
+			<p><input type="checkbox" name="COUNT_LATEST_UPDATES" value="1" <?=Config::getValue('COUNT LATEST UPDATES') ? 'checked="checked"' : ''?> class="left" /><label><?=Tools::translate('Count latest updates')?></label></p>
+			<p><input type="checkbox" name="COUNT_NEWS_PER_PAGE" value="1" <?=Config::getValue('COUNT NEWS PER PAGE') ? 'checked="checked"' : ''?> class="left" /><label><?=Tools::translate('Count news per page')?></label></p>
 			<?= echoFieldsetEnd(); ?>
 		</form>
 

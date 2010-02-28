@@ -11,7 +11,7 @@
 	    ' . Tools::listGalleryTree(NULL);
 
     $html .= '<p>' . Tools::translate("Gallery's names : ") . '</p>';
-    foreach ($LANGUAGES as $l)
+    foreach ($GLOBALS['LANGUAGES'] as $l)
 	$html .= '<p class="shortLabel"><label>' . strtoupper($l) . ' : </label><input class="gallery_name" name="gallery_name[' . $l . ']" /></p>';
 
     $html .= '</fieldset>';

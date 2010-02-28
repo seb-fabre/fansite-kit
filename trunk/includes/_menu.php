@@ -16,11 +16,11 @@
 
   <div id="menu_languages">
     <?php
-    if (count($LANGUAGES) > 1)
+    if (count($GLOBALS['LANGUAGES']) > 1)
     {
-      foreach ($LANGUAGES as $code => $label)
+      foreach ($GLOBALS['LANGUAGES'] as $code => $label)
       {
-	echo '<a href="/language.php?l=' . $code . '"><img src="/img/languages/' . $code . '.png" alt="' . $label . '" title="' . $label . '" /></a>';
+				echo '<a href="/language.php?l=' . $code . '"><img src="/img/languages/' . $code . '.png" alt="' . $label . '" title="' . $label . '" /></a>';
       }
     }
     ?>

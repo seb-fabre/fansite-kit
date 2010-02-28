@@ -11,7 +11,7 @@
   $html = '<form action="" style="display: none">';
   $html .= '<p><label>' . Tools::translate('Date') . '</label><input type="text" name="date" value="' . $news->date . '" size="50" /></p>';
   $glu = '';
-  foreach ($LANGUAGES as $lang)
+  foreach ($GLOBALS['LANGUAGES'] as $lang)
   {
 	  $html .= $glu;
   	$html .= '<h3>' . $lang . '</h3>';
