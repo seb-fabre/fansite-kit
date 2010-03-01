@@ -192,3 +192,7 @@ Also a page (or on the same page) with a summary:
   * total clicks on galleries
   * total video downloads
   * members count
+
+=== Tracking ===
+
+Add a tracking mechanism, to save which pages are accessed the most, etc...
