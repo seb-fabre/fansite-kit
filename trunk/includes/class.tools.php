@@ -247,6 +247,12 @@ HTML;
 	 */
 	public static function echoFooter()
 	{
+		$footerJs = '<script type="text/javascript">
+			$().ready(function(){
+				' . $GLOBALS['FooterJS'] . '
+			});
+		</script>';
+
 		echo <<<HTML
 <div id="footer">
 	Site créé et designé par arteau<br>
@@ -258,6 +264,7 @@ HTML;
 		<a href="http://jigsaw.w3.org/css-validator/check?uri=referer"><img alt="Valid CSS 2.1" src="http://jigsaw.w3.org/css-validator/images/vcss"></a>
 	</p>
 </div>
+$footerJs
 HTML;
 	}
 
