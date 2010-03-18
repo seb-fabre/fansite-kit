@@ -20,8 +20,8 @@ if (isset($_POST['install']))
 	$superadminlogin = $_POST['superadmin_login'];
 	$superadminpassword = $_POST['superadmin_password'];
 	$superadminemail = $_POST['superadmin_email'];
-	$GLOBALS['LANGUAGES']short = $_POST['languages_short'];
-	$GLOBALS['LANGUAGES']long = $_POST['languages_long'];
+	$GLOBALS['LANGUAGES']['short'] = $_POST['languages_short'];
+	$GLOBALS['LANGUAGES']['long'] = $_POST['languages_long'];
 
 	if (!$dbkeeptables)
 	{
@@ -57,9 +57,9 @@ if (isset($_POST['install']))
 			require_once('includes' . DIRECTORY_SEPARATOR . 'JSON.php');
 			require_once('includes' . DIRECTORY_SEPARATOR . 'class.tools.php');
 
-			$GLOBALS['LANGUAGES']short = array_map('trim', explode("\n", $GLOBALS['LANGUAGES']short));
-			$GLOBALS['LANGUAGES']long = array_map('trim', explode("\n", $GLOBALS['LANGUAGES']long));
-			$GLOBALS['LANGUAGES'] = array_combine($GLOBALS['LANGUAGES']short, $GLOBALS['LANGUAGES']long);
+			$GLOBALS['LANGUAGES']['short'] = array_map('trim', explode("\n", $GLOBALS['LANGUAGES']['short']));
+			$GLOBALS['LANGUAGES']['long'] = array_map('trim', explode("\n", $GLOBALS['LANGUAGES']['long']));
+			$GLOBALS['LANGUAGES'] = array_combine($GLOBALS['LANGUAGES']['short'], $GLOBALS['LANGUAGES']['long']);
 
 			if (!isset($GLOBALS['LANGUAGES']['en']))
 				$GLOBALS['LANGUAGES']['en'] = 'English';

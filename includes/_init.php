@@ -63,4 +63,6 @@
 		else
 			$CURRENT_USER = false;
 	}
+
+	$GLOBALS['FooterJS'] = '';
 ?>
