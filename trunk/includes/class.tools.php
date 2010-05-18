@@ -85,9 +85,9 @@ class Tools
 		foreach ($galleries as $gal)
 		{
 			if (isset($hierarchy[$i+1]) && $gal->id === $hierarchy[$i+1])
-				$dir .= '<li class="directory collapsed"><a href="/gallery/' . $gal->id . '/' . Tools::cleanLink($gal->name) . '" class="active">' . $gal->name . '</a>' . Tools::browseGalleryTree($i + 1) . '</li>';
+				$dir .= '<li class="directory collapsed"><a href="' . APPLICATION_URL . 'gallery/' . $gal->id . '/' . Tools::cleanLink($gal->name) . '" class="active">' . $gal->name . '</a>' . Tools::browseGalleryTree($i + 1) . '</li>';
 			else
-				$dir .= '<li class="directory collapsed"><a href="/gallery/' . $gal->id . '/' . Tools::cleanLink($gal->name) . '">' . $gal->name . '</a></li>';
+				$dir .= '<li class="directory collapsed"><a href="' . APPLICATION_URL . 'gallery/' . $gal->id . '/' . Tools::cleanLink($gal->name) . '">' . $gal->name . '</a></li>';
 		}
 		$dir .= '</ul>';
 		return $dir;
@@ -220,7 +220,7 @@ class Tools
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link href="{$url}css/process_css.php?name=site" rel="stylesheet" type="text/css" />
     <title>$title</title>
-    <script src="/js/jquery-1.3.2.min.js" type="text/javascript"></script>
+    <script src="{$url}js/jquery-1.3.2.min.js" type="text/javascript"></script>
 
     $additionalCss
     $additionalJs
@@ -235,8 +235,9 @@ HTML;
 	 */
 	public static function echoHeader()
 	{
-		echo '<div id="header">
-      <img src="' . Tools::getImage('banniere.jpg') . '" alt="banniere du site" />';
+		echo '<img src="' . Tools::getImage('banniere.jpg') . '" alt="banniere du site" />';
+		echo '<div id="header">';
+//		echo '<div id="header" style="background: url(' . Tools::getImage('banniere.jpg') . ')">';
     require_once(INCLUDE_PATH . '_menu.php');
     echo '</div>';
 	}

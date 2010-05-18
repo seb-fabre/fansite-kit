@@ -15,6 +15,10 @@ body {
 	color: #FFFFFF;
 }
 
+#body {
+	background: none repeat scroll 0 0 #444444;
+}
+
 img {
   border: none;
 }
@@ -145,6 +149,10 @@ td {
 
 #body {
 	border: 3px double #555555;
+}
+
+#content {
+	border-top: 3px double #555555;
 }
 
 #galleryTree {

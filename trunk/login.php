@@ -50,17 +50,17 @@
   <?php require_once(INCLUDE_PATH . '_meta.php'); ?>
   <title>Lucy Liu fansite by arteau - Page d'accueil - BIENVENUE !!!</title>
 
-  <link href="/css/site.css.php" rel="stylesheet" type="text/css" />
-  <link href="/css/cupertino/jquery-ui-1.7.2.custom.css" rel="stylesheet" type="text/css" />
+  <link href="<?=APPLICATION_URL?>css/site.css.php" rel="stylesheet" type="text/css" />
+  <link href="<?=APPLICATION_URL?>css/cupertino/jquery-ui-1.7.2.custom.css" rel="stylesheet" type="text/css" />
 
-  <script src="/js/jquery-1.3.2.min.js" type="text/javascript"></script>
-  <script src="/js/jquery-ui-1.7.2.custom.min.js" type="text/javascript"></script>
+  <script src="<?=APPLICATION_URL?>js/jquery-1.3.2.min.js" type="text/javascript"></script>
+  <script src="<?=APPLICATION_URL?>js/jquery-ui-1.7.2.custom.min.js" type="text/javascript"></script>
 </head>
 
 <body>
     <div id="container">
         <div id="header">
-          <img src="/img/banniere.jpg" alt="banniere du site" />
+          <img src="<?=APPLICATION_URL?>img/banniere.jpg" alt="banniere du site" />
           <?php require_once(INCLUDE_PATH . '_menu.php'); ?>
         </div>
         

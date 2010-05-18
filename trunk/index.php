@@ -25,39 +25,41 @@ Tools::echoHTMLHead($title);
 
 ?>
 <body>
-	<?= Tools::echoHeader(); ?>
+	<div id="body">
+		<?= Tools::echoHeader(); ?>
 
-	<div id="content">
-		<div id="latest_updates" class="blockWithHeader">
-			<h2><?php echo Tools::translate('latest updates'); ?></h2>
-			<div class="blockWithHeaderContent">
-				<?php
-					foreach ($latestUpdates as $update)
-					{
-						echo '<p>' . $update->name . ' - ' . $update->date . '</p>';
-					}
-				?>
-			</div>
-		</div>
-
-		<div id="disclaimer">
-			<?php echo Tools::getDisclaimer() ?>
-		</div>
-
-		<div id="latest_news">
-			<?php foreach ($latestNews as $news): ?>
-			<div class="blockWithHeader">
-				<h2><?php echo $news->title ?></h2>
+		<div id="content">
+			<div id="latest_updates" class="blockWithHeader">
+				<h2><?php echo Tools::translate('latest updates'); ?></h2>
 				<div class="blockWithHeaderContent">
-					<?php echo $news->text ?>
+					<?php
+						foreach ($latestUpdates as $update)
+						{
+							echo '<p>' . $update->name . ' - ' . $update->date . '</p>';
+						}
+					?>
 				</div>
 			</div>
-			<?php endforeach; ?>
+
+			<div id="disclaimer">
+				<?php echo Tools::getDisclaimer() ?>
+			</div>
+
+			<div id="latest_news">
+				<?php foreach ($latestNews as $news): ?>
+				<div class="blockWithHeader">
+					<h2><?php echo $news->title ?></h2>
+					<div class="blockWithHeaderContent">
+						<?php echo $news->text ?>
+					</div>
+				</div>
+				<?php endforeach; ?>
+			</div>
+
+			<div style="clear:both"></div>
 		</div>
 
-		<div style="clear:both"></div>
+		<?php echo Tools::echoFooter(); ?>
 	</div>
-
-	<?php echo Tools::echoFooter(); ?>
 </body>
 </html>
