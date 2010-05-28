@@ -5,12 +5,17 @@
 
   header('Content-type: text/css');
 
+	if (defined('APPLICATION_URL'))
+		$url = APPLICATION_URL;
+	else
+		$url = './';
+
   if (!empty($_GET['name']))
   {
 	  $name = $_GET['name'];
 	  $f = ROOT_PATH . 'css/' . $name . '.css';
 
-	  $infos = getimagesize(ROOT_PATH . 'img/banniere.jpg');
+	  $infos = getimagesize(ROOT_PATH . 'images/banniere.jpg');
 	  $bannerHeight = $infos[1];
 
 	  if (file_exists($f))
@@ -19,7 +24,7 @@
 
 		  while($css = fgets($fp))
 		  {
-		    $css = str_replace('{application_url}', APPLICATION_URL, $css);
+		    $css = str_replace('{application_url}', $url, $css);
 		    $css = str_replace('{banner_height}', $bannerHeight, $css);
 		    echo $css;
 		  }

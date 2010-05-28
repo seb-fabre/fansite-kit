@@ -227,4 +227,3 @@ class _User
 		return Video::search(array(array("user_id", $this->id)));
 	}
 }
-?>

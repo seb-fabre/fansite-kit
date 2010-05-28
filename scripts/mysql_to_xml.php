@@ -47,4 +47,3 @@ echo $output;
 
 // close the connection
 mysql_close($dbhandle);
-?>

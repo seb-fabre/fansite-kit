@@ -1,7 +1,7 @@
 <?php
 class _Config
 {
-	protected $_data = array('id' => null, 'value' => null, 'type' => null);
+	protected $_data = array('id' => null, 'name' => null, 'value' => null);
 
 	protected $_editedFields = array();
 
@@ -88,7 +88,7 @@ class _Config
 		if ($limit)
 			$query .= " LIMIT " . $limit;
 
-		$req = mysql_query($query);
+		$req = mysql_query($query) or die (mysql_error());
 		while ($res = mysql_fetch_array($req))
 			$results [$res['id']] = new Config($res);
 
@@ -187,4 +187,3 @@ class _Config
 		mysql_query("DELETE FROM config WHERE id=" . $this->id);
 	}
 }
-?>

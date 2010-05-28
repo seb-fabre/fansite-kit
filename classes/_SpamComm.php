@@ -187,4 +187,3 @@ class _SpamComm
 		mysql_query("DELETE FROM spam_comm WHERE id=" . $this->id);
 	}
 }
-?>

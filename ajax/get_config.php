@@ -18,4 +18,3 @@
       <input type="button" onclick="$.modal.close()" value="' . Tools::translate('Close') . '" />
     </p>'
   ));
-?>

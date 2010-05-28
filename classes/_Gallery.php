@@ -219,4 +219,3 @@ class _Gallery
 		return Image::search(array(array("gallery_id", $this->id)));
 	}
 }
-?>

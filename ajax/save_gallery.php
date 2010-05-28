@@ -24,4 +24,3 @@
     }
     
     echo json_encode(array('success' => (count($errors) == 0) ? 1 : 0, 'errors' => implode("<br/>", $errors), 'message' => Tools::translate('The gallery was created successfully.')));
-?>

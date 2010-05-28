@@ -55,4 +55,4 @@
 	return '/gallery/' . $this->id . '/' . Tools::cleanLink($this->name) . '">' . $this->name;
     }
   }
-  ?>
+  

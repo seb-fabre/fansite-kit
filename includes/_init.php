@@ -8,12 +8,13 @@
 
 	$_POST['path'] = ROOT_PATH . 'classes/';
 
-	if (!file_exists(INCLUDE_PATH . '_conf.php'))
+	if (empty($_GET['quick_init']) && !file_exists(INCLUDE_PATH . '_conf.php'))
 	{
 		die("Please run the installation before trying to access any page.");
 	}
-
-	require_once(INCLUDE_PATH . '_conf.php');
+	
+	if (empty($_GET['quick_init']))
+		require_once(INCLUDE_PATH . '_conf.php');
 
 	require_once(INCLUDE_PATH . 'JSON.php');
 	require_once(INCLUDE_PATH . 'class.tools.php');
@@ -23,12 +24,15 @@
 	{
 		require_once(ROOT_PATH . 'classes/__includes.php');
 
-		$CONFIG = Config::loadAll();
+		$languages = Config::getValue('LANGUAGES');
 
-		if (empty($CONGIF['LANGUAGES']))
-			$CONFIG['languages'] = array('en' => 'English');
+		if (empty($languages))
+		{
+			$languages = array('en' => 'English');
+			Config::setValue('LANGUAGES', $languages);
+		}
 
-		$GLOBALS['LANGUAGES'] = $CONFIG['languages'];
+		$GLOBALS['LANGUAGES'] = $languages;
 
 		if (!isset($_SESSION['l']))
 			$lang = strtolower(substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2));
@@ -65,4 +69,3 @@
 	}
 
 	$GLOBALS['FooterJS'] = '';
-?>

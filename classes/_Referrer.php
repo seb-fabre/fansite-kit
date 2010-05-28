@@ -187,4 +187,3 @@ class _Referrer
 		mysql_query("DELETE FROM referrer WHERE id=" . $this->id);
 	}
 }
-?>

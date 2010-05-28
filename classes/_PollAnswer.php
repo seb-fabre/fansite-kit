@@ -150,4 +150,3 @@ class _PollAnswer
 		mysql_query("DELETE FROM poll_answer WHERE id=" . $this->id);
 	}
 }
-?>

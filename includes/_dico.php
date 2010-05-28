@@ -424,4 +424,3 @@ The are currently {count_images} and {count_videos} on the site.";
 	//	SONDAGE
 	$dico['fr']['sondage'] = 'Sondage';
 	$dico['en']['sondage'] = 'Poll';
-?>

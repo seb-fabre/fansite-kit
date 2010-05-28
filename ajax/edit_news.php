@@ -31,4 +31,3 @@
     'success' => 1,
     'html' => $html
   ));
-?>

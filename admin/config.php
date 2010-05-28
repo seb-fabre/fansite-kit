@@ -3,11 +3,11 @@ require_once ('../includes/_init.php');
 
 $message = false;
 
-//if (!isset($_SESSION['user_id']) || !isset($_SESSION['is_admin']))
-//{
-//	header('location: ' . APPLICATION_URL);
-//	exit;
-//}
+if (!isset($_SESSION['user_id']) || !isset($_SESSION['is_admin']))
+{
+	header('location: ' . APPLICATION_URL);
+	exit;
+}
 
 $title = Tools::translate('Edit site configuration');
 
@@ -41,8 +41,6 @@ if (!empty($_POST['save']))
 		$okSave = false;
 	}
 
-
-
 	// do the save
 	if ($okSave)
 	{
@@ -63,7 +61,7 @@ Tools::echoHTMLHead($title, $headers);
 	<div id="body" class="body100">
 		<h1><?=$title?></h1>
 
-		<form methode="post">
+		<form method="post">
 			<?= echoFieldsetStart(Tools::translate('General configuration')); ?>
 			<p><input type="checkbox" name="VIDEOS_ENABLED" value="1" <?=Config::getValue('VIDEOS ENABLED') ? 'checked="checked"' : ''?> class="left" /><label><?=Tools::translate('Enable videos')?></label></p>
 			<p><input type="checkbox" name="GUESTBOOK_ENABLED" value="1" <?=Config::getValue('GUESTBOOK ENABLED') ? 'checked="checked"' : ''?> class="left" /><label><?=Tools::translate('Enable guestbook')?></label></p>

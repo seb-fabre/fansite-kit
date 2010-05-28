@@ -187,4 +187,3 @@ class _Dictionary
 		mysql_query("DELETE FROM dictionary WHERE id=" . $this->id);
 	}
 }
-?>
