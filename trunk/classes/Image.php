@@ -16,4 +16,3 @@ class Image extends _Image
   return '/photos/' . $this->gallery_id . '/thumb_' . $this->name;
   }
 }
-?>

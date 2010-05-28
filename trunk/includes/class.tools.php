@@ -42,6 +42,9 @@ class Tools
 	 */
 	public static function postSort($values, $field)
 	{
+		if (empty($values))
+			return array();
+
 		$GLOBALS['postSortFunction_field'] = $field;
 		uasort($values, 'postSortFunction');
 		unset($GLOBALS['postSortFunction_field']);
@@ -220,7 +223,8 @@ class Tools
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link href="{$url}css/process_css.php?name=site" rel="stylesheet" type="text/css" />
     <title>$title</title>
-    <script src="{$url}js/jquery-1.3.2.min.js" type="text/javascript"></script>
+    <script src="{$url}js/jquery-1.4.2.min.js" type="text/javascript"></script>
+    <script src="{$url}js/jquery-ui-1.8.custom.min.js" type="text/javascript"></script>
 
     $additionalCss
     $additionalJs
@@ -229,16 +233,32 @@ class Tools
 HTML;
 	}
 
+	public static function getBanners()
+	{
+		return json_decode(Config::getValue('BANNERS'));
+	}
+
 	/**
 	 * Print the html header
 	 *
 	 */
 	public static function echoHeader()
 	{
-		echo '<img src="' . Tools::getImage('banniere.jpg') . '" alt="banniere du site" />';
-		echo '<div id="header">';
-//		echo '<div id="header" style="background: url(' . Tools::getImage('banniere.jpg') . ')">';
-    require_once(INCLUDE_PATH . '_menu.php');
+		$banners = self::getBanners();
+
+		$banner = false;
+		if (!empty($banners))
+			$banner = $banners[array_rand($banners, 1)];
+
+		echo '<div id="header" class="' . ($banner ? 'menuWithBanner' : 'menuWithoutBanner') . '">';
+		
+		if ($banner)
+			echo '<div style="background: url(' . Tools::getImage($banner['filename']) . '); width:' . $banner['width'] . 'px; height: ' . $banner['height'] . 'px;"></div>';
+
+		echo '<div id="menu">';
+		require_once(INCLUDE_PATH . '_menu.php');
+		echo '</div>';
+
     echo '</div>';
 	}
 
@@ -512,4 +532,3 @@ function echoFieldsetEnd()
 {
 	echo '</div>';
 }
-?>

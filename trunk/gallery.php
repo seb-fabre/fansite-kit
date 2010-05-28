@@ -53,14 +53,14 @@
 ?>
 
 <body>
-  <div id="container">
+  <div id="body">
     <?= Tools::echoHeader(); ?>
 
-		<div id="body">
-			<div id="galleryTree"><div id="galleryTreeTop"><div id="galleryTreeMiddle">
+		<div id="content">
+			<div id="galleryTree">
 				<h2><?php echo Tools::translate('Galleries tree') ?></h2>
 				<?php echo Tools::generateGalleryTree(($gallery ? $gallery->id : 0)) ?>
-			</div></div></div>
+			</div>
 
 			<div id="galleryContent">
 				<h1 class="galleries"><?php if ($gallery) echo $gallery->name; else echo Tools::translate('Main categories') ?></h1>
@@ -110,9 +110,7 @@
 			<div class="clearBoth">&nbsp;</div>
 		</div>
 
-		<div id="footer">
-
-		</div>
+		 <?= Tools::echoFooter(); ?>
 	</div>
 </body>
 </html>

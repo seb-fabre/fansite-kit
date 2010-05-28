@@ -195,4 +195,3 @@ class _Image
 		return Commentsphoto::search(array(array("image_id", $this->id)));
 	}
 }
-?>

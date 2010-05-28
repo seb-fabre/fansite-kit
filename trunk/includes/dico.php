@@ -49,7 +49,7 @@
 	$fr['photo'] = 'photo';
 	$en['photo'] = 'picture';
 	
-	$fr['pas le droit'] = 'Vous devez vous enregistrer ou vous connecter pour acc&eacute;der à cette fonctionnalit&eacute;.';
+	$fr['pas le droit'] = 'Vous devez vous enregistrer ou vous connecter pour acc&eacute;der ï¿½ cette fonctionnalit&eacute;.';
 	$en['pas le droit'] = 'You need to register or to login in order to access to this function.';
 	
 	$fr['stats'] = 'Statistiques';
@@ -353,4 +353,3 @@
 	//	SONDAGE
 	$fr['sondage'] = 'Sondage';
 	$en['sondage'] = 'Poll';
-?>

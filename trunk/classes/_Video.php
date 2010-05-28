@@ -187,4 +187,3 @@ class _Video
 		mysql_query("DELETE FROM video WHERE id=" . $this->id);
 	}
 }
-?>

@@ -187,4 +187,3 @@ class _Test
 		mysql_query("DELETE FROM test WHERE id=" . $this->id);
 	}
 }
-?>

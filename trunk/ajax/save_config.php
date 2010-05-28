@@ -13,4 +13,3 @@
   $config->save();
   
   echo json_encode(array('success' => 1));
-?>

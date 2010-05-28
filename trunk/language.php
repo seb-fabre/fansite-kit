@@ -11,4 +11,3 @@
   $_SESSION['l'] = $l;
   
   header('location: ' . $referer);
-?>

@@ -8,4 +8,3 @@
     $html = Tools::listGalleryTree($_POST['id']);
 
     echo $html;
-?>

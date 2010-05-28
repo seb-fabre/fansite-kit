@@ -187,4 +187,3 @@ class _News
 		mysql_query("DELETE FROM news WHERE id=" . $this->id);
 	}
 }
-?>

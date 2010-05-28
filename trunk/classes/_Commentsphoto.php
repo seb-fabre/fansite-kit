@@ -203,4 +203,3 @@ class _Commentsphoto
 		return Image::find($this->image_id);
 	}
 }
-?>

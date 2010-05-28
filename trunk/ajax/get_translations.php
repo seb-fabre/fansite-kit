@@ -19,4 +19,4 @@
   }
   else
     echo json_encode(array('text' => Tools::translate('No language selected')));
-?>
+	

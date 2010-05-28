@@ -2,4 +2,4 @@
 	class PollAnswer extends _PollAnswer
 	{
 	}
-	?>
+	

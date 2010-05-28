@@ -2,4 +2,4 @@
 	class Blacklist extends _Blacklist
 	{
 	}
-	?>
+	

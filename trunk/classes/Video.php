@@ -2,4 +2,4 @@
 	class Video extends _Video
 	{
 	}
-	?>
+	

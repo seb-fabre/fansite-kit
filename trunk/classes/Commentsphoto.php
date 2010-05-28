@@ -2,4 +2,4 @@
 	class Commentsphoto extends _Commentsphoto
 	{
 	}
-	?>
+	

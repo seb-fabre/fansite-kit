@@ -187,4 +187,3 @@ class _Commentaires
 		mysql_query("DELETE FROM commentaires WHERE id=" . $this->id);
 	}
 }
-?>

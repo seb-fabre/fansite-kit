@@ -187,4 +187,3 @@ class _Liens
 		mysql_query("DELETE FROM liens WHERE id=" . $this->id);
 	}
 }
-?>

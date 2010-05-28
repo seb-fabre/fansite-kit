@@ -78,4 +78,3 @@
 
 		echo json_encode(array('success' => 1, 'message' => Tools::translate('The gallery was created successfully.')));
 	}
-?>

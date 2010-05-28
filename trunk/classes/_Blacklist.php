@@ -187,4 +187,3 @@ class _Blacklist
 		mysql_query("DELETE FROM blacklist WHERE id=" . $this->id);
 	}
 }
-?>

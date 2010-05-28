@@ -38,4 +38,3 @@ require_once('../includes/_init.php');
     insert your PHP code to execute when no file has been posted
     */
   }
-?>
