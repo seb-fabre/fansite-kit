@@ -19,7 +19,7 @@ require_once('../includes/_init.php');
     if (in_array(strtolower($file_ending), $VALID_IMAGE_EXTENSIONS, true) || strtolower($file_ending) == 'zip') { // file filter...
     // ...don't forget that file extension can be fake!
 
-      $dir = ROOT_PATH . 'temporary files/' . $timestamp . '_' . $userId . '/';
+      $dir = $GLOBALS['ROOTPATH'] . 'temporary files/' . $timestamp . '_' . $userId . '/';
       $file = $dir . $file_name;
 
       if (move_uploaded_file($_FILES['Filedata']['tmp_name'], $file)) // move posted file...

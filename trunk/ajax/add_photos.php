@@ -5,7 +5,7 @@
 
     $galleries = Tools::postSort($galleries, 'name');
     
-    $dir = ROOT_PATH . 'temporary files/' . $_SESSION['timestamp'] . '_' . $_SESSION['user_id'] . '/';
+    $dir = $GLOBALS['ROOTPATH'] . 'temporary files/' . $_SESSION['timestamp'] . '_' . $_SESSION['user_id'] . '/';
     if (!is_dir($dir))
 	mkdir($dir, 0777, true);
     

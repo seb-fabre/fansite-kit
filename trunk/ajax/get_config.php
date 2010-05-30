@@ -1,7 +1,7 @@
 <?php
   require_once('../includes/_init.php');
   
-  $config = Config::findBy('type', 'active');
+  $config = Params::findBy('type', 'active');
   
   $html = '<fieldset>
     <legend>' . Tools::translate('Edit config') . '</legend>

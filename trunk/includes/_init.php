@@ -1,12 +1,11 @@
 <?php
+	$GLOBALS['ROOTPATH'] = str_replace('includes/' . basename(__FILE__), '', str_replace('\\', '/', __FILE__));
+
 	session_start();
 
 	header('Content-type: text/html; charset=UTF-8');
 
-	define('ROOT_PATH', str_replace('includes/'.basename(__FILE__), '', str_replace('\\', '/', __FILE__)));
-	define('INCLUDE_PATH', ROOT_PATH . 'includes/');
-
-	$_POST['path'] = ROOT_PATH . 'classes/';
+	define('INCLUDE_PATH', $GLOBALS['ROOTPATH'] . 'includes/');
 
 	if (empty($_GET['quick_init']) && !file_exists(INCLUDE_PATH . '_conf.php'))
 	{
@@ -22,14 +21,14 @@
 	// some files (ex: css) don't need to initialize everything, so stop here
 	if (empty($_GET['quick_init']))
 	{
-		require_once(ROOT_PATH . 'classes/__includes.php');
+		require_once($GLOBALS['ROOTPATH'] . 'includes/__classes.php');
 
-		$languages = Config::getValue('LANGUAGES');
+		$languages = Params::getValue('LANGUAGES');
 
 		if (empty($languages))
 		{
 			$languages = array('en' => 'English');
-			Config::setValue('LANGUAGES', $languages);
+			Params::setValue('LANGUAGES', $languages);
 		}
 
 		$GLOBALS['LANGUAGES'] = $languages;
@@ -61,6 +60,8 @@
 		define('PHOTOS_SMALL_SIZE', 150);
 		define('PHOTOS_MEDIUM_SIZE', 450);
 		define('PHOTOS_LARGE_SIZE', 0);
+
+		define('EMPTY_IMAGE_URL', APPLICATION_URL . 'images/disabled.png');
 
 		if (isset($_SESSION['user_id']))
 			$CURRENT_USER = User::find($_SESSION['user_id']);

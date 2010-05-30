@@ -54,8 +54,14 @@ if (isset($_POST['install']))
 				}
 			}
 
-			$_POST['path'] = dirname(__file__) . DIRECTORY_SEPARATOR . 'classes' . DIRECTORY_SEPARATOR;
-			require_once('classes/__includes.php');
+			$GLOBALS['conf']['mysql_host'] = $dbhost;
+			$GLOBALS['conf']['mysql_login'] = $dblogin;
+			$GLOBALS['conf']['mysql_password'] = $dbpassword;
+			$GLOBALS['conf']['mysql_database'] = $dbname;
+
+			require_once('includes/generate_classes.php');
+
+			require_once('includes/__classes.php');
 			require_once('includes' . DIRECTORY_SEPARATOR . 'JSON.php');
 			require_once('includes' . DIRECTORY_SEPARATOR . 'class.tools.php');
 
@@ -66,14 +72,14 @@ if (isset($_POST['install']))
 			if (!isset($GLOBALS['LANGUAGES']['en']))
 				$GLOBALS['LANGUAGES']['en'] = 'English';
 
-			Config::setValue('VIDEOS ENABLED', 1);
-			Config::setValue('GUESTBOOK ENABLED', 1);
-			Config::setValue('REGISTRATIONS ENABLED', 1);
-			Config::setValue('LANGUAGES', json_encode($GLOBALS['LANGUAGES']));
-			Config::setValue('COUNT LATEST NEWS', 5);
-			Config::setValue('COUNT LATEST UPDATES', 10);
-			Config::setValue('COUNT NEWS PER PAGE', 0);
-			Config::setValue('BANNERS', array());
+			Params::setValue('VIDEOS ENABLED', 1);
+			Params::setValue('GUESTBOOK ENABLED', 1);
+			Params::setValue('REGISTRATIONS ENABLED', 1);
+			Params::setValue('LANGUAGES', json_encode($GLOBALS['LANGUAGES']));
+			Params::setValue('COUNT LATEST NEWS', 5);
+			Params::setValue('COUNT LATEST UPDATES', 10);
+			Params::setValue('COUNT NEWS PER PAGE', 0);
+			Params::setValue('BANNERS', array());
 		}
 		else
 		{
@@ -131,7 +137,7 @@ form {
 </head>
 
 <body>
-<div id="container">
+<div id="content">
 <h1>Install</h1>
 
 <?php
