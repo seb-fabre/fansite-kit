@@ -13,9 +13,9 @@
   if (!empty($_GET['name']))
   {
 	  $name = $_GET['name'];
-	  $f = ROOT_PATH . 'css/' . $name . '.css';
+	  $f = $GLOBALS['ROOTPATH'] . 'css/' . $name . '.css';
 
-	  $infos = getimagesize(ROOT_PATH . 'images/banniere.jpg');
+	  $infos = getimagesize($GLOBALS['ROOTPATH'] . 'images/banniere.jpg');
 	  $bannerHeight = $infos[1];
 
 	  if (file_exists($f))

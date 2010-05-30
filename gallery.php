@@ -19,7 +19,7 @@
 	if ($id != 0 && $gallery)
 		$subgalleries = $gallery->getSubgalleries();
 	else
-		$subgalleries = Gallery::search(array(array('gallery_id', NULL)));
+		$subgalleries = Gallery::search(array(array('fan_gallery_id', 0)));
 
 	$subgalleries = Tools::postSort($subgalleries, 'name');
 
@@ -31,7 +31,9 @@
 	if ($gallery)
 	{
 		$hierarchy = Gallery::getHierarchy($gallery->id);
+
 		unset($hierarchy[0]);
+		
 		if (count($hierarchy) == 0)
 			$title = Tools::translate('Gallery') . ' - ' . $gallery->name;
 		else

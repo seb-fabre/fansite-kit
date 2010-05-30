@@ -1,7 +1,7 @@
 <?php
   require_once('../includes/_init.php');
   
-  $config = Config::findBy('type', 'active');
+  $config = Params::findBy('type', 'active');
   $data = json_decode($config->value);
   
   foreach ($data as $key => $values)

@@ -96,15 +96,16 @@ td {
 }
 
 .blockWithHeader {
-  border: 1px solid #00A;
+  border: 1px solid #000000;
   margin: 10px;
 }
 
 .blockWithHeader h2 {
-  background: #00A;
+  background: none repeat scroll 0 0 #002222;
   padding: 10px;
-  border-bottom: 1px solid #00A;
+  border-bottom: 1px solid #000;
   color: #FFF;
+	margin: 0;
 }
 
 .blockWithHeaderContent {

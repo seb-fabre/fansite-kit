@@ -1,6 +1,8 @@
 <?php
 class Tools
 {
+	public static $lastQuery = '';
+	
 	/**
 	 * Returns the disclaimer displayed on the home page
 	 *
@@ -8,7 +10,7 @@ class Tools
 	 */
 	public static function getDisclaimer()
 	{
-		$dis = Config::getValue('disclaimer');
+		$dis = Params::getValue('disclaimer');
 		$dis = str_replace('{count_images}', Image::count(), $dis);
 		$dis = str_replace('{count_videos}', Video::count(), $dis);
 		return $dis;
@@ -46,7 +48,7 @@ class Tools
 			return array();
 
 		$GLOBALS['postSortFunction_field'] = $field;
-		uasort($values, 'postSortFunction');
+		uasort($values, array('Tools', 'postSortFunction'));
 		unset($GLOBALS['postSortFunction_field']);
 		return $values;
 	}
@@ -80,9 +82,9 @@ class Tools
 		$dir = '<ul class="galleryTree">';
 
 		if ($id == '0')
-			$galleries = Gallery::search(array(array('gallery_id', NULL)));
+			$galleries = Gallery::search(array(array('fan_gallery_id', NULL)));
 		else
-			$galleries = Gallery::search(array(array('gallery_id', $id)));
+			$galleries = Gallery::search(array(array('fan_gallery_id', $id)));
 		$galleries = Tools::postSort($galleries, 'name');
 
 		foreach ($galleries as $gal)
@@ -235,7 +237,7 @@ HTML;
 
 	public static function getBanners()
 	{
-		return json_decode(Config::getValue('BANNERS'));
+		return json_decode(Params::getValue('BANNERS'));
 	}
 
 	/**
@@ -280,10 +282,10 @@ HTML;
 	pour toute réclamation : arteau <img alt="(a)" src="/img/aro.gif"> free.fr<br />
 	Site optimisé pour Firefox<img id="ff" alt="" src="/img/ff.png">
 
-	<p>
+	<!--p>
 		<a href="http://validator.w3.org/check?uri=referer"><img width="88" height="31" alt="Valid XHTML 1.0 Strict" src="http://www.w3.org/Icons/valid-xhtml10"></a>
 		<a href="http://jigsaw.w3.org/css-validator/check?uri=referer"><img alt="Valid CSS 2.1" src="http://jigsaw.w3.org/css-validator/images/vcss"></a>
-	</p>
+	</p-->
 </div>
 $footerJs
 HTML;
@@ -384,7 +386,7 @@ HTML;
 	 */
 	public static function getLanguageStrings()
 	{
-		$files = self::browseDirectory(ROOT_PATH, 'php');
+		$files = self::browseDirectory($GLOBALS['ROOTPATH'], 'php');
 		$strings = array();
 
 		foreach ($files as $file)
@@ -428,7 +430,7 @@ HTML;
 			$dico['disclaimer'] = DEFAULT_DISCLAIMER;
 		}
 
-		$f = fopen(ROOT_PATH . 'includes/lang.php', 'w+');
+		$f = fopen($GLOBALS['ROOTPATH'] . 'includes/lang.php', 'w+');
 
 		fwrite($f, '<?php $dico = ' . var_export($dico, true) . ';');
 
@@ -493,6 +495,41 @@ HTML;
 
   	return $str;
   }
+
+	public static function objectsToSelect($objects, $nameField='name', $options = array())
+	{
+		$id = (!empty($options['id']) ? ' id="' . $options['id'] . '"' : '');
+		$name = (!empty($options['name']) ? ' name="' . $options['name'] . '"' : '');
+		$value = (!empty($options['value']) ? $options['value'] : false);
+
+		$html = '<select' . $id . $name . '>';
+		if (!empty($options['empty']))
+			$html .= '<option value="">' . $options['empty'] . '</option>';
+
+		foreach ($objects as $o)
+			$html .= '<option value="' . $o->id . '"' . ($value !== false && $o->id == $value ? ' selected="selected"' : '') . '>' . $o->$nameField . '</option>';
+
+		$html .= '</select>';
+
+		return $html;
+	}
+
+	public static function mysqlError()
+	{
+		echo '<pre>' . print_r(mysql_error(), true) . '</pre>';
+		echo '<pre>' . print_r(self::$lastQuery, true) . '</pre>';
+		echo '<pre>';debug_print_backtrace();echo '</pre>';
+	}
+
+	public static function mysqlQuery($sql)
+	{
+		self::$lastQuery = $sql;
+
+		if (!empty($GLOBALS['DEBUG']))
+				echo '<pre>' . print_r($sql, true) . '</pre>';
+
+		return mysql_query($sql);
+	}
 }
 
 /**

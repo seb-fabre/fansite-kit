@@ -1,6 +1,6 @@
 <?php
 	require_once ('../includes/_init.php');
-	require_once (ROOT_PATH . 'includes/pclzip.lib.php');
+	require_once ($GLOBALS['ROOTPATH'] . 'includes/pclzip.lib.php');
 
 	$errors = '';
 	$gallery = Gallery::find($_POST ['parent_id']);
@@ -13,7 +13,7 @@
 	}
 	else
 	{
-		$dir = ROOT_PATH . 'temporary files/' . $_SESSION ['timestamp'] . '_' . $_SESSION ['user_id'] . '/';
+		$dir = $GLOBALS['ROOTPATH'] . 'temporary files/' . $_SESSION ['timestamp'] . '_' . $_SESSION ['user_id'] . '/';
 		$galleryDir = $gallery->getDirectory();
 
 		// list the files in the directory
