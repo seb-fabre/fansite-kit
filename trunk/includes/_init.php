@@ -23,25 +23,25 @@
 	{
 		require_once($GLOBALS['ROOTPATH'] . 'includes/__classes.php');
 
-		$languages = Params::getValue('LANGUAGES');
+		$languages = Params::get('LANGUAGES');
 
 		if (empty($languages))
 		{
 			$languages = array('en' => 'English');
-			Params::setValue('LANGUAGES', $languages);
+			Params::set('LANGUAGES', $languages);
 		}
 
 		$GLOBALS['LANGUAGES'] = $languages;
 
-		if (!isset($_SESSION['l']))
+		if (!isset($_SESSION['locale']))
 			$lang = strtolower(substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2));
 		else
-			$lang = $_SESSION['l'];
+			$lang = $_SESSION['locale'];
 
 		if (!isset($GLOBALS['LANGUAGES'][$lang]))
 			$lang = key($GLOBALS['LANGUAGES']);
 
-		$_SESSION['l'] = $lang;
+		$_SESSION['locale'] = $lang;
 
 		define('DEFAULT_DISCLAIMER', '');
 

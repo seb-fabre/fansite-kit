@@ -9,31 +9,35 @@ $GLOBALS["classes"]["Params"] = array("classname" => "Params", "tablename" => "f
 	
 class Params extends _Params
 {
-	public static function setValue($name, $value)
+	public static function set($name, $value)
 	{
-		$Params = Params::findBy('name', $name);
+		$params = Params::findBy('name', $name);
 
-		if (!$Params)
+		if (!$params)
 		{
-			$Params = new Params();
-			$Params->name = $name;
+			$params = new Params();
+			$params->name = $name;
 		}
 
 		if (!is_array($value))
-			$Params->value = $value;
+			$params->value = $value;
 		else
-			$Params->value = json_encode($value);
+			$params->value = json_encode($value);
 
-		$Params->save();
+		$params->save();
 	}
 
-	public static function getValue($name)
+	public static function get($name)
 	{
-		$Params = Params::findBy('name', $name);
+		$params = Params::findBy('name', $name);
 
-		if ($Params)
+		if ($params)
 		{
-			return $Params->value;
+			$json = @json_decode($params->value, true);
+			if (!$json)
+				return $params->value;
+			else
+				return $json;
 		}
 
 		return null;
@@ -42,14 +46,14 @@ class Params extends _Params
 	public static function loadAll()
 	{
 		$tmp = self::getAll();
-		$Paramss = array();
+		$params = array();
 
-		foreach ($Paramss as $conf)
+		foreach ($params as $conf)
 		{
-			$tmp [$conf->name] = $conf->value;
+			$tmp[$conf->name] = $conf->value;
 		}
 
-		return $Paramss;
+		return $params;
 	}
 }
 	

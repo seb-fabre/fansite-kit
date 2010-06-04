@@ -8,6 +8,6 @@
   if (!in_array($l, $GLOBALS['LANGUAGES']))
     $lang = reset($GLOBALS['LANGUAGES']);
   
-  $_SESSION['l'] = $l;
+  $_SESSION['locale'] = $l;
   
   header('location: ' . $referer);

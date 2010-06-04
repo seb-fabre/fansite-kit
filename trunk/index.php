@@ -6,7 +6,7 @@ $latestNews = News::search(null, 'date desc', 10);
 $latestGalleries = Gallery::search(null, 'date desc', 10);
 $latestGalleries = Tools::reindexBy($latestGalleries, 'date desc');
 
-if (Params::getValue('VIDEOS ENABLED'))
+if (Params::get('VIDEOS ENABLED'))
 {
 	$latestVideos = Video::search(null, 'date desc', 10);
 	$latestVideos = Tools::reindexBy($latestVideos, 'date desc');

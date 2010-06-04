@@ -26,6 +26,8 @@ require_once($relativePath . "_Referrer.php");
 require_once($relativePath . "Referrer.php");
 require_once($relativePath . "_SpamComm.php");
 require_once($relativePath . "SpamComm.php");
+require_once($relativePath . "_Translation.php");
+require_once($relativePath . "Translation.php");
 require_once($relativePath . "_User.php");
 require_once($relativePath . "User.php");
 require_once($relativePath . "_Video.php");

@@ -9,6 +9,13 @@ $GLOBALS["classes"]["Gallery"] = array("classname" => "Gallery", "tablename" => 
 	
 class Gallery extends _Gallery
 {
+	protected $classname = 'Gallery';
+
+	public function __construct($values = array(), $updateFields = true)
+	{
+		parent::__construct($values, $updateFields);
+	}
+
 	function getSubgalleries()
 	{
 		return Gallery::search(array(array('fan_gallery_id', $this->id)), 'name');

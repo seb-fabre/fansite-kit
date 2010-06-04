@@ -25,7 +25,7 @@ $headers['js'] = array(
 	'js/colorpicker.js',
 );
 
-$languages = Params::getValue('LANGUAGES');
+$languages = Params::get('LANGUAGES');
 
 // process post data
 if (!empty($_POST['save']))
@@ -44,11 +44,11 @@ if (!empty($_POST['save']))
 	// do the save
 	if ($okSave)
 	{
-		Params::setValue('VIDEOS ENABLED', $_POST['VIDEOS_ENABLED']);
-		Params::setValue('GUESTBOOK ENABLED', $_POST['GUESTBOOK_ENABLED']);
-		Params::setValue('REGISTRATIONS ENABLED', $_POST['REGISTRATIONS_ENABLED']);
+		Params::set('VIDEOS ENABLED', $_POST['VIDEOS_ENABLED']);
+		Params::set('GUESTBOOK ENABLED', $_POST['GUESTBOOK_ENABLED']);
+		Params::set('REGISTRATIONS ENABLED', $_POST['REGISTRATIONS_ENABLED']);
 
-		Params::setValue('LANGUAGES', serialize(array_combine($languageCodes, $languageLabels)));
+		Params::set('LANGUAGES', serialize(array_combine($languageCodes, $languageLabels)));
 	}
 }
 
@@ -63,9 +63,9 @@ Tools::echoHTMLHead($title, $headers);
 
 		<form method="post">
 			<?= echoFieldsetStart(Tools::translate('General configuration')); ?>
-			<p><input type="checkbox" name="VIDEOS_ENABLED" value="1" <?=Params::getValue('VIDEOS ENABLED') ? 'checked="checked"' : ''?> class="left" /><label><?=Tools::translate('Enable videos')?></label></p>
-			<p><input type="checkbox" name="GUESTBOOK_ENABLED" value="1" <?=Params::getValue('GUESTBOOK ENABLED') ? 'checked="checked"' : ''?> class="left" /><label><?=Tools::translate('Enable guestbook')?></label></p>
-			<p><input type="checkbox" name="REGISTRATIONS_ENABLED" value="1" <?=Params::getValue('REGISTRATIONS ENABLED') ? 'checked="checked"' : ''?> class="left" /><label><?=Tools::translate('Enable registrations')?></label></p>
+			<p><input type="checkbox" name="VIDEOS_ENABLED" value="1" <?=Params::get('VIDEOS ENABLED') ? 'checked="checked"' : ''?> class="left" /><label><?=Tools::translate('Enable videos')?></label></p>
+			<p><input type="checkbox" name="GUESTBOOK_ENABLED" value="1" <?=Params::get('GUESTBOOK ENABLED') ? 'checked="checked"' : ''?> class="left" /><label><?=Tools::translate('Enable guestbook')?></label></p>
+			<p><input type="checkbox" name="REGISTRATIONS_ENABLED" value="1" <?=Params::get('REGISTRATIONS ENABLED') ? 'checked="checked"' : ''?> class="left" /><label><?=Tools::translate('Enable registrations')?></label></p>
 			<?= echoFieldsetEnd(); ?>
 
 			<?= echoFieldsetStart(Tools::translate('Languages')); ?>
@@ -85,9 +85,9 @@ Tools::echoHTMLHead($title, $headers);
 			<?= echoFieldsetEnd(); ?>
 
 			<?= echoFieldsetStart(Tools::translate('Number of results')); ?>
-			<p><input type="checkbox" name="COUNT_LATEST_NEWS" value="1" <?=Params::getValue('COUNT LATEST NEWS') ? 'checked="checked"' : ''?> class="left" /><label><?=Tools::translate('Number of results in the "latest news" block')?></label></p>
-			<p><input type="checkbox" name="COUNT_LATEST_UPDATES" value="1" <?=Params::getValue('COUNT LATEST UPDATES') ? 'checked="checked"' : ''?> class="left" /><label><?=Tools::translate('Number of results in the "latest updates" block')?></label></p>
-			<p><input type="checkbox" name="COUNT_NEWS_PER_PAGE" value="1" <?=Params::getValue('COUNT NEWS PER PAGE') ? 'checked="checked"' : ''?> class="left" /><label><?=Tools::translate('Number of news per page (0 = infinite)')?></label></p>
+			<p><input type="checkbox" name="COUNT_LATEST_NEWS" value="1" <?=Params::get('COUNT LATEST NEWS') ? 'checked="checked"' : ''?> class="left" /><label><?=Tools::translate('Number of results in the "latest news" block')?></label></p>
+			<p><input type="checkbox" name="COUNT_LATEST_UPDATES" value="1" <?=Params::get('COUNT LATEST UPDATES') ? 'checked="checked"' : ''?> class="left" /><label><?=Tools::translate('Number of results in the "latest updates" block')?></label></p>
+			<p><input type="checkbox" name="COUNT_NEWS_PER_PAGE" value="1" <?=Params::get('COUNT NEWS PER PAGE') ? 'checked="checked"' : ''?> class="left" /><label><?=Tools::translate('Number of news per page (0 = infinite)')?></label></p>
 			<?= echoFieldsetEnd(); ?>
 		</form>
 
