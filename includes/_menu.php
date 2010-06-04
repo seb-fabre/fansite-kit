@@ -19,7 +19,7 @@
 	{
 		foreach ($GLOBALS['LANGUAGES'] as $code => $label)
 		{
-			echo '<a href="' . APPLICATION_URL . 'language.php?l=' . $code . '"><img src="/img/languages/' . $code . '.png" alt="' . $label . '" title="' . $label . '" /></a>';
+			echo '<a href="' . APPLICATION_URL . 'language.php?l=' . $code . '"><img src="' . Tools::getImage('languages/' . $code . '.png') . '" alt="' . $label . '" title="' . $label . '" /></a>';
 		}
 	}
 	?>

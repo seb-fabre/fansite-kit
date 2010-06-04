@@ -61,6 +61,7 @@ CREATE TABLE IF NOT EXISTS `fan_gallery` (
   `fan_user_id` int(9) NOT NULL DEFAULT '0',
   `fan_gallery_id` int(9) DEFAULT NULL,
   `has_images` tinyint(4) NOT NULL,
+  `ancestors` VARCHAR(255) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fan_user_id` (`fan_user_id`),
   KEY `fan_gallery_id` (`fan_gallery_id`)
@@ -136,6 +137,16 @@ CREATE TABLE IF NOT EXISTS `fan_video` (
   PRIMARY KEY (`id`),
   KEY `fan_user_id` (`fan_user_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=33 ;
+
+CREATE TABLE IF NOT EXISTS `fan_translation` (
+  `id` int(10) unsigned NOT NULL auto_increment,
+  `context_id` int(10) unsigned NOT NULL default '0',
+  `context_classname` varchar(255) NOT NULL default '',
+  `context_field` varchar(255) default NULL,
+  `locale` varchar(5) NOT NULL,
+  `translated_str` longtext,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
 INSERT INTO fan_user(id, login, email, password, is_admin, is_active, is_banned, is_superadmin)
   VALUES (1, "{SUPERADMIN_LOGIN}", "{SUPERADMIN_EMAIL}", ENCODE("{SUPERADMIN_PASSWORD}", "vaihere"), 1, 1, 0, 1);

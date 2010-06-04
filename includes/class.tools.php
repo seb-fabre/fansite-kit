@@ -10,7 +10,7 @@ class Tools
 	 */
 	public static function getDisclaimer()
 	{
-		$dis = Params::getValue('disclaimer');
+		$dis = Params::get('disclaimer');
 		$dis = str_replace('{count_images}', Image::count(), $dis);
 		$dis = str_replace('{count_videos}', Video::count(), $dis);
 		return $dis;
@@ -237,7 +237,7 @@ HTML;
 
 	public static function getBanners()
 	{
-		return json_decode(Params::getValue('BANNERS'));
+		return json_decode(Params::get('BANNERS'));
 	}
 
 	/**
@@ -528,7 +528,14 @@ HTML;
 		if (!empty($GLOBALS['DEBUG']))
 				echo '<pre>' . print_r($sql, true) . '</pre>';
 
-		return mysql_query($sql);
+		$req = mysql_query($sql) or die(Tools::mysqlError());
+
+		return $req;
+	}
+
+	public static function quote($string)
+	{
+		return '"' . mysql_real_escape_string($string) . '"';
 	}
 }
 

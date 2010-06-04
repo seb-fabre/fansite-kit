@@ -4,8 +4,8 @@
  *
  * @author arteau
  */
-class ArtObject {
-
+class ArtObject
+{
 	/**
 	 * The object's data values
 	 *
@@ -14,11 +14,32 @@ class ArtObject {
 	protected $_data = array();
 
 	/**
+	 * The object's traslated fields
+	 *
+	 * @var array an array of values, indexed by field name
+	 */
+	protected $_translatedValues = array();
+
+	/**
 	 * The list of field names that have been edited (for the save function)
 	 *
 	 * @var array
 	 */
 	protected $_editedFields = array();
+
+	/**
+	 * True if object has been loaded successfully from the DB, false otherwise
+	 *
+	 * @var boolean
+	 */
+	protected $isLoaded = false;
+
+	/**
+	 * Classname to retrieve class informations from $GLOBALS['classes']
+	 * 
+	 * @var string the classname
+	 */
+	protected $classname = false;
 
 	public function __construct($values = array(), $updateFields = true)
 	{
@@ -33,6 +54,11 @@ class ArtObject {
 				$this->_data[$key] = $value;
 			}
 		}
+
+		$this->loadTranslatedValues();
+
+		if (!empty($values['id']))
+			$this->isLoaded = true;
 	}
 
 	/**
@@ -48,9 +74,11 @@ class ArtObject {
 		if (!$id)
 			return false;
 
-		$req = Tools::mysqlQuery('SELECT * FROM ' . $GLOBALS['classes'][$class]['tablename'] . ' WHERE id="' . mysql_real_escape_string($id) . '"') or die(Tools::mysqlError());
+		$req = Tools::mysqlQuery('SELECT * FROM ' . $GLOBALS['classes'][$class]['tablename'] . ' WHERE id=' . Tools::quote($id)) or die(Tools::mysqlError());
+
 		if (mysql_num_rows($req) != 0)
 			return new $GLOBALS['classes'][$class]['classname'](mysql_fetch_array($req), false);
+
 		return false;
 	}
 
@@ -78,9 +106,11 @@ class ArtObject {
 	 */
 	public static function findBy($class, $field, $value)
 	{
-		$req = Tools::mysqlQuery('SELECT * FROM ' . $GLOBALS['classes'][$class]['tablename'] . ' WHERE ' . $field . ' LIKE "' . mysql_real_escape_string($value) . '"') or die(Tools::mysqlError());
+		$req = Tools::mysqlQuery('SELECT * FROM ' . $GLOBALS['classes'][$class]['tablename'] . ' WHERE ' . $field . ' LIKE ' . Tools::quote($value));
+		
 		if (mysql_num_rows($req) != 0)
 			return new $GLOBALS['classes'][$class]['classname'](mysql_fetch_array($req), false);
+
 		return false;
 	}
 
@@ -113,7 +143,7 @@ class ArtObject {
 				if (!isset($criterion[2]))
 					$criterion[2] = "=";
 				if ($criterion[1] !== NULL)
-					$query .= $glu . $criterion[0]	. $criterion[2] . '"' . mysql_real_escape_string($criterion[1]) . "\" ";
+					$query .= $glu . $criterion[0]	. $criterion[2] . '' . Tools::quote($criterion[1]) . " ";
 				else
 					$query .= $glu . $criterion[0]	. " IS NULL ";
 				$glu = "AND ";
@@ -140,22 +170,74 @@ class ArtObject {
 	}
 
 	/**
-	 * Override the object's getter
+	 * Get an object's field value
 	 *
 	 * @param string $key the field to retrieve
-	 * 
+	 *
+	 * @return string
+	 */
+	public function getValue($key)
+	{
+		if (array_key_exists($key, $this->_data))
+			return $this->_data[$key];
+
+		return false;
+	}
+
+	/**
+	 * Set an object's field value
+	 *
+	 * @param string $key the field to set
+	 * @param string $value the value
+	 */
+	public function setValue($key, $value)
+	{
+		if (array_key_exists($key, $this->_data))
+			if ($this->_data[$key] != $value)
+			{
+				$this->_editedFields []= $key;
+				$this->_data[$key] = $value;
+			}
+	}
+
+	/**
+	 * Alias for getValue
+	 *
+	 * @param string $key the field to retrieve
+	 *
 	 * @return string
 	 */
 	public function __get($key)
 	{
-		if (array_key_exists($key, $this->_data))
-		{
-			$j = @json_decode($this->_data[$key], true);
-			if ($j !== false && is_array($j) && isset($j[$_SESSION["l"]]))
-				return $j[$_SESSION["l"]];
-			else
-				return $this->_data[$key];
-		}
+		return $this->getValue($key);
+	}
+
+	/**
+	 * Alias for setValue
+	 *
+	 * @param string $key the field to set
+	 * @param string $value the value
+	 */
+	public function __set($key, $value)
+	{
+		$this->setValue($key, $value);
+	}
+
+	/**
+	 * Override the object's getter
+	 *
+	 * @param string $key the field to retrieve
+	 *
+	 * @return string
+	 */
+	public function getTranslatedValue($key, $locale = false)
+	{
+		if (empty($locale))
+			$locale = $_SESSION['locale'];
+
+		if (isset($this->_translatedValues[$locale][$key]))
+			return $this->_translatedValues[$locale][$key];
+
 		return false;
 	}
 
@@ -165,14 +247,13 @@ class ArtObject {
 	 * @param string $key the field to set
 	 * @param string $value the value
 	 */
-	public function __set($key, $value)
+	public function setTranslatedValue($key, $value, $locale = false)
 	{
-		if (array_key_exists($key, $this->_data))
-			if ($this->_data[$key] != $value)
-			{
-				$this->_editedFields []= $key;
-				$this->_data[$key] = $value;
-			}
+		if (empty($locale))
+			$locale = $_SESSION['locale'];
+
+		if (isset($this->_translatedValues[$locale][$key]))
+			$this->_translatedValues[$locale][$key] = $value;
 	}
 
 	/**
@@ -197,10 +278,10 @@ class ArtObject {
 			$glu = '';
 			foreach ($this->_editedFields as $field)
 			{
-				$query .= $glu . $field . '="' . addslashes($this->_data[$field]) . '"';
+				$query .= $glu . $field . '=' . addslashes($this->_data[$field]);
 				$glu = ', ';
 			}
-			$query .= ' WHERE id=' . mysql_real_escape_string($this->id);
+			$query .= ' WHERE id=' . Tools::quote($this->id);
 
 			Tools::mysqlQuery($query) or die (Tools::mysqlError());
 
@@ -219,7 +300,7 @@ class ArtObject {
 			$glu = '';
 			foreach ($this->_editedFields as $field)
 			{
-				$query .= $glu . mysql_real_escape_string($this->_data[$field]);
+				$query .= $glu . Tools::quote($this->_data[$field]);
 				$glu = '", "';
 			}
 			$query .= '")';
@@ -233,6 +314,8 @@ class ArtObject {
 		$new = self::find($class, $id);
 		$data = $new->toArray();
 		$this->_data = $data;
+
+		$this->saveTranslatedValues();
 
 		return $id;
 	}
@@ -266,7 +349,9 @@ class ArtObject {
 	 */
 	public function delete($class)
 	{
-		Tools::mysqlQuery("DELETE FROM " . $GLOBALS['classes'][$class]['tablename'] . " WHERE id=" . mysql_real_escape_string($this->id));
+		$this->deleteTranslatedValues();
+
+		Tools::mysqlQuery("DELETE FROM " . $GLOBALS['classes'][$class]['tablename'] . " WHERE id=" . Tools::quote($this->id));
 	}
 
 	/**
@@ -336,5 +421,51 @@ class ArtObject {
 		}
 
 		throw new Exception('Invalid method ' . $methodName . '.');
+	}
+	
+	public function loadTranslatedValues($aLocale = null)
+	{
+		if (!$this->id || !$this->classname)
+			return false;
+
+		$sql = "SELECT * FROM fan_translation
+						WHERE context_classname=" . Tools::quote($this->classname) . "
+							AND context_id=" . Tools::quote($this->id);
+
+		if (!empty($aLocale))
+			$sql .= " AND locale=" . Tools::quote($aLocale);
+
+		$req = Tools::mysqlQuery($sql);
+		while ($res = mysql_fetch_array($req))
+		{
+//			if (isset($this->_translatedFields[$res['context_field']]))
+				$this->_translatedValues[$res['locale']][$res['context_field']] = $res['translated_str'];
+		}
+	}
+
+	public function deleteTranslatedValues($aLocale = null)
+	{
+		$sql = "DELETE FROM fan_translation WHERE context_classname=" . Tools::quote($this->classname) . " AND context_id=" . Tools::quote($this->id);
+
+		if (!empty($aLocale))
+			$sql .= " AND locale=" . Tools::quote($aLocale);
+
+		Tools::mysqlQuery($sql);
+	}
+
+	public function saveTranslatedValues()
+	{
+		$this->deleteTranslatedValues();
+
+		foreach ($this->_translatedValues as $locale => $strings)
+		{
+			foreach ($strings as $field => $value)
+			{
+				$sql = "INSERT INTO fan_translation(context_id, context_classname, context_field, locale, translated_str)
+								VALUES (" . Tools::quote($this->id) . ", " . Tools::quote($this->classname) . ", " . Tools::quote($field) . ", " . Tools::quote($value) . ")";
+
+				Tools::mysqlQuery($sql);
+			}
+		}
 	}
 }

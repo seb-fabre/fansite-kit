@@ -72,14 +72,14 @@ if (isset($_POST['install']))
 			if (!isset($GLOBALS['LANGUAGES']['en']))
 				$GLOBALS['LANGUAGES']['en'] = 'English';
 
-			Params::setValue('VIDEOS ENABLED', 1);
-			Params::setValue('GUESTBOOK ENABLED', 1);
-			Params::setValue('REGISTRATIONS ENABLED', 1);
-			Params::setValue('LANGUAGES', json_encode($GLOBALS['LANGUAGES']));
-			Params::setValue('COUNT LATEST NEWS', 5);
-			Params::setValue('COUNT LATEST UPDATES', 10);
-			Params::setValue('COUNT NEWS PER PAGE', 0);
-			Params::setValue('BANNERS', array());
+			Params::set('VIDEOS ENABLED', 1);
+			Params::set('GUESTBOOK ENABLED', 1);
+			Params::set('REGISTRATIONS ENABLED', 1);
+			Params::set('LANGUAGES', json_encode($GLOBALS['LANGUAGES']));
+			Params::set('COUNT LATEST NEWS', 5);
+			Params::set('COUNT LATEST UPDATES', 10);
+			Params::set('COUNT NEWS PER PAGE', 0);
+			Params::set('BANNERS', array());
 		}
 		else
 		{
