@@ -54,12 +54,12 @@ if (isset($_POST['install']))
 				}
 			}
 
-			$GLOBALS['conf']['mysql_host'] = $dbhost;
-			$GLOBALS['conf']['mysql_login'] = $dblogin;
-			$GLOBALS['conf']['mysql_password'] = $dbpassword;
-			$GLOBALS['conf']['mysql_database'] = $dbname;
+//			$GLOBALS['conf']['mysql_host'] = $dbhost;
+//			$GLOBALS['conf']['mysql_login'] = $dblogin;
+//			$GLOBALS['conf']['mysql_password'] = $dbpassword;
+//			$GLOBALS['conf']['mysql_database'] = $dbname;
 
-			require_once('includes/generate_classes.php');
+//			require_once('includes/generate_classes.php');
 
 			require_once('includes/__classes.php');
 			require_once('includes' . DIRECTORY_SEPARATOR . 'JSON.php');
@@ -90,12 +90,11 @@ if (isset($_POST['install']))
 	if (!$notInstalled)
 	{
 		$f = fopen('includes/_conf.php', 'w+');
-		fwrite($f, '
-	<?php
-	    mysql_connect("' . addslashes($dbhost) . '", "' . addslashes($dblogin) . '", "' . addslashes($dbpassword) . '");
-	    mysql_select_db("' . addslashes($dbname) . '");
-	    define("APPLICATION_URL", "' . $url . '");
-	?>');
+		fwrite($f, '<?php
+	mysql_connect("' . addslashes($dbhost) . '", "' . addslashes($dblogin) . '", "' . addslashes($dbpassword) . '");
+	mysql_select_db("' . addslashes($dbname) . '");
+	define("APPLICATION_URL", "' . $url . '");
+');
 		fclose($f);
 
 		echo '<center>Installation complete. Please go to the <a href="' . $url . '">Home Page</a></center>';

@@ -9,7 +9,7 @@ $GLOBALS["classes"]["SpamComm"] = array("classname" => "_SpamComm", "tablename" 
 
 class _SpamComm extends ArtObject
 {
-	protected $_data = array('texte' => null);
+	protected $_fields = array('texte');
 
 	protected $_editedFields = array();
 

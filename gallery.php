@@ -21,7 +21,7 @@
 	else
 		$subgalleries = Gallery::search(array(array('fan_gallery_id', 0)));
 
-	$subgalleries = Tools::postSort($subgalleries, 'name');
+//	$subgalleries = Tools::postSort($subgalleries, 'fan_translation.name');
 
 	if ($gallery)
 		$images = $gallery->getImages();
@@ -30,19 +30,20 @@
 
 	if ($gallery)
 	{
-		$hierarchy = Gallery::getHierarchy($gallery->id);
+		$hierarchy = $gallery->getParents();
 
 		unset($hierarchy[0]);
 		
-		if (count($hierarchy) == 0)
-			$title = Tools::translate('Gallery') . ' - ' . $gallery->name;
+		if (empty($hierarchy))
+		{
+			$title = Tools::translate('Gallery') . ' - ' . $gallery->getTranslatedValue('name');
+		}
 		else
 		{
 			$title = Tools::translate('Gallery');
-			foreach ($hierarchy as $gal)
+			foreach ($hierarchy as $aGallery)
 			{
-				$gal = Gallery::find($gal);
-				$title .= ' - ' . $gal->name;
+				$title .= ' - ' . $aGallery->getTranslatedValue('name');
 			}
 		}
 	}
@@ -50,7 +51,7 @@
   {
   	$title = Tools::translate('Main categories');
   }
-
+	
 	Tools::echoHTMLHead($title);
 ?>
 
@@ -61,22 +62,22 @@
 		<div id="content">
 			<div id="galleryTree">
 				<h2><?php echo Tools::translate('Galleries tree') ?></h2>
-				<?php echo Tools::generateGalleryTree(($gallery ? $gallery->id : 0)) ?>
+				<?php echo Tools::generateGalleryTree($gallery) ?>
 			</div>
 
 			<div id="galleryContent">
-				<h1 class="galleries"><?php if ($gallery) echo $gallery->name; else echo Tools::translate('Main categories') ?></h1>
+				<h1 class="galleries"><?php if ($gallery) echo $gallery->getTranslatedValue('name'); else echo Tools::translate('Main categories') ?></h1>
 
 				<?php if (($c = count($subgalleries)) != 0): ?>
 					<div class="subGalleries">
 					<?php
 						$i = 0;
-						foreach ($subgalleries as $gal)
+						foreach ($subgalleries as $aGallery)
 						{
 				      $i++;
-							$img = $gal->getRandomImage();
+							$img = $aGallery->getRandomImage();
 							echo '<p>
-								<a href="' . $gal->getUrl() . '</a>' .
+								' . $aGallery->getLink() .
 								($img ? '<img src="' . $img->getSmallUrl() . '" alt="' . Tools::cleanLink($img->name) . '" />' : '') .
 							'</p>';
 

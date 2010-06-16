@@ -9,7 +9,7 @@ $GLOBALS["classes"]["Blacklist"] = array("classname" => "_Blacklist", "tablename
 
 class _Blacklist extends ArtObject
 {
-	protected $_data = array('email' => null);
+	protected $_fields = array('email');
 
 	protected $_editedFields = array();
 

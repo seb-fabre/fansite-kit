@@ -28,6 +28,13 @@ class ArtObject
 	protected $_editedFields = array();
 
 	/**
+	 * The list of the object's field names
+	 *
+	 * @var array
+	 */
+	protected $_fields = array();
+
+	/**
 	 * True if object has been loaded successfully from the DB, false otherwise
 	 *
 	 * @var boolean
@@ -46,13 +53,10 @@ class ArtObject
 		if (!empty($values))
 		foreach ($values as $key => $value)
 		{
-			if (array_key_exists($key, $this->_data))
-			{
-				if ($updateFields && empty($this->_data[$key]) || $this->_data[$key] != $value)
-					$this->_editedFields []= $key;
+			if (in_array($key, $this->_fields) && $updateFields && (empty($this->_data[$key]) || $this->_data[$key] != $value))
+				$this->_editedFields []= $key;
 
-				$this->_data[$key] = $value;
-			}
+			$this->_data[$key] = $value;
 		}
 
 		$this->loadTranslatedValues();
@@ -142,8 +146,10 @@ class ArtObject
 			{
 				if (!isset($criterion[2]))
 					$criterion[2] = "=";
-				if ($criterion[1] !== NULL)
-					$query .= $glu . $criterion[0]	. $criterion[2] . '' . Tools::quote($criterion[1]) . " ";
+				if ($criterion[1] !== NULL && !is_array($criterion[1]))
+					$query .= $glu . $criterion[0]	. ' ' . $criterion[2] . ' ' . Tools::quote($criterion[1]) . " ";
+				else if ($criterion[1])
+					$query .= $glu . $criterion[0]	. ' ' . $criterion[2] . ' (' .implode(',', array_map(array('Tools', 'quote'), $criterion[1])) . ") ";
 				else
 					$query .= $glu . $criterion[0]	. " IS NULL ";
 				$glu = "AND ";
@@ -178,7 +184,7 @@ class ArtObject
 	 */
 	public function getValue($key)
 	{
-		if (array_key_exists($key, $this->_data))
+		if (isset($this->_data[$key]))
 			return $this->_data[$key];
 
 		return false;
@@ -192,12 +198,10 @@ class ArtObject
 	 */
 	public function setValue($key, $value)
 	{
-		if (array_key_exists($key, $this->_data))
-			if ($this->_data[$key] != $value)
-			{
-				$this->_editedFields []= $key;
-				$this->_data[$key] = $value;
-			}
+		$this->_data[$key] = $value;
+
+		if (in_array($key, $this->_data))
+			$this->_editedFields []= $key;
 	}
 
 	/**
@@ -380,7 +384,7 @@ class ArtObject
 
 	public function hasField($field)
 	{
-		return isset($this->_data[$field]);
+		return isset($this->_fields[$field]);
 	}
 
 	public function __call($methodName, $args)
@@ -438,8 +442,7 @@ class ArtObject
 		$req = Tools::mysqlQuery($sql);
 		while ($res = mysql_fetch_array($req))
 		{
-//			if (isset($this->_translatedFields[$res['context_field']]))
-				$this->_translatedValues[$res['locale']][$res['context_field']] = $res['translated_str'];
+			$this->_translatedValues[$res['locale']][$res['context_field']] = $res['translated_str'];
 		}
 	}
 

@@ -9,7 +9,7 @@ $GLOBALS["classes"]["Commentaires"] = array("classname" => "_Commentaires", "tab
 
 class _Commentaires extends ArtObject
 {
-	protected $_data = array('id' => null, 'date' => null, 'pseudo' => null, 'email' => null, 'comment' => null, 'response' => null);
+	protected $_fields = array('id', 'date', 'pseudo', 'email', 'comment', 'response');
 
 	protected $_editedFields = array();
 

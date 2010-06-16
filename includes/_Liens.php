@@ -9,7 +9,7 @@ $GLOBALS["classes"]["Liens"] = array("classname" => "_Liens", "tablename" => "fa
 
 class _Liens extends ArtObject
 {
-	protected $_data = array('id' => null, 'url' => null, 'texte_alt' => null, 'image' => null, 'text' => null);
+	protected $_fields = array('id', 'url', 'texte_alt', 'image', 'text');
 
 	protected $_editedFields = array();
 

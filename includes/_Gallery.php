@@ -9,7 +9,7 @@ $GLOBALS["classes"]["Gallery"] = array("classname" => "_Gallery", "tablename" =>
 
 class _Gallery extends ArtObject
 {
-	protected $_data = array('id' => null, 'name' => null, 'date' => null, 'views' => null, 'fan_user_id' => null, 'fan_gallery_id' => null, 'has_images' => null);
+	protected $_fields = array('id', 'name', 'date', 'views', 'fan_user_id', 'fan_gallery_id', 'has_images');
 
 	protected $_editedFields = array();
 

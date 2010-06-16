@@ -9,7 +9,7 @@ $GLOBALS["classes"]["Video"] = array("classname" => "_Video", "tablename" => "fa
 
 class _Video extends ArtObject
 {
-	protected $_data = array('id' => null, 'name' => null, 'date' => null, 'fan_user_id' => null, 'resolution' => null, 'duree' => null, 'description' => null, 'views' => null, 'totalnotes' => null, 'totalvotes' => null, 'extras' => null, 'category' => null);
+	protected $_fields = array('id', 'name', 'date', 'fan_user_id', 'resolution', 'duree', 'description', 'views', 'totalnotes', 'totalvotes', 'extras', 'category');
 
 	protected $_editedFields = array();
 

@@ -12,11 +12,13 @@
 		die("Please run the installation before trying to access any page.");
 	}
 	
-	if (empty($_GET['quick_init']))
-		require_once(INCLUDE_PATH . '_conf.php');
+	require_once(INCLUDE_PATH . '_conf.php');
 
 	require_once(INCLUDE_PATH . 'JSON.php');
 	require_once(INCLUDE_PATH . 'class.tools.php');
+	require_once(INCLUDE_PATH . 'class.query.php');
+
+	$GLOBALS['CURRENT BANNER'] = Tools::getRandomBanner();
 
 	// some files (ex: css) don't need to initialize everything, so stop here
 	if (empty($_GET['quick_init']))
@@ -56,17 +58,17 @@
 
 		$VALID_IMAGE_EXTENSIONS = array('jpg', 'jpeg');
 
-		//define('PHOTOS_SMALL_SIZE', $conf['photos small size']);
-		define('PHOTOS_SMALL_SIZE', 150);
-		define('PHOTOS_MEDIUM_SIZE', 450);
-		define('PHOTOS_LARGE_SIZE', 0);
-
-		define('EMPTY_IMAGE_URL', APPLICATION_URL . 'images/disabled.png');
-
 		if (isset($_SESSION['user_id']))
 			$CURRENT_USER = User::find($_SESSION['user_id']);
 		else
 			$CURRENT_USER = false;
 	}
+
+	//define('PHOTOS_SMALL_SIZE', $conf['photos small size']);
+	define('PHOTOS_SMALL_SIZE', 120);
+	define('PHOTOS_MEDIUM_SIZE', 450);
+	define('PHOTOS_LARGE_SIZE', 0);
+
+	define('EMPTY_IMAGE_URL', APPLICATION_URL . 'images/disabled.png');
 
 	$GLOBALS['FooterJS'] = '';

@@ -9,7 +9,7 @@ $GLOBALS["classes"]["Dictionary"] = array("classname" => "_Dictionary", "tablena
 
 class _Dictionary extends ArtObject
 {
-	protected $_data = array('id' => null, 'language' => null, 'data' => null);
+	protected $_fields = array('id', 'language', 'data');
 
 	protected $_editedFields = array();
 

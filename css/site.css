@@ -427,7 +427,7 @@ ul.galleryTree ul {
 
 ul.galleryTree .active {
   font-weight: bold;
-  color: #666;
+  color: #FFF;
 }
 
 .galleryTreeRealRoot {
@@ -443,14 +443,15 @@ ul.galleryTree li {
 }
 
 ul.galleryTree a {
-  color: #AAA;
+  color: #bbb;
   text-decoration: none;
   display: block;
   padding: 0px 2px;
 }
 
 ul.galleryTree a:hover {
-  background: #BDF;
+  background: #BBB;
+	color: #000;
 }
 
 .galleryTree li div.spinner { position: absolute; left: 0; top: 0; padding: 0; margin: 0; }

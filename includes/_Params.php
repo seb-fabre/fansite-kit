@@ -9,7 +9,7 @@ $GLOBALS["classes"]["Params"] = array("classname" => "_Params", "tablename" => "
 
 class _Params extends ArtObject
 {
-	protected $_data = array('id' => null, 'name' => null, 'value' => null);
+	protected $_fields = array('id', 'name', 'value');
 
 	protected $_editedFields = array();
 

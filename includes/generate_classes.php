@@ -74,7 +74,7 @@ class _' . $capitalized . ' extends ArtObject
 				$n = str_replace(' ', '', ucwords(str_replace('_', ' ', substr($r[0], $prefixLength))));
 		}
 
-		fwrite($file, '	protected $_data = array(\'' . implode("' => null, '", $fields) . '\' => null);
+		fwrite($file, '	protected $_fields = array(\'' . implode("', '", $fields) . '\');
 
 	protected $_editedFields = array();
 
