@@ -3,3 +3,34 @@
 - find a way to use the languages in a php file (var_export, rebuild file if doesn't exist or if translations have been edited)
 - site configuration : automatic from description, or real clean edit page ?
 - script to update the language files from the code
+
+
+
+
+// -------------------------------------------
+					UPDATE FROM OLD DATABASE
+// -------------------------------------------
+
+SET FOREIGN_KEY_CHECKS=0;
+
+TRUNCATE TABLE fan_commentaires;
+TRUNCATE TABLE fan_commentsphoto;
+TRUNCATE TABLE fan_image;
+TRUNCATE TABLE fan_gallery;
+TRUNCATE TABLE fan_user;
+
+
+INSERT INTO `fan_commentaires` SELECT * FROM test3.commentaires;
+
+INSERT INTO `fan_user`(id, login, email, password, is_admin, is_active, is_banned, is_superadmin) SELECT id, Login, Email, Password, IF(niveau='admin', 1, 0), 1, 0, IF(id=1, 1, 0) FROM test3.membres;
+
+INSERT INTO `fan_gallery`(id, date, views, fan_user_id, fan_gallery_id, has_images, ancestors) SELECT id, date, views, IDmembre, Parente, IF(contenu='images', 1, 0), '' FROM test3.galeries;
+INSERT INTO fan_translation(context_id, context_classname, context_field, locale, translated_str) SELECT id, 'Gallery', 'name', 'fr', nomfr FROM test3.galeries;
+INSERT INTO fan_translation(context_id, context_classname, context_field, locale, translated_str) SELECT id, 'Gallery', 'name', 'en', nomen FROM test3.galeries;
+
+INSERT INTO fan_image SELECT * FROM test3.images;
+
+
+INSERT INTO `fan_commentsphoto` SELECT * FROM test3.commentsphoto;
+
+SET FOREIGN_KEY_CHECKS=1;

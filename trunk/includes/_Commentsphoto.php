@@ -9,7 +9,7 @@ $GLOBALS["classes"]["Commentsphoto"] = array("classname" => "_Commentsphoto", "t
 
 class _Commentsphoto extends ArtObject
 {
-	protected $_data = array('id' => null, 'comment' => null, 'fan_user_id' => null, 'fan_image_id' => null, 'date' => null);
+	protected $_fields = array('id', 'comment', 'fan_user_id', 'fan_image_id', 'date');
 
 	protected $_editedFields = array();
 

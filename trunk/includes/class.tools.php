@@ -56,14 +56,14 @@ class Tools
 	/**
 	 * Initialization function to browse the hierarchy of galleries
 	 *
-	 * @param int $id
+	 * @param Gallery
 	 * @return string the html code of the gallery tree
 	 */
-	public static function generateGalleryTree($id)
+	public static function generateGalleryTree($selectedGallery)
 	{
-		$GLOBALS['hierarchy'] = Gallery::getHierarchy($id);
-		$html = Tools::browseGalleryTree(0);
-		unset($GLOBALS['hierarchy']);
+		$ancestorsIds = $selectedGallery->getParents(true);
+
+		$html = Tools::browseGalleryTree(null, $ancestorsIds);
 		return $html;
 	}
 
@@ -73,28 +73,33 @@ class Tools
 	 * @param int $i the id of the parent gallery where to start browsing
 	 * @return string the html code of the gallery tree
 	 */
-	public static function browseGalleryTree($i)
+	public static function browseGalleryTree($id, $ancestorsIds)
 	{
-		$hierarchy = $GLOBALS['hierarchy'];
+		$query = new Query('Gallery');
+		$query->addJoin('fan_translation', 'context_id=fan_gallery.id
+																				AND context_classname=' . Tools::quote('Gallery') . '
+																				AND locale=' . Tools::quote($_SESSION['locale']));
+		$query->addWhere('fan_gallery_id = ' . Tools::quote($id));
+		$query->addOrderBy('fan_translation.translated_str');
 
-		$id = $hierarchy[$i];
+		$galleries = $query->fetchAll();
+
+		if (empty($galleries))
+			return '';
 
 		$dir = '<ul class="galleryTree">';
 
-		if ($id == '0')
-			$galleries = Gallery::search(array(array('fan_gallery_id', NULL)));
-		else
-			$galleries = Gallery::search(array(array('fan_gallery_id', $id)));
-		$galleries = Tools::postSort($galleries, 'name');
-
 		foreach ($galleries as $gal)
 		{
-			if (isset($hierarchy[$i+1]) && $gal->id === $hierarchy[$i+1])
-				$dir .= '<li class="directory collapsed"><a href="' . APPLICATION_URL . 'gallery/' . $gal->id . '/' . Tools::cleanLink($gal->name) . '" class="active">' . $gal->name . '</a>' . Tools::browseGalleryTree($i + 1) . '</li>';
-			else
-				$dir .= '<li class="directory collapsed"><a href="' . APPLICATION_URL . 'gallery/' . $gal->id . '/' . Tools::cleanLink($gal->name) . '">' . $gal->name . '</a></li>';
+			$dir .= '<li class="directory collapsed">
+				<a href="' . APPLICATION_URL . 'gallery/' . $gal->id . '/' . Tools::cleanLink($gal->getTranslatedValue('name')) . '"' . (in_array($gal->id, $ancestorsIds) ? ' class="active"' : '') . '>
+					' . $gal->getTranslatedValue('name') . '
+				</a>' . (in_array($gal->id, $ancestorsIds) ? Tools::browseGalleryTree($gal->id, $ancestorsIds) : '') . '
+			</li>';
 		}
+		
 		$dir .= '</ul>';
+
 		return $dir;
 	}
 
@@ -237,7 +242,23 @@ HTML;
 
 	public static function getBanners()
 	{
+		require_once($GLOBALS['ROOTPATH'] . 'includes/__classes.php');
+
 		return json_decode(Params::get('BANNERS'));
+	}
+
+	public static function getRandomBanner()
+	{
+		$banners = self::getBanners();
+
+		$banner = false;
+		if (!empty($banners))
+			$banner = $banners[array_rand($banners, 1)];
+
+		if ($banner)
+			return $banner;
+
+		return false;
 	}
 
 	/**
@@ -246,11 +267,7 @@ HTML;
 	 */
 	public static function echoHeader()
 	{
-		$banners = self::getBanners();
-
-		$banner = false;
-		if (!empty($banners))
-			$banner = $banners[array_rand($banners, 1)];
+		$banner = $GLOBALS['CURRENT BANNER'];
 
 		echo '<div id="header" class="' . ($banner ? 'menuWithBanner' : 'menuWithoutBanner') . '">';
 		
@@ -303,8 +320,8 @@ HTML;
 		$tmp = array();
 		foreach ($values as $value)
 		{
-			if (isset($value[$field]))
-				$tmp[$value[$field]] = $value;
+			if ($value->getValue($field))
+				$tmp[$value->getValue($field)] = $value;
 			else
 				$tmp []= $value;
 		}

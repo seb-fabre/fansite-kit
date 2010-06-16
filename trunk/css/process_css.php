@@ -15,8 +15,7 @@
 	  $name = $_GET['name'];
 	  $f = $GLOBALS['ROOTPATH'] . 'css/' . $name . '.css';
 
-	  $infos = getimagesize($GLOBALS['ROOTPATH'] . 'images/banniere.jpg');
-	  $bannerHeight = $infos[1];
+//	  $bannerHeight = $GLOBALS['CURRENT BANNER']['height'];
 
 	  if (file_exists($f))
 	  {
@@ -25,7 +24,6 @@
 		  while($css = fgets($fp))
 		  {
 		    $css = str_replace('{application_url}', $url, $css);
-		    $css = str_replace('{banner_height}', $bannerHeight, $css);
 		    echo $css;
 		  }
 

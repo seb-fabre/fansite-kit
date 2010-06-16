@@ -18,7 +18,14 @@ class Gallery extends _Gallery
 
 	function getSubgalleries()
 	{
-		return Gallery::search(array(array('fan_gallery_id', $this->id)), 'name');
+		$query = new Query('Gallery');
+		$query->addJoin('fan_translation', 'context_id=fan_gallery.id
+																				AND context_classname=' . Tools::quote('Gallery') . '
+																				AND locale=' . Tools::quote($_SESSION['locale']));
+		$query->addWhere('fan_gallery_id = ' . Tools::quote($this->id));
+		$query->addOrderBy('fan_translation.translated_str');
+
+		return $query->fetchAll();
 	}
 
 	function getParentGalleries()
@@ -33,33 +40,62 @@ class Gallery extends _Gallery
 	 */
 	function getRandomImage()
 	{
-		return reset(Image::search(array(array('fan_gallery_id', $this->id)), 'RAND()', 1));
+		$galleryIds = Gallery::getHierarchy($this->id);
+
+		if (empty($galleryIds))
+			return array();
+
+		return reset(Image::search(array(array('fan_gallery_id', $galleryIds, 'IN')), 'RAND()', 1));
 	}
 
 	public static function getHierarchy($id)
 	{
-		if ($id == 0)
-			return array(0);
+		$query = new Query('Gallery');
+		$query->addJoin('fan_translation', 'context_id=fan_gallery.id
+																				AND context_classname=' . Tools::quote('Gallery') . '
+																				AND locale=' . Tools::quote($_SESSION['locale']));
+		$query->addWhere('ancestors LIKE ' . Tools::quote('%,' . $id . ','));
+		$query->addOrderBy('fan_translation.translated_str');
 
-		$hierarchy = array();
-		$gal = Gallery::find($id)->fan_gallery_id;
-		$hierarchy []= $id;
+		$galleries = $query->fetchAll();
+
+		$ids = array();
+		foreach ($galleries as $aGallery)
+			$ids []= $aGallery->id;
+
+		return $ids;
+	}
+
+	public function getParents($returnIdsOnly = false)
+	{
+		$ancestors = $this->getValue('ancestors');
+
+		$ancestors{0} = '(';
+		$ancestors{strlen($ancestors)-1} = ')';
+
+		$query = new Query('Gallery');
+		$query->addJoin('fan_translation', 'context_id=fan_gallery.id
+																				AND context_classname=' . Tools::quote('Gallery') . '
+																				AND locale=' . Tools::quote($_SESSION['locale']));
+		$query->addWhere('fan_gallery.id IN ' . $ancestors);
+
+		$galleries = $query->fetchAll();
+
+		$results = array();
 		
-		while (!empty($gal->fan_gallery_id))
-		{
-			$hierarchy []= $gal;
-			$parent = Gallery::find($gal);
-			$gal = $parent->fan_gallery_id;
-		}
+		if ($returnIdsOnly)
+			foreach ($galleries as $aGallery)
+				$results []= $aGallery->id;
+		else
+			foreach ($galleries as $aGallery)
+				$results []= $aGallery;
 
-		$hierarchy []= 0;
-		$hierarchy = array_reverse($hierarchy);
-		return $hierarchy;
+		return $results;
 	}
 
 	public function getWebDirectory()
 	{
-		return '/photos/' . $this->id . '/';
+		return APPLICATION_URL . 'photos/' . $this->id . '/';
 	}
 
 	public function getDirectory()
@@ -69,7 +105,12 @@ class Gallery extends _Gallery
 
 	public function getUrl()
 	{
-		return APPLICATION_URL . 'gallery/' . $this->id . '/' . Tools::cleanLink($this->name) . '">' . $this->name;
+		return APPLICATION_URL . 'gallery/' . $this->id . '/' . Tools::cleanLink($this->getTranslatedValue('name'));
+	}
+
+	public function getLink()
+	{
+		return '<a href="' . $this->getUrl() . '">' . $this->getTranslatedValue('name') . '</a>';
 	}
 }
 	

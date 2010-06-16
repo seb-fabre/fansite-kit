@@ -9,7 +9,7 @@ $GLOBALS["classes"]["Referrer"] = array("classname" => "_Referrer", "tablename" 
 
 class _Referrer extends ArtObject
 {
-	protected $_data = array('url' => null, 'cpt' => null);
+	protected $_fields = array('url', 'cpt');
 
 	protected $_editedFields = array();
 

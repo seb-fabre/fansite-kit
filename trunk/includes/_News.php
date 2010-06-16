@@ -9,7 +9,7 @@ $GLOBALS["classes"]["News"] = array("classname" => "_News", "tablename" => "fan_
 
 class _News extends ArtObject
 {
-	protected $_data = array('id' => null, 'date' => null, 'fan_user_id' => null, 'title' => null, 'text' => null);
+	protected $_fields = array('id', 'date', 'fan_user_id', 'title', 'text');
 
 	protected $_editedFields = array();
 

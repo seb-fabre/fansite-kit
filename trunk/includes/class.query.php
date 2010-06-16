@@ -14,6 +14,7 @@ class Query {
 	private $orderBy;
 	private $having;
 	private $limit;
+	private $classname;
 
 	function  __construct($classname)
 	{
@@ -21,13 +22,14 @@ class Query {
 			throw new Exception('Class not found : ' . $classname);
 
 		$this->columns = array();
-		$this->from = $from;
+		$this->from = $GLOBALS['classes'][$classname]['tablename'];
 		$this->joins = array();
 		$this->groupBy = array();
 		$this->where = array();
 		$this->orderBy = array();
 		$this->having = array();
 		$this->limit = false;
+		$this->classname = $classname;
 	}
 
 	public function addColumn($name)
@@ -40,7 +42,7 @@ class Query {
 		if (empty($joinAlias))
 			$joinAlias = $tablename . date('His');
 
-		$joins[$joinAlias] = $type . ' ' . $tablename . ' ON ' . $on;
+		$this->joins[$joinAlias] = $type . ' ' . $tablename . ' ON ' . $on;
 	}
 
 	public function addGroupBy($groupBy)
@@ -76,7 +78,17 @@ class Query {
 			$this->limit = $limit;
 	}
 
+	public function debug()
+	{
+		return '<br/><pre style="text-align: left">' . $this->toString("\n") . '</pre>';
+	}
+
 	public function  __toString()
+	{
+		return $this->toString();
+	}
+
+	public function toString($sep = '')
 	{
 		$sql = '';
 
@@ -88,37 +100,45 @@ class Query {
 			$this->orderBy = array('id asc');
 
 		// clean and protect every variable to be put in the query
-		$this->columns = array_map('mysql_escape_string', $this->columns);
 		$this->from = mysql_escape_string($this->from);
-		$this->joins = array_map('mysql_escape_string', $this->joins);
-		$this->groupBy = array_map('mysql_escape_string', $this->groupBy);
-		$this->where = array_map('mysql_escape_string', $this->where);
-		$this->orderBy = array_map('mysql_escape_string', $this->orderBy);
-		$this->having = array_map('mysql_escape_string', $this->having);
 		$this->limit = mysql_escape_string($this->limit);
 
 		// prepare sql
-		$sql .= ' SELECT ' . implode(',', $this->columns);
+		$sql .= ' SELECT ' . implode(',', $this->columns) . $sep;
 
-		$sql .= ' FROM ' . $this->from;
+		$sql .= ' FROM ' . $this->from . $sep;
 
 		if (!empty($this->joins))
-			$sql .= ' ' . implode(' ', $this->joins);
+			$sql .= ' ' . implode(' ' . $sep, $this->joins) . $sep;
 
 		if (!empty($this->groupBy))
-			$sql .= ' WHERE ' . implode(' AND ', $this->groupBy);
+			$sql .= ' WHERE ' . implode(' AND ', $this->groupBy) . $sep;
 
 		if (!empty($this->where))
-			$sql .= ' WHERE ' . implode(' AND ', $this->where);
+			$sql .= ' WHERE ' . implode(' AND ', $this->where) . $sep;
 
 		if (!empty($this->having))
-			$sql .= ' HAVING ' . implode(' AND ', $this->where);
+			$sql .= ' HAVING ' . implode(' AND ', $this->where) . $sep;
 
-		$sql .= ' ORDER BY ' . $this->orderBy;
+		$sql .= ' ORDER BY ' . implode(', ', $this->orderBy) . $sep;
 
 		if (!empty($this->limit))
 			$sql .= ' LIMIT ' . $this->limit;
 
 		return $sql;
+	}
+
+	public function fetchAll()
+	{
+		$req = Tools::mysqlQuery($this->toString());
+
+		$results = array();
+
+		while ($res = mysql_fetch_array($req))
+		{
+			$results []= new $GLOBALS['classes'][$this->classname]['classname']($res);
+		}
+
+		return $results;
 	}
 }

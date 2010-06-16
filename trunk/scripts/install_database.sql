@@ -55,7 +55,6 @@ CREATE TABLE IF NOT EXISTS `fan_dictionary` (
 
 CREATE TABLE IF NOT EXISTS `fan_gallery` (
   `id` int(9) NOT NULL AUTO_INCREMENT,
-  `name` text NOT NULL,
   `date` date NOT NULL DEFAULT '0000-00-00',
   `views` mediumint(9) NOT NULL DEFAULT '0',
   `fan_user_id` int(9) NOT NULL DEFAULT '0',

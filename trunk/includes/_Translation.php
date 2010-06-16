@@ -9,7 +9,7 @@ $GLOBALS["classes"]["Translation"] = array("classname" => "_Translation", "table
 
 class _Translation extends ArtObject
 {
-	protected $_data = array('id' => null, 'context_id' => null, 'context_classname' => null, 'context_field' => null, 'translated_str' => null);
+	protected $_fields = array('id', 'context_id', 'context_classname', 'context_field', 'translated_str');
 
 	protected $_editedFields = array();
 
