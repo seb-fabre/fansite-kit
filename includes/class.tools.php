@@ -554,6 +554,16 @@ HTML;
 	{
 		return '"' . mysql_real_escape_string($string) . '"';
 	}
+
+	public static function fixEncoding($tablename, $fieldname)
+	{
+		$query = Tools::mysqlQuery('SELECT * FROM ' . $tablename);
+
+		while ($res = mysql_fetch_assoc($query))
+		{
+			Tools::mysql_query("UPDATE $tablename SET $fieldname = '" . mysql_real_escape_string(utf8_encode($res[$fieldname])) . "' WHERE id=" . $res['id']);
+		}
+	}
 }
 
 /**

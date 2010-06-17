@@ -30,12 +30,12 @@ Tools::echoHTMLHead($title);
 
 		<div id="content">
 			<div id="latest_updates" class="blockWithHeader">
-				<h2><?php echo Tools::translate('latest updates'); ?></h2>
+				<h2><?php echo Tools::translate('Latest updates'); ?></h2>
 				<div class="blockWithHeaderContent">
 					<?php
 						foreach ($latestUpdates as $update)
 						{
-							echo '<p>' . $update->name . ' - ' . $update->date . '</p>';
+							echo '<p>' . $update->getTranslatedValue('name') . ' - ' . $update->getDateValue('date') . '</p>';
 						}
 					?>
 				</div>
@@ -47,10 +47,11 @@ Tools::echoHTMLHead($title);
 
 			<div id="latest_news">
 				<?php foreach ($latestNews as $news): ?>
+
 				<div class="blockWithHeader">
-					<h2><?php echo $news->title ?></h2>
+					<h2><?php echo $news->getTranslatedValue('title') ?></h2>
 					<div class="blockWithHeaderContent">
-						<?php echo $news->text ?>
+						<?php echo $news->getTranslatedValue('text') ?>
 					</div>
 				</div>
 				<?php endforeach; ?>

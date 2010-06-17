@@ -30,6 +30,12 @@ INSERT INTO fan_translation(context_id, context_classname, context_field, locale
 
 INSERT INTO fan_image SELECT * FROM test3.images;
 
+INSERT INTO fan_news(id, date, fan_user_id) SELECT id, date, idmembre FROM test3.news;
+INSERT INTO fan_translation(context_id, context_classname, context_field, locale, translated_str) SELECT id, 'News', 'title', 'fr', titrefr FROM test3.news;
+INSERT INTO fan_translation(context_id, context_classname, context_field, locale, translated_str) SELECT id, 'News', 'title', 'en', titreen FROM test3.news;
+INSERT INTO fan_translation(context_id, context_classname, context_field, locale, translated_str) SELECT id, 'News', 'text', 'fr', textefr FROM test3.news;
+INSERT INTO fan_translation(context_id, context_classname, context_field, locale, translated_str) SELECT id, 'News', 'text', 'en', texteen FROM test3.news;
+
 
 INSERT INTO `fan_commentsphoto` SELECT * FROM test3.commentsphoto;
 

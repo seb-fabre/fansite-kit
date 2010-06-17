@@ -93,8 +93,6 @@ CREATE TABLE IF NOT EXISTS `fan_news` (
   `id` int(9) NOT NULL AUTO_INCREMENT,
   `date` date NOT NULL DEFAULT '0000-00-00',
   `fan_user_id` int(11) NOT NULL,
-  `title` text NOT NULL,
-  `text` text NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fan_user_id` (`fan_user_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=66 ;

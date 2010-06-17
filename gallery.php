@@ -51,6 +51,11 @@
   {
   	$title = Tools::translate('Main categories');
   }
+
+	if (empty($images) && empty($subgalleries))
+		$noContentFound = true;
+	else
+		$noContentFound = false;
 	
 	Tools::echoHTMLHead($title);
 ?>
@@ -68,7 +73,7 @@
 			<div id="galleryContent">
 				<h1 class="galleries"><?php if ($gallery) echo $gallery->getTranslatedValue('name'); else echo Tools::translate('Main categories') ?></h1>
 
-				<?php if (($c = count($subgalleries)) != 0): ?>
+				<?php if (($c = count($subgalleries)) != 0) { ?>
 					<div class="subGalleries">
 					<?php
 						$i = 0;
@@ -95,9 +100,9 @@
 						}
 					?>
 					</div>
-				<?php endif; ?>
+				<?php } ?>
 
-				<?php if (count($images) != 0): ?>
+				<?php if (count($images) != 0) { ?>
 					<div id="galleryImages">
 					<?php
 						foreach ($images as $img)
@@ -106,9 +111,13 @@
 						}
 					?>
 					</div>
-				<?php endif; ?>
+				<?php } ?>
 
 			</div>
+
+			<?php if ($noContentFound) { ?>
+				<p class="infos" align="center"><?=Tools::translate("This gallery is empty.")?></p>
+			<?php } ?>
 
 			<div class="clearBoth">&nbsp;</div>
 		</div>

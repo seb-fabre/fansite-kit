@@ -9,5 +9,6 @@ $GLOBALS["classes"]["News"] = array("classname" => "News", "tablename" => "fan_n
 	
 	class News extends _News
 	{
+		protected $classname = 'News';
 	}
 	
