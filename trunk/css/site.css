@@ -1,6 +1,7 @@
 * {
   margin: 0;
-  padding: 0;
+  padding: 0;	
+	font-size: 1em;
 }
 
 html {
@@ -13,6 +14,14 @@ body {
   margin: 0 auto 20px;
 	background: url("{application_url}images/pattern.gif") repeat scroll 0 0 transparent;
 	color: #FFFFFF;
+}
+
+h1 {
+	font-size: 2em;
+}
+
+h2 {
+	font-size: 1.5em;
 }
 
 #body {
@@ -118,6 +127,10 @@ td {
   margin-right: 10px;
 }
 
+#latest_updates p {
+	font-size: 12px;
+}
+
 #disclaimer {
   margin: 20px 10px;
   text-align: justify;
@@ -134,8 +147,11 @@ td {
   width: 100%;
 }
 
-#footer {
+#header, #footer {
 	background: none repeat scroll 0 0 #112222;
+}
+
+#footer {
 	clear: both;
 	color: #FFFFFF;
 	font-size: 0.9em;
@@ -447,6 +463,10 @@ ul.galleryTree a {
   text-decoration: none;
   display: block;
   padding: 0px 2px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+	font-size: 12px;
 }
 
 ul.galleryTree a:hover {

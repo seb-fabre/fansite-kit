@@ -471,4 +471,19 @@ class ArtObject
 			}
 		}
 	}
+
+	/**
+	 * Retrieve and convert a sql date to a nice string
+	 *
+	 * @param string $fieldname the date field name
+	 */
+	public function getDateValue($fieldname)
+	{
+		if (!preg_match('/(19|20)[0-9]{2}-(0[0-9]|1[012])-([012][0-9]|3[01])/', $this->_data[$fieldname]))
+			return false;
+
+		$date = date_create($this->_data[$fieldname]);
+
+		return $date->format('d/m/Y');
+	}
 }
