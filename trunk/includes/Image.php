@@ -38,5 +38,23 @@ class Image extends _Image
 
 		return EMPTY_IMAGE_URL;
   }
+
+	public static function getLatest($n)
+	{
+		$query = new Query('Image');
+		$query->addOrderBy('date', 'desc');
+		$query->setLimit($n);
+
+		return $query->fetchAll();
+	}
+
+	public static function getTop($n)
+	{
+		$query = new Query('Image');
+		$query->addOrderBy('views', 'desc');
+		$query->setLimit($n);
+
+		return $query->fetchAll();
+	}
 }
 	

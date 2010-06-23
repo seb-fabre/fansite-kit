@@ -20,10 +20,6 @@ h1 {
 	font-size: 2em;
 }
 
-h2 {
-	font-size: 1.5em;
-}
-
 #body {
 	background: none repeat scroll 0 0 #444444;
 }
@@ -110,7 +106,7 @@ td {
 }
 
 .blockWithHeader h2 {
-  background: none repeat scroll 0 0 #002222;
+  background: none repeat scroll 0 0 #214949;
   padding: 10px;
   border-bottom: 1px solid #000;
   color: #FFF;
@@ -134,13 +130,13 @@ td {
 #disclaimer {
   margin: 20px 10px;
   text-align: justify;
-  margin-left: 280px;
   width: 670px;
+	float: left;
 }
 
 #latest_news {
-  margin-left: 280px;
   width: 670px;
+	float: left;
 }
 
 #header, #body, #footer {
@@ -170,9 +166,7 @@ td {
 #galleryTree {
   float: left;
   width: 250px;
-  padding-bottom: 15px;
-  margin-left: 10px;
-  margin-top: 10px;
+  padding: 10px 10px 15px;
 }
 
 #galleryTree h2 {
@@ -205,6 +199,10 @@ h1.galleries {
   float: right;
   width: 680px;
   padding: 10px;
+}
+
+#galleryToolbar {
+	float: right;
 }
 
 div.clearBoth {

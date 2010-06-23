@@ -1,7 +1,10 @@
 <?php
   require_once('includes/_init.php');
 
-  $pathinfo = $_SERVER['PATH_INFO'];
+	if (isset($_SERVER['PATH_INFO']))
+		$pathinfo = $_SERVER['PATH_INFO'];
+	else
+		$pathinfo = '/';
 
   $matches = false;
   $match = preg_match('@^/([0-9]+)(/[^/]+)?$@', $pathinfo, $matches);
@@ -9,55 +12,109 @@
   // 1 => id value
   // 2 => name value
 
-	if (!$match)
-		$id = 0;
-	else
+	$currentGallery = null;
+	$headTitle = null;
+	$h1 = null;
+	$subgalleries = array();
+	$images = array();
+
+	// if we have a gallery id in the url
+	if ($match)
+	{
 		$id = $matches[1];
 
-  $gallery = Gallery::find($id);
+		$currentGallery = Gallery::find($id);
 
-	if ($id != 0 && $gallery)
-		$subgalleries = $gallery->getSubgalleries();
-	else
-		$subgalleries = Gallery::search(array(array('fan_gallery_id', 0)));
+		if ($id != 0 && $currentGallery)
+			$subgalleries = $currentGallery->getSubgalleries();
+		else
+			$subgalleries = Gallery::search(array(array('fan_gallery_id', 0)));
+	}
 
-//	$subgalleries = Tools::postSort($subgalleries, 'fan_translation.name');
-
-	if ($gallery)
-		$images = $gallery->getImages();
+	if ($currentGallery)
+		$images = $currentGallery->getImages();
 	else
 		$images = array();
 
-	if ($gallery)
+	if ($currentGallery)
 	{
-		$hierarchy = $gallery->getParents();
+		$hierarchy = $currentGallery->getParents();
 
 		unset($hierarchy[0]);
 		
+		$h1 = $currentGallery->getTranslatedValue('name');
+
 		if (empty($hierarchy))
 		{
-			$title = Tools::translate('Gallery') . ' - ' . $gallery->getTranslatedValue('name');
+			$headTitle = Tools::translate('Gallery') . ' - ' . $currentGallery->getTranslatedValue('name');
 		}
 		else
 		{
-			$title = Tools::translate('Gallery');
+			$headTitle = Tools::translate('Gallery');
 			foreach ($hierarchy as $aGallery)
 			{
-				$title .= ' - ' . $aGallery->getTranslatedValue('name');
+				$headTitle .= ' - ' . $aGallery->getTranslatedValue('name');
 			}
 		}
 	}
-  else
+	// if in the url we have a "mode"
+  else if ($pathinfo != '/')
+	{
+		$matches = false;
+		$match = preg_match('@^/(.+)$@', $pathinfo, $matches);
+
+		if ($match && in_array($matches[1], array('latest-galleries', 'latest-photos', 'most-viewed-galleries', 'most-viewed-photos', 'search', 'zip')))
+		{
+			switch ($matches[1])
+			{
+				case 'latest-galleries':
+					$headTitle = Tools::translate('Latest galleries');
+					$subgalleries = Gallery::getLatest(20);
+					break;
+
+				case 'latest-photos':
+					$headTitle = Tools::translate('Latest photos');
+					$images = Image::getLatest(20);
+					break;
+
+				case 'most-viewed-galleries':
+					$headTitle = Tools::translate('Most viewed galleries');
+					$subgalleries = Gallery::getTop(20);
+					break;
+
+				case 'most-viewed-photos':
+					$headTitle = Tools::translate('Most viewed photos');
+					$images = Image::getTop(20);
+					break;
+
+				case 'search':
+					$headTitle = Tools::translate('Search');
+					break;
+
+				case 'zip':
+					$headTitle = Tools::translate('Zip');
+					break;
+		 }
+
+		 if (!empty($headTitle))
+			 $h1 = $headTitle;
+		}
+	}
+
+	// if every attempt to load params the url failed
+  if (empty($headTitle))
   {
-  	$title = Tools::translate('Main categories');
+  	$headTitle = Tools::translate('Main categories');
+  	$h1 = Tools::translate('Main categories');
   }
+
 
 	if (empty($images) && empty($subgalleries))
 		$noContentFound = true;
 	else
 		$noContentFound = false;
 	
-	Tools::echoHTMLHead($title);
+	Tools::echoHTMLHead($headTitle);
 ?>
 
 <body>
@@ -67,11 +124,20 @@
 		<div id="content">
 			<div id="galleryTree">
 				<h2><?php echo Tools::translate('Galleries tree') ?></h2>
-				<?php echo Tools::generateGalleryTree($gallery) ?>
+				<?php echo Tools::generateGalleryTree($currentGallery) ?>
 			</div>
 
 			<div id="galleryContent">
-				<h1 class="galleries"><?php if ($gallery) echo $gallery->getTranslatedValue('name'); else echo Tools::translate('Main categories') ?></h1>
+				<div id="galleryToolbar">
+					<a href="<?=APPLICATION_URL?>gallery/latest-galleries"><img src="<?=Tools::getImage('newest_galleries.png')?>" title="View the latest galleries added" alt="View the latest galleries added" /></a>
+					<a href="<?=APPLICATION_URL?>gallery/latest-photos">View the latest photos added</a>
+					<a href="<?=APPLICATION_URL?>gallery/most-viewed-galleries">Go to the most viewed galleries</a>
+					<a href="<?=APPLICATION_URL?>gallery/most-viewed-photos">Go to the most viewed photos</a>
+					<a href="<?=APPLICATION_URL?>gallery/search">Search</a>
+					<a href="<?=APPLICATION_URL?>gallery/zip">Download the gallery as a zip file</a>
+				</div>
+
+				<h1 class="galleries"><?php echo $h1 ?></h1>
 
 				<?php if (($c = count($subgalleries)) != 0) { ?>
 					<div class="subGalleries">
