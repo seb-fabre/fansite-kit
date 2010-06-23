@@ -16,7 +16,7 @@ class Query {
 	private $limit;
 	private $classname;
 
-	function  __construct($classname)
+	function  __construct($classname, $addClassDefaultClauses = false)
 	{
 		if (empty($GLOBALS['classes'][$classname]))
 			throw new Exception('Class not found : ' . $classname);
@@ -30,9 +30,13 @@ class Query {
 		$this->having = array();
 		$this->limit = false;
 		$this->classname = $classname;
+
+		if ($addClassDefaultClauses && is_callable(array($classname, 'addDefaultQueryClauses')))
+			call_user_func_array(array($classname, 'addDefaultQueryClauses'),
+														 array($this));
 	}
 
-	public function addColumn($name)
+	public function addColumn($column)
 	{
 		$this->columns []= $column;
 	}

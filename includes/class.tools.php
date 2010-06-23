@@ -61,7 +61,10 @@ class Tools
 	 */
 	public static function generateGalleryTree($selectedGallery)
 	{
-		$ancestorsIds = $selectedGallery->getParents(true);
+		if ($selectedGallery)
+			$ancestorsIds = $selectedGallery->getParents(true);
+		else
+			$ancestorsIds = array(0);
 
 		$html = Tools::browseGalleryTree(null, $ancestorsIds);
 		return $html;

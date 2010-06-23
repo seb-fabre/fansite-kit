@@ -112,5 +112,36 @@ class Gallery extends _Gallery
 	{
 		return '<a href="' . $this->getUrl() . '">' . $this->getTranslatedValue('name') . '</a>';
 	}
+
+	public static function getLatest($n)
+	{
+		$query = new Query('Gallery');
+		$query->addOrderBy('date', 'desc');
+		$query->setLimit($n);
+
+		return $query->fetchAll();
+	}
+
+	public static function getTop($n)
+	{
+		$query = new Query('Gallery');
+		$query->addOrderBy('views', 'desc');
+		$query->setLimit($n);
+
+		return $query->fetchAll();
+	}
+
+	/**
+	 *
+	 * @param Query $query
+	 */
+	public static function addDefaultQueryClauses(&$query)
+	{
+		$query->addJoin('fan_translation', 'context_id=fan_gallery.id
+																				AND context_classname=' . Tools::quote('Gallery') . '
+																				AND locale=' . Tools::quote($_SESSION['locale']));
+		$query->addColumn('fan_translation.name');
+		$query->addColumn('fan_translation.description');
+	}
 }
 	

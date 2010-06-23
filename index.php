@@ -49,7 +49,7 @@ Tools::echoHTMLHead($title);
 				<?php foreach ($latestNews as $news): ?>
 
 				<div class="blockWithHeader">
-					<h2><?php echo $news->getTranslatedValue('title') ?></h2>
+					<h2><?php echo $news->getTranslatedValue('title') ?><span style="float: right"><?php echo $news->getValue('date') ?></span></h2>
 					<div class="blockWithHeaderContent">
 						<?php echo $news->getTranslatedValue('text') ?>
 					</div>
