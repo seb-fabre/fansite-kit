@@ -145,4 +145,28 @@ class Query {
 
 		return $results;
 	}
+
+	public function fetchRow()
+	{
+		$this->limit = 1;
+
+		return reset($this->fetchAll());
+	}
+
+	public function count()
+	{
+		$query = 'SELECT COUNT(1) AS cpt
+							FROM (' . $this->toString() . ') subtable';
+
+		$req = Tools::mysqlQuery($query);
+
+		$res = mysql_fetch_array($req);
+
+		return $res['cpt'];
+	}
+
+	public static function quote($str)
+	{
+		return '"' . mysql_real_escape_string($str) . '"';
+	}
 }

@@ -72,3 +72,13 @@
 	define('EMPTY_IMAGE_URL', APPLICATION_URL . 'images/disabled.png');
 
 	$GLOBALS['FooterJS'] = '';
+
+	// Init params if necessary
+	Params::initDefault('VIDEOS ENABLED', 1);
+	Params::initDefault('GUESTBOOK ENABLED', 1);
+	Params::initDefault('REGISTRATIONS ENABLED', 1);
+	Params::initDefault('COUNT NEWS PER PAGE', 0);
+	Params::initDefault('LANGUAGES', json_encode($GLOBALS['LANGUAGES']));
+	Params::initDefault('COUNT LATEST NEWS', 5);
+	Params::initDefault('COUNT LATEST UPDATES', 10);
+	Params::initDefault('BANNERS', array());

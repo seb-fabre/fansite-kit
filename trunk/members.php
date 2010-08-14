@@ -7,7 +7,7 @@ $_SESSION ['timestamp'] = date('YmdHis');
 
 if (!isset($_SESSION ['user_id']))
 {
-	header('location: /');
+	header('location: ' . APPLICATION_URL);
 }
 
 $title = Tools::translate('menu_members');

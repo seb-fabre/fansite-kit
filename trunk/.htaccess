@@ -1,1 +1,8 @@
 Options -Indexes +MultiViews
+
+RewriteEngine On
+
+RewriteRule ^.*gallery/?$ gallery.php [L]
+RewriteRule ^.*gallery(/([0-9]+).*)$ gallery.php?id=$2 [L]
+
+RewriteRule ^.*admin/?$ admin.php [L]

@@ -200,7 +200,7 @@ class ArtObject
 	{
 		$this->_data[$key] = $value;
 
-		if (in_array($key, $this->_data))
+		if (in_array($key, $this->_fields))
 			$this->_editedFields []= $key;
 	}
 
@@ -275,7 +275,7 @@ class ArtObject
 		if (count($this->_editedFields) == 0)
 			return;
 
-		if ($this->_data['id'])
+		if (!empty($this->_data['id']))
 		{
 			$query = 'UPDATE ' . $GLOBALS['classes'][$class]['tablename'] . ' SET ';
 
@@ -285,7 +285,7 @@ class ArtObject
 				$query .= $glu . $field . '=' . addslashes($this->_data[$field]);
 				$glu = ', ';
 			}
-			$query .= ' WHERE id=' . Tools::quote($this->id);
+			$query .= ' WHERE id=' . Query::quote($this->id);
 
 			Tools::mysqlQuery($query) or die (Tools::mysqlError());
 
@@ -300,14 +300,14 @@ class ArtObject
 				$query .= $glu . $field;
 				$glu = ', ';
 			}
-			$query .= ') VALUES("';
+			$query .= ') VALUES(';
 			$glu = '';
 			foreach ($this->_editedFields as $field)
 			{
-				$query .= $glu . Tools::quote($this->_data[$field]);
-				$glu = '", "';
+				$query .= $glu . Query::quote($this->_data[$field]);
+				$glu = ', ';
 			}
-			$query .= '")';
+			$query .= ')';
 
 			Tools::mysqlQuery($query) or die (Tools::mysqlError());
 

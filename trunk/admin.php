@@ -5,10 +5,10 @@ $message = false;
 
 if (!isset($_SESSION['user_id']) || !isset($_SESSION['is_admin']))
 {
-	header('location: /');
+	header('location: ' . APPLICATION_URL);
 }
 
-$title = Tools::translate('menu_admin');
+$title = Tools::translate('Administration');
 
 $headers = array();
 $headers['css'] = array(
@@ -36,7 +36,9 @@ Tools::echoHTMLHead($title, $headers);
 	<?=Tools::echoHeader();?>
 
 	<div id="body" class="body100">
-		<h1><?php echo Tools::translate('menu_admin')?></h1>
+		<h1><?php echo $title ?></h1>
+
+		<?= Tools::echoAction(APPLICATION_URL . "admin_config", Tools::translate('Site configuration')) ?>
 
 		<?= Tools::echoJSAction("editTranslations()", Tools::translate('Edit translations')) ?>
 		<?= Tools::echoJSAction("editConfig()", Tools::translate('Edit configuration')) ?>
@@ -51,7 +53,7 @@ Tools::echoHTMLHead($title, $headers);
 		<div class="clearBoth">&nbsp;</div>
 	</div>
 
-	<?php echoFooter() ?>
+	<?= Tools::echoFooter(); ?>
 </div>
 
 <div id="fenetre">
