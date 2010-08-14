@@ -232,9 +232,10 @@ class Tools
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link href="{$url}css/process_css.php?name=site" rel="stylesheet" type="text/css" />
+    <link href="{$url}css/cupertino/jquery-ui-1.8.4.custom.css" rel="stylesheet" type="text/css" />
     <title>$title</title>
     <script src="{$url}js/jquery-1.4.2.min.js" type="text/javascript"></script>
-    <script src="{$url}js/jquery-ui-1.8.custom.min.js" type="text/javascript"></script>
+    <script src="{$url}js/jquery-ui-1.8.4.custom.min.js" type="text/javascript"></script>
 
     $additionalCss
     $additionalJs

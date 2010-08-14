@@ -5,7 +5,7 @@ $message = false;
 
 if (isset($_SESSION['user_id']))
 {
-	header('location: /');
+	header('location: ' . APPLICATION_URL);
 }
 
 if (isset($_POST['username']) && isset($_POST['pwd']))
@@ -16,24 +16,28 @@ if (isset($_POST['username']) && isset($_POST['pwd']))
 
 	if (!$username || !$pwd)
 	{
-		$message = Tools::translate('conn03');
+		$message = Tools::translate('You must fill your login and password.');
 		$erreur = true;
 	}
 
 	if (!$erreur)
 	{
-		$query = mysql_query('SELECT * FROM user WHERE login="' . $username . '" AND password=ENCODE("' . $pwd . '", "vaihere")');
-		if (mysql_num_rows($query) != 1)
+		$query = new Query('User');
+		$query->addWhere('login = ' . Query::quote($username));
+		$query->addWhere('password = ENCODE(' . Query::quote($pwd) . ', "vaihere")');
+
+		if ($query->count() != 1)
 		{
-			$message = Tools::translate('conn02');
+			$message = Tools::translate('Invalid credentials');
 		}
-		else {
-			$res = mysql_fetch_array($query);
-			$_SESSION['user_id'] = $res['id'];
-			if ($res['is_admin'] == 1)
+		else
+		{
+			$user = $query->fetchRow();
+			$_SESSION['user_id'] = $user->id;
+			if ($user->is_admin == 1)
 				$_SESSION['is_admin'] = true;
 
-			$message = Tools::translate('conn03');
+			$message = Tools::translate('You have been successfully logged in.');
 		}
 	}
 	else

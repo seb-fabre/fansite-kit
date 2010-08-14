@@ -1,2 +1,2 @@
 <?php
-header('location: /');
+header('location: ' . APPLICATION_URL);

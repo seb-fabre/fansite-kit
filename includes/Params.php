@@ -11,20 +11,20 @@ class Params extends _Params
 {
 	public static function set($name, $value)
 	{
-		$params = Params::findBy('name', $name);
+		$param = Params::findBy('name', $name);
 
-		if (!$params)
+		if (!$param)
 		{
-			$params = new Params();
-			$params->name = $name;
+			$param = new Params();
+			$param->name = $name;
 		}
 
 		if (!is_array($value))
-			$params->value = $value;
+			$param->value = $value;
 		else
-			$params->value = json_encode($value);
+			$param->value = json_encode($value);
 
-		$params->save();
+		$param->save();
 	}
 
 	public static function get($name)
@@ -54,6 +54,14 @@ class Params extends _Params
 		}
 
 		return $params;
+	}
+
+	public function initDefault($name, $value)
+	{
+		$params = Params::findBy('name', $name);
+
+		if (!$params)
+			self::set($name, $value);
 	}
 }
 	
