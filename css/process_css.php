@@ -1,5 +1,5 @@
 <?php
-	$_GET['quick_init'] = 1;
+	$_GET['css_init'] = 1;
 
   require_once ('../includes/_init.php');
 

@@ -224,7 +224,7 @@ class Tools
 			}
 
 		$url = APPLICATION_URL;
-
+		$uiTheme = $GLOBALS['JQUERY_UI_THEME'];
 
 		echo <<<HTML
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
@@ -232,7 +232,7 @@ class Tools
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link href="{$url}css/process_css.php?name=site" rel="stylesheet" type="text/css" />
-    <link href="{$url}css/cupertino/jquery-ui-1.8.4.custom.css" rel="stylesheet" type="text/css" />
+    <link href="{$url}css/$uiTheme/jquery.ui.all.css" rel="stylesheet" type="text/css" />
     <title>$title</title>
     <script src="{$url}js/jquery-1.4.2.min.js" type="text/javascript"></script>
     <script src="{$url}js/jquery-ui-1.8.4.custom.min.js" type="text/javascript"></script>
@@ -273,7 +273,7 @@ HTML;
 	{
 		$banner = $GLOBALS['CURRENT BANNER'];
 
-		echo '<div id="header" class="' . ($banner ? 'menuWithBanner' : 'menuWithoutBanner') . '">';
+		echo '<div id="header" class="' . ($banner ? 'menuWithBanner' : 'menuWithoutBanner') . ' ui-widget-header">';
 		
 		if ($banner)
 			echo '<div style="background: url(' . Tools::getImage($banner['filename']) . '); width:' . $banner['width'] . 'px; height: ' . $banner['height'] . 'px;"></div>';
@@ -298,7 +298,7 @@ HTML;
 		</script>';
 
 		echo <<<HTML
-<div id="footer">
+<div id="footer" class="ui-widget-header">
 	Site créé et designé par arteau<br>
 	pour toute réclamation : arteau <img alt="(a)" src="/img/aro.gif"> free.fr<br />
 	Site optimisé pour Firefox<img id="ff" alt="" src="/img/ff.png">
