@@ -5,6 +5,8 @@ if (file_exists('includes/_conf.php'))
 	die;
 }
 
+$GLOBALS['ROOTPATH'] = str_replace('' . basename(__FILE__), '', str_replace('\\', '/', __FILE__));
+
 $notInstalled = false;
 
 define("APPLICATION_URL", "./");
@@ -62,8 +64,8 @@ if (isset($_POST['install']))
 //			require_once('includes/generate_classes.php');
 
 			require_once('includes/__classes.php');
-			require_once('includes' . DIRECTORY_SEPARATOR . 'JSON.php');
-			require_once('includes' . DIRECTORY_SEPARATOR . 'class.tools.php');
+			require_once('includes/JSON.php');
+			require_once('includes/class.tools.php');
 
 			$GLOBALS['LANGUAGES']['short'] = array_map('trim', explode("\n", $GLOBALS['LANGUAGES']['short']));
 			$GLOBALS['LANGUAGES']['long'] = array_map('trim', explode("\n", $GLOBALS['LANGUAGES']['long']));
@@ -93,42 +95,24 @@ if (isset($_POST['install']))
 	}
 }
 
-require_once('includes' . DIRECTORY_SEPARATOR . 'class.tools.php');
+$GLOBALS['JQUERY_UI_THEME'] = 'overcast';
+
+require_once('includes/class.tools.php');
+
+$headers = array(
+	'js' => array(
+		"js/form.js"
+	),
+	'css' => array(
+
+	)
+);
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<? Tools::echoHTMLHead('INSTALL'); ?>
-<script src="js/jquery.validate.js" type="text/javascript"></script>
-
-<style type="text/css">
-form span.error, .error {
-	color: red;
-	float: left;
-	margin-left: 10px;
-}
-
-form td span.error {
-	float: none;
-}
-
-form p input {
-	float: left;
-}
-
-form p {
-	float: left;
-}
-
-form {
-	clear: both;
-}
-</style>
-</head>
+<? Tools::echoHTMLHead('INSTALL', $headers); ?>
 
 <body>
-<div id="content">
-<h1>Install</h1>
+<div id="content" class="ui-widget">
+<div class="ui-widget-header">Install</div>
 
 <?php
 	if ($notInstalled) echo $notInstalled;
@@ -142,37 +126,56 @@ form {
 
 	<fieldset style="margin-bottom: 20px">
 		<legend>Database</legend>
-		<p>
-			<label>Database host : </label><input type="text" name="db_host" id="db_host" value="localhost" />
-			<div class="am_formMsgError">The database hostname is mandatory.</div>
-		</p>
+		<table width="90%">
+			<tr>
+				<td>Database host : </td>
+				<td><input type="text" name="db_host" id="db_host" value="localhost" /></td>
+			</tr>
 
-		<p>
-			<label>Database name : </label><input type="text" name="db_name" id="db_name" />
-			<div class="am_formMsgError">The database name is mandatory.</div>
-		</p>
+			<tr>
+				<td>Database name : </td>
+				<td><input type="text" name="db_name" id="db_name" /></td>
+			</tr>
 
-		<p>
-			<label>Database login : </label><input type="text" name="db_login" />
-			<div class="am_formMsgError">The database login is mandatory.</div>
-		</p>
+			<tr>
+				<td>Database login : </td>
+				<td><input type="text" name="db_login" /></td>
+			</tr>
 
-		<p>
-			<label>Database password : </label><input type="text" name="db_password" />
-			<div class="am_formMsgError">The database password is mandatory.</div>
-		</p>
+			<tr>
+				<td>Database password : </td>
+				<td><input type="text" name="db_password" /></td>
+			</tr>
 
-		<p><input type="radio" value="1" name="db_create" id="db_create_init" checked="checked" /> Create the database and initialize the data (default)</p>
-		<p><input type="radio" value="2" name="db_create" id="db_create" /> Just initialize the data (choose this option if the database already exists, but is empty)</p>
-		<p><input type="radio" value="3" name="db_create" id="db_keep_tables" /> The database already exists and I want to keep the tables and the data</p>
+			<tr>
+				<td colspan="2"><input type="radio" value="1" name="db_create" id="db_create_init" checked="checked" /> Create the database and initialize the data (default)</td>
+			</tr>
+			<tr>
+				<td colspan="2"><input type="radio" value="2" name="db_create" id="db_create" /> Just initialize the data (choose this option if the database already exists, but is empty)</td>
+			</tr>
+			<tr>
+				<td colspan="2"><input type="radio" value="3" name="db_create" id="db_keep_tables" /> The database already exists and I want to keep the tables and the data</td>
+			</tr>
+		</table>
 	</fieldset>
 
 	<fieldset style="margin-bottom: 20px">
 		<legend>Superadmin</legend>
 		<p class="infos">The superadmin is the first member of the site, and its main administrator. He has access to every part of the site, and he's the only one who can edit the site configuration and create new administrators.</p>
-		<p><label>Superamin username :</label><input type="text" name="superadmin_login" /></p>
-		<p><label>Superamin password :</label><input type="text" name="superadmin_password" /></p>
-		<p><label>Superamin email :</label><input type="text" name="superadmin_email" /></p>
+		<table width="90%">
+			<tr>
+				<td>Superamin username :</td>
+				<td><input type="text" name="superadmin_login" /></td>
+			</tr>
+			<tr>
+				<td>Superamin password :</td>
+				<td><input type="text" name="superadmin_password" /></td>
+			</tr>
+			<tr>
+				<td>Superamin email :</td>
+				<td><input type="text" name="superadmin_email" /></td>
+			</tr>
+		</table>
 	</fieldset>
 
 	<fieldset style="margin-bottom: 20px">
@@ -194,10 +197,15 @@ form {
 
 	<div class="clearer"></div>
 
-	<div class="right"><input type="reset" value="Reset form" /> <input type="button" value="Initialize the site" onclick="initSite()" /></div>
+	<div class="right"><input type="reset" value="Reset form" /> <input type="submit" value="Initialize the site" /></div>
 
 </form>
 </div>
+
+<script type="text/javascript">
+	$("form").niceform();
+</script>
+
 
 <script type="text/javascript">
 	$("#db_create").click(function(){
@@ -222,7 +230,7 @@ form {
 		}
 	});
 
-	$.validator.addMethod(
+	/*$.validator.addMethod(
 		"regexp",
 		function(value, element, regexp) {
 			var re = new RegExp(regexp);
@@ -263,7 +271,7 @@ form {
 		{
 			$('#installForm').submit();
 		}
-	}
+	}*/
     </script>
 </body>
 </html>

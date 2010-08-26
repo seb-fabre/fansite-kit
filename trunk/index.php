@@ -30,7 +30,7 @@ Tools::echoHTMLHead($title);
 
 		<div id="content">
 			<div id="latest_updates" class="blockWithHeader">
-				<h2><?php echo Tools::translate('Latest updates'); ?></h2>
+				<h2 class="ui-widget-header"><?php echo Tools::translate('Latest updates'); ?></h2>
 				<div class="blockWithHeaderContent">
 					<?php
 						foreach ($latestUpdates as $update)
@@ -49,7 +49,7 @@ Tools::echoHTMLHead($title);
 				<?php foreach ($latestNews as $news): ?>
 
 				<div class="blockWithHeader">
-					<h2><?php echo $news->getTranslatedValue('title') ?><span style="float: right"><?php echo $news->getValue('date') ?></span></h2>
+					<h2 class="ui-widget-header"><?php echo $news->getTranslatedValue('title') ?><span style="float: right"><?php echo $news->getValue('date') ?></span></h2>
 					<div class="blockWithHeaderContent">
 						<?php echo $news->getTranslatedValue('text') ?>
 					</div>
