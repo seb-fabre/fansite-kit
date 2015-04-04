@@ -1,0 +1,1 @@
+The Fansite Kit allows you to get your own celebrity (or any other subject that fits) website, with photo galleries and videos. Includes (or will include) a news system, a guestbook, many configuration options and themes.
